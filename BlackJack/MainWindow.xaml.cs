@@ -25,6 +25,7 @@ namespace BlackJack
         public Player Player3;
         public Player Player4;
         public Player Player5;
+        public Player Dealer;
 
         public MainWindow()
         {
@@ -41,14 +42,70 @@ namespace BlackJack
             Player5 = new Player();
         }
 
+
         public void CheckIfBankrupt()
         {
-            
+            if(Player1.Bank < -50)
+            {
+                //take player out of game
+            }
+            if (Player2.Bank < -50)
+            {
+
+            }
+            if (Player3.Bank < -50)
+            {
+
+            }
+            if (Player4.Bank < -50)
+            {
+
+            }
+            if (Player5.Bank < -50)
+            {
+
+            }
         }
 
-        public void PayoutAfterRound()
+        public void PayoutAfterRound(int playerNum)
         {
-
+            Player player = new Player();
+            if(playerNum == 1)
+            {
+                player = Player1;
+            }
+            else if (playerNum == 2)
+            {
+                player = Player2;
+            }
+            else if (playerNum == 3)
+            {
+                player = Player3;
+            }
+            else if (playerNum == 4)
+            {
+                player = Player4;
+            }
+            else if (playerNum == 5)
+            {
+                player = Player5;
+            }
+            if (player.Hand.Count() == 5)
+            {
+                player.Bank = player.Bank + (player.Bet * 4);
+            }
+            else if (player.FinalHandAmount > Dealer.FinalHandAmount && player.FinalHandAmount != 21)
+            {
+                player.Bank = player.Bank + (player.Bet * 2);
+            }
+            else if (player.FinalHandAmount > Dealer.FinalHandAmount && player.FinalHandAmount == 21)
+            {
+                player.Bank = player.Bank + (player.Bet * 3);
+            }
+            else if(player.FinalHandAmount == Dealer.FinalHandAmount)
+            {
+                player.Bank = player.Bank + player.Bet;
+            }
         }
     }
 }

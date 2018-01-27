@@ -13,6 +13,7 @@ namespace BlackJack
             Bank = 20;
             Bet = 0;
             Hand = new List<CardEnum>();
+            FinalHandAmount = 0;
         }
 
         public int Bank { get; set; }
@@ -20,5 +21,7 @@ namespace BlackJack
         public int Bet { get; set; }
 
         public List<CardEnum> Hand { get; set; }
+
+        public int FinalHandAmount { get; set; }
     }
 }

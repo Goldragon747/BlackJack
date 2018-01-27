@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlackJack
 {
-    class CardEnum
+    public class CardEnum
     {
-        enum Deck{
+        public enum Deck{
             AceOfHearts,
             TwoOfHearts,
             ThreeOfHearts,
