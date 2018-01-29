@@ -107,5 +107,14 @@ namespace BlackJack
                 player.Bank = player.Bank + player.Bet;
             }
         }
+
+        public void DrawCard(Player player)
+        {
+            Random rand = new Random();
+            //int randNum = rand.Next(deck.Count);
+
+            //player.Hand.Add(deck[randNum]);
+            //deck.Remove();
+        }
     }
 }

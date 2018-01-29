@@ -48,19 +48,19 @@ namespace BlackJack
             JackOfSpades,
             QueenOfSpades,
             KingOfSpades,
-            AceOfClovers,
-            TwoOfClovers,
-            ThreeOfClovers,
-            FourOfClovers,
-            FiveOfClovers,
-            SixOfClovers,
-            SevenOfClovers,
-            EightOfClovers,
-            NineOfClovers,
-            TenOfClovers,
-            JackOfClovers,
-            QueenOfClovers,
-            KingOfClovers
+            AceOfClubs,
+            TwoOfClubs,
+            ThreeOfClubs,
+            FourOfClubs,
+            FiveOfClubs,
+            SixOfClubs,
+            SevenOfClubs,
+            EightOfClubs,
+            NineOfClubs,
+            TenOfClubs,
+            JackOfClubs,
+            QueenOfClubs,
+            KingOfClubs
 
         };
         
