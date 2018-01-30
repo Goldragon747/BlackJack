@@ -50,5 +50,9 @@ namespace BlackJack
         {
 
         }
+        public void CreateDeck()
+        {
+            List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
+        }
     }
 }
