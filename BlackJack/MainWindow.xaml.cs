@@ -52,23 +52,28 @@ namespace BlackJack
         {
             if (Player1.Bank < -50)
             {
-                Blackjack_Grid_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Player1Playing = false;
             }
             if (Player2.Bank < -50)
             {
-                Blackjack_Grid_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Player2Playing = false;
             }
             if (Player3.Bank < -50)
             {
-                Blackjack_Grid_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Player3Playing = false;
             }
             if (Player4.Bank < -50)
             {
-                Blackjack_Grid_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Player4Playing = false;
             }
             if (Player5.Bank < -50)
             {
-                Blackjack_Grid_Player_5.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+                Player5Playing = false;
             }
         }
 
