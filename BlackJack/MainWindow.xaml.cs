@@ -33,6 +33,7 @@ namespace BlackJack
         public bool Player4Playing;
         public bool Player5Playing;
         public Player Dealer;
+        public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
         public MainWindow()
         {
@@ -100,7 +101,8 @@ namespace BlackJack
 
         public void DrawCard(Player player)
         {
-
+            player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
+            Deck.RemoveAt(0);
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -248,9 +250,17 @@ namespace BlackJack
                     break;
             }
         }
-        public void CreateDeck()
+        public void ShuffleDeck()
         {
-            List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
+            Random rand = new Random();
+
+            for(int i = Deck.Count() - 1; i > 0; --i)
+            {
+                int k = rand.Next(i + 1);
+                CardEnum temp = (CardEnum)Enum.Parse(typeof(CardEnum), Deck[i]);
+                Deck[i] = Deck[k];
+                Deck[k] = temp.ToString();
+            }
         }
         /// <summary>
         /// Basic skeleton for saving the game. NOT DONE
