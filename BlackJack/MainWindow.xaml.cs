@@ -155,8 +155,8 @@ namespace BlackJack
                             Player1Playing = false;
                             break;
                     }
-                    Blackjack_Grid_Player_1.IsEnabled = false;
-                    Blackjack_Grid_Player_2.IsEnabled = false;
+                    Blackjack_StackPanel_Player_1.IsEnabled = false;
+                    Blackjack_StackPanel_Player_2.IsEnabled = false;
                     break;
                 case 2:
                     switch (BidResult)
@@ -181,8 +181,8 @@ namespace BlackJack
                             Player2Playing = false;
                             break;
                     }
-                    Blackjack_Grid_Player_2.IsEnabled = false;
-                    Blackjack_Grid_Player_3.IsEnabled = false;
+                    Blackjack_StackPanel_Player_2.IsEnabled = false;
+                    Blackjack_StackPanel_Player_3.IsEnabled = false;
                     break;
                 case 3:
                     switch (BidResult)
@@ -207,8 +207,8 @@ namespace BlackJack
                             Player3Playing = false;
                             break;
                     }
-                    Blackjack_Grid_Player_3.IsEnabled = false;
-                    Blackjack_Grid_Player_4.IsEnabled = false;
+                    Blackjack_StackPanel_Player_3.IsEnabled = false;
+                    Blackjack_StackPanel_Player_4.IsEnabled = false;
                     break;
                 case 4:
                     switch (BidResult)
@@ -233,8 +233,8 @@ namespace BlackJack
                             Player4Playing = false;
                             break;
                     }
-                    Blackjack_Grid_Player_4.IsEnabled = false;
-                    Blackjack_Grid_Player_5.IsEnabled = false;
+                    Blackjack_StackPanel_Player_4.IsEnabled = false;
+                    Blackjack_StackPanel_Player_5.IsEnabled = false;
                     break;
                 case 5:
                     switch (BidResult)
@@ -259,7 +259,7 @@ namespace BlackJack
                             Player5Playing = false;
                             break;
                     }
-                    Blackjack_Grid_Player_5.IsEnabled = false;
+                    Blackjack_StackPanel_Player_5.IsEnabled = false;
                     //start round
                     break;
             }
