@@ -45,7 +45,7 @@ namespace BlackJack
 
         public void CheckIfBankrupt()
         {
-            if(Player1.Bank < -50)
+            if (Player1.Bank < -50)
             {
                 //take player out of game
             }
@@ -70,7 +70,7 @@ namespace BlackJack
         public void PayoutAfterRound(int playerNum)
         {
             Player player = new Player();
-            if(playerNum == 1)
+            if (playerNum == 1)
             {
                 player = Player1;
             }
@@ -102,7 +102,7 @@ namespace BlackJack
             {
                 player.Bank = player.Bank + (player.Bet * 3);
             }
-            else if(player.FinalHandAmount == Dealer.FinalHandAmount)
+            else if (player.FinalHandAmount == Dealer.FinalHandAmount)
             {
                 player.Bank = player.Bank + player.Bet;
             }
@@ -110,11 +110,7 @@ namespace BlackJack
 
         public void DrawCard(Player player)
         {
-            Random rand = new Random();
-            //int randNum = rand.Next(deck.Count);
 
-            //player.Hand.Add(deck[randNum]);
-            //deck.Remove();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -123,6 +119,6 @@ namespace BlackJack
         public void CreateDeck()
         {
             List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
-        }​
+        }
     }
 }
