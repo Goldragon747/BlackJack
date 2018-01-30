@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +26,11 @@ namespace BlackJack
         public Player Player3;
         public Player Player4;
         public Player Player5;
+        public bool Player1Playing;
+        public bool Player2Playing;
+        public bool Player3Playing;
+        public bool Player4Playing;
+        public bool Player5Playing;
         public Player Dealer;
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
@@ -43,28 +49,27 @@ namespace BlackJack
             Player5 = new Player();
         }
 
-
         public void CheckIfBankrupt()
         {
             if (Player1.Bank < -50)
             {
-                //take player out of game
+                Blackjack_Grid_Player_1.IsEnabled = false;
             }
             if (Player2.Bank < -50)
             {
-
+                Blackjack_Grid_Player_2.IsEnabled = false;
             }
             if (Player3.Bank < -50)
             {
-
+                Blackjack_Grid_Player_3.IsEnabled = false;
             }
             if (Player4.Bank < -50)
             {
-
+                Blackjack_Grid_Player_4.IsEnabled = false;
             }
             if (Player5.Bank < -50)
             {
-
+                Blackjack_Grid_Player_5.IsEnabled = false;
             }
         }
 
@@ -91,6 +96,7 @@ namespace BlackJack
             {
                 player = Player5;
             }
+
             if (player.Hand.Count() == 5)
             {
                 player.Bank = player.Bank + (player.Bet * 4);
@@ -117,6 +123,66 @@ namespace BlackJack
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void PlayerBetButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            Regex Player1Check = new Regex(@"Player_1");
+            Regex Player2Check = new Regex(@"Player_2");
+            Regex Player3Check = new Regex(@"Player_3");
+            Regex Player4Check = new Regex(@"Player_4");
+            Regex Player5Check = new Regex(@"Player_5");
+            Regex Bid1Check = new Regex(@"Bid_1");
+            Regex Bid5Check = new Regex(@"Bid_5");
+            Regex Bid10Check = new Regex(@"Bid_10");
+            Regex BidOutCheck = new Regex(@"Bid_out");
+
+            if(BidOutCheck.IsMatch(b.Name))
+            {
+                if (Player1Check.IsMatch(b.Name))
+                {
+                    Blackjack_Grid_Player_1.IsEnabled = false;
+                    Player1Playing = false;
+                    if (Player2Playing)
+                    {
+                        Blackjack_Grid_Player_2.IsEnabled = true;
+                    }
+                }
+                else if (Player2Check.IsMatch(b.Name))
+                {
+                    Blackjack_Grid_Player_2.IsEnabled = false;
+                    Player2Playing = false;
+                    if (Player3Playing)
+                    {
+                        Blackjack_Grid_Player_3.IsEnabled = true;
+                    }
+                }
+                else if (Player3Check.IsMatch(b.Name))
+                {
+                    Blackjack_Grid_Player_3.IsEnabled = false;
+                    Player3Playing = false;
+                    if (Player4Playing)
+                    {
+                        Blackjack_Grid_Player_4.IsEnabled = true;
+                    }
+                }
+                else if (Player4Check.IsMatch(b.Name))
+                {
+                    Blackjack_Grid_Player_4.IsEnabled = false;
+                    Player4Playing = false;
+                    if (Player5Playing)
+                    {
+                        Blackjack_Grid_Player_5.IsEnabled = true;
+                    }
+                }
+                else if (Player5Check.IsMatch(b.Name))
+                {
+                    Blackjack_Grid_Player_5.IsEnabled = false;
+                    Player5Playing = false;
+                    //start round
+                }
+            }
         }
         public void ShuffleDeck()
         {
