@@ -252,7 +252,7 @@ namespace BlackJack
         {
             List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
         }
-/// <summary>
+        /// <summary>
         /// Basic skeleton for saving the game. NOT DONE
         /// </summary>
         /// <param name="sender"></param>
@@ -280,7 +280,8 @@ namespace BlackJack
             openFileDialog.RestoreDirectory = true;
             if (openFileDialog.ShowDialog() == true)
             {
-            }        }
+            }
+        }
 
     }
 }
