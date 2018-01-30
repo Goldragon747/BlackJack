@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -195,6 +196,37 @@ namespace BlackJack
                 Deck[i] = Deck[k];
                 Deck[k] = card.ToString();
             }
+        }
+        /// <summary>
+        /// Basic skeleton for saving the game. NOT DONE
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void SaveGame_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == true)
+            {
+            }
+        }
+        /// <summary>
+        /// Basic skeleton for loading the game. NOT DONE
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void LoadGame_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+            }
+
         }
 
     }
