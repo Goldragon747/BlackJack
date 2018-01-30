@@ -33,7 +33,6 @@ namespace BlackJack
         public bool Player4Playing;
         public bool Player5Playing;
         public Player Dealer;
-        public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
         public MainWindow()
         {
@@ -54,23 +53,28 @@ namespace BlackJack
         {
             if (Player1.Bank < -50)
             {
-                Blackjack_Grid_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Player1Playing = false;
             }
             if (Player2.Bank < -50)
             {
-                Blackjack_Grid_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Player2Playing = false;
             }
             if (Player3.Bank < -50)
             {
-                Blackjack_Grid_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Player3Playing = false;
             }
             if (Player4.Bank < -50)
             {
-                Blackjack_Grid_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Player4Playing = false;
             }
             if (Player5.Bank < -50)
             {
-                Blackjack_Grid_Player_5.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+                Player5Playing = false;
             }
         }
 
@@ -118,8 +122,7 @@ namespace BlackJack
 
         public void DrawCard(Player player)
         {
-            player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
-            Deck.RemoveAt(0);
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -129,75 +132,149 @@ namespace BlackJack
         public void PlayerBetButton_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            Regex Player1Check = new Regex(@"Player_1");
-            Regex Player2Check = new Regex(@"Player_2");
-            Regex Player3Check = new Regex(@"Player_3");
-            Regex Player4Check = new Regex(@"Player_4");
-            Regex Player5Check = new Regex(@"Player_5");
-            Regex Bid1Check = new Regex(@"Bid_1");
-            Regex Bid5Check = new Regex(@"Bid_5");
-            Regex Bid10Check = new Regex(@"Bid_10");
-            Regex BidOutCheck = new Regex(@"Bid_out");
 
-            if(BidOutCheck.IsMatch(b.Name))
+            int PlayerNumber = (int)b.Name[24];
+            string BidResult = b.Name[30].ToString();
+
+            switch (PlayerNumber)
             {
-                if (Player1Check.IsMatch(b.Name))
-                {
-                    Blackjack_Grid_Player_1.IsEnabled = false;
-                    Player1Playing = false;
-                    if (Player2Playing)
+                case 1:
+                    switch (BidResult)
                     {
-                        Blackjack_Grid_Player_2.IsEnabled = true;
+                        case "1":
+                            if(b.Name[31] == 0)
+                            {
+                                Player1.Bet = 10;
+                                Player1.Bank -= 10;
+                            }
+                            else
+                            {
+                                Player1.Bet = 1;
+                                Player1.Bank -= 1;
+                            }
+                            break;
+                        case "5":
+                            Player1.Bet = 5;
+                            Player1.Bank -= 5;
+                            break;
+                        case "o":
+                            Player1Playing = false;
+                            break;
                     }
-                }
-                else if (Player2Check.IsMatch(b.Name))
-                {
-                    Blackjack_Grid_Player_2.IsEnabled = false;
-                    Player2Playing = false;
-                    if (Player3Playing)
+                    Blackjack_StackPanel_Player_1.IsEnabled = false;
+                    Blackjack_StackPanel_Player_2.IsEnabled = false;
+                    break;
+                case 2:
+                    switch (BidResult)
                     {
-                        Blackjack_Grid_Player_3.IsEnabled = true;
+                        case "1":
+                            if (b.Name[31] == 0)
+                            {
+                                Player2.Bet = 10;
+                                Player2.Bank -= 10;
+                            }
+                            else
+                            {
+                                Player2.Bet = 1;
+                                Player2.Bank -= 1;
+                            }
+                            break;
+                        case "5":
+                            Player2.Bet = 5;
+                            Player2.Bank -= 5;
+                            break;
+                        case "o":
+                            Player2Playing = false;
+                            break;
                     }
-                }
-                else if (Player3Check.IsMatch(b.Name))
-                {
-                    Blackjack_Grid_Player_3.IsEnabled = false;
-                    Player3Playing = false;
-                    if (Player4Playing)
+                    Blackjack_StackPanel_Player_2.IsEnabled = false;
+                    Blackjack_StackPanel_Player_3.IsEnabled = false;
+                    break;
+                case 3:
+                    switch (BidResult)
                     {
-                        Blackjack_Grid_Player_4.IsEnabled = true;
+                        case "1":
+                            if (b.Name[31] == 0)
+                            {
+                                Player3.Bet = 10;
+                                Player3.Bank -= 10;
+                            }
+                            else
+                            {
+                                Player3.Bet = 1;
+                                Player3.Bank -= 1;
+                            }
+                            break;
+                        case "5":
+                            Player3.Bet = 5;
+                            Player3.Bank -= 5;
+                            break;
+                        case "o":
+                            Player3Playing = false;
+                            break;
                     }
-                }
-                else if (Player4Check.IsMatch(b.Name))
-                {
-                    Blackjack_Grid_Player_4.IsEnabled = false;
-                    Player4Playing = false;
-                    if (Player5Playing)
+                    Blackjack_StackPanel_Player_3.IsEnabled = false;
+                    Blackjack_StackPanel_Player_4.IsEnabled = false;
+                    break;
+                case 4:
+                    switch (BidResult)
                     {
-                        Blackjack_Grid_Player_5.IsEnabled = true;
+                        case "1":
+                            if (b.Name[31] == 0)
+                            {
+                                Player4.Bet = 10;
+                                Player4.Bank -= 10;
+                            }
+                            else
+                            {
+                                Player4.Bet = 1;
+                                Player4.Bank -= 1;
+                            }
+                            break;
+                        case "5":
+                            Player4.Bet = 5;
+                            Player4.Bank -= 5;
+                            break;
+                        case "o":
+                            Player4Playing = false;
+                            break;
                     }
-                }
-                else if (Player5Check.IsMatch(b.Name))
-                {
-                    Blackjack_Grid_Player_5.IsEnabled = false;
-                    Player5Playing = false;
+                    Blackjack_StackPanel_Player_4.IsEnabled = false;
+                    Blackjack_StackPanel_Player_5.IsEnabled = false;
+                    break;
+                case 5:
+                    switch (BidResult)
+                    {
+                        case "1":
+                            if (b.Name[31] == 0)
+                            {
+                                Player5.Bet = 10;
+                                Player5.Bank -= 10;
+                            }
+                            else
+                            {
+                                Player5.Bet = 1;
+                                Player5.Bank -= 1;
+                            }
+                            break;
+                        case "5":
+                            Player5.Bet = 5;
+                            Player5.Bank -= 5;
+                            break;
+                        case "o":
+                            Player5Playing = false;
+                            break;
+                    }
+                    Blackjack_StackPanel_Player_5.IsEnabled = false;
                     //start round
-                }
+                    break;
             }
         }
-        public void ShuffleDeck()
+        public void CreateDeck()
         {
-            Random rand = new Random();
-
-            for (int i = Deck.Count() - 1; i > 0; --i)
-            {
-                int k = rand.Next(i + 1);
-                CardEnum card = (CardEnum)Enum.Parse(typeof(CardEnum),Deck[i]);
-                Deck[i] = Deck[k];
-                Deck[k] = card.ToString();
-            }
+            List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
         }
-        /// <summary>
+/// <summary>
         /// Basic skeleton for saving the game. NOT DONE
         /// </summary>
         /// <param name="sender"></param>
@@ -225,9 +302,7 @@ namespace BlackJack
             openFileDialog.RestoreDirectory = true;
             if (openFileDialog.ShowDialog() == true)
             {
-            }
-
-        }
+            }        }
 
     }
 }
