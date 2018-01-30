@@ -78,30 +78,8 @@ namespace BlackJack
             }
         }
 
-        public void PayoutAfterRound(int playerNum)
+        public void PayoutAfterRound(Player player)
         {
-            Player player = new Player();
-            if (playerNum == 1)
-            {
-                player = Player1;
-            }
-            else if (playerNum == 2)
-            {
-                player = Player2;
-            }
-            else if (playerNum == 3)
-            {
-                player = Player3;
-            }
-            else if (playerNum == 4)
-            {
-                player = Player4;
-            }
-            else if (playerNum == 5)
-            {
-                player = Player5;
-            }
-
             if (player.Hand.Count() == 5)
             {
                 player.Bank = player.Bank + (player.Bet * 4);
