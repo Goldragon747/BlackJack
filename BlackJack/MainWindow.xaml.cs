@@ -129,13 +129,13 @@ namespace BlackJack
         /// <returns>True or false depending if Dealer can draw more cards or not</returns>
         public bool DealerHit(int handtotal)
         {
-            if (handtotal >= 17)
+            if (handtotal < 17)
             {
                 return true;
             }
             else
             {
-                DealerDraw();
+                
                 return false;
             }
         }
