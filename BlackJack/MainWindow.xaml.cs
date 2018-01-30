@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,7 @@ namespace BlackJack
         public bool Player4Playing;
         public bool Player5Playing;
         public Player Dealer;
+        public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
         public MainWindow()
         {
@@ -77,30 +79,8 @@ namespace BlackJack
             }
         }
 
-        public void PayoutAfterRound(int playerNum)
+        public void PayoutAfterRound(Player player)
         {
-            Player player = new Player();
-            if (playerNum == 1)
-            {
-                player = Player1;
-            }
-            else if (playerNum == 2)
-            {
-                player = Player2;
-            }
-            else if (playerNum == 3)
-            {
-                player = Player3;
-            }
-            else if (playerNum == 4)
-            {
-                player = Player4;
-            }
-            else if (playerNum == 5)
-            {
-                player = Player5;
-            }
-
             if (player.Hand.Count() == 5)
             {
                 player.Bank = player.Bank + (player.Bet * 4);
@@ -121,7 +101,8 @@ namespace BlackJack
 
         public void DrawCard(Player player)
         {
-
+            player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
+            Deck.RemoveAt(0);
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -269,9 +250,48 @@ namespace BlackJack
                     break;
             }
         }
-        public void CreateDeck()
+        public void ShuffleDeck()
         {
-            List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
+            Random rand = new Random();
+
+            for(int i = Deck.Count() - 1; i > 0; --i)
+            {
+                int k = rand.Next(i + 1);
+                CardEnum temp = (CardEnum)Enum.Parse(typeof(CardEnum), Deck[i]);
+                Deck[i] = Deck[k];
+                Deck[k] = temp.ToString();
+            }
         }
+        /// <summary>
+        /// Basic skeleton for saving the game. NOT DONE
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void SaveGame_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == true)
+            {
+            }
+        }
+        /// <summary>
+        /// Basic skeleton for loading the game. NOT DONE
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void LoadGame_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+            }
+        }
+
     }
 }
