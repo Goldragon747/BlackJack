@@ -120,5 +120,31 @@ namespace BlackJack
         {
             List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
         }
+
+        /// <summary>
+        /// Checks to see if Dealer's hand total is  greater then or equal to 17
+        /// This helps determine if Dealer needs to Hit or Bust
+        /// </summary>
+        /// <param name="handtotal"></param>
+        /// <returns>True or false depending if Dealer can draw more cards or not</returns>
+        public bool DealerHit(int handtotal)
+        {
+            if (handtotal >= 17)
+            {
+                return true;
+            }
+            else
+            {
+                DealerDraw();
+                return false;
+            }
+        }
+        /// <summary>
+        /// I'll come back to write this
+        /// </summary>
+        public void DealerDraw()
+        {
+
+        }
     }
 }
