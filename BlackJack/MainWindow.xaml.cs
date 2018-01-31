@@ -34,6 +34,7 @@ namespace BlackJack
         {
             InitializeComponent();
             BindToPlayers();
+            StartBettingPhase();
         }
 
         public void BindToPlayers()
@@ -61,6 +62,25 @@ namespace BlackJack
                 b.Mode = BindingMode.OneWay;
                 playerDisplay[i].DataContext = players[i];
             }
+        }
+
+        public void StartBettingPhase()
+        {
+            Blackjack_Hand_Player_1.Visibility = Visibility.Collapsed;
+            Blackjack_Hand_Player_2.Visibility = Visibility.Collapsed;
+            Blackjack_Hand_Player_3.Visibility = Visibility.Collapsed;
+            Blackjack_Hand_Player_4.Visibility = Visibility.Collapsed;
+            Blackjack_Hand_Player_5.Visibility = Visibility.Collapsed;
+            Blackjack_StackPanel_Bids_1.Visibility = Visibility.Visible;
+            Blackjack_StackPanel_Bids_2.Visibility = Visibility.Visible;
+            Blackjack_StackPanel_Bids_3.Visibility = Visibility.Visible;
+            Blackjack_StackPanel_Bids_4.Visibility = Visibility.Visible;
+            Blackjack_StackPanel_Bids_5.Visibility = Visibility.Visible;
+            Blackjack_StackPanel_Player_1.IsEnabled = true;
+            Blackjack_StackPanel_Player_2.IsEnabled = false;
+            Blackjack_StackPanel_Player_3.IsEnabled = false;
+            Blackjack_StackPanel_Player_4.IsEnabled = false;
+            Blackjack_StackPanel_Player_5.IsEnabled = false;
         }
 
         public void CheckIfBankrupt()
@@ -117,6 +137,7 @@ namespace BlackJack
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
         }
+
         /// <summary>
         /// Gets the image of the card in the player's hand at the index passed in.
         /// Gets the CardBack image if isFirstCard is true
