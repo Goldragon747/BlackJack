@@ -172,6 +172,8 @@ namespace BlackJack
 
             int PlayerNumber = (int)b.Name[24];
             string BidResult = b.Name[30].ToString();
+            int PlayerNumber = Convert.ToInt32(b.Name[24] + "");
+            string BidResult = b.Name[30].ToString(); 
 
             switch (PlayerNumber)
             {
