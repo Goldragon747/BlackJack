@@ -137,9 +137,11 @@ namespace BlackJack
             }
             return image;
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
-
+            Title_Screen.Visibility = Visibility.Collapsed;
+            //options screen
+            Blackjack_Game_Screen.Visibility = Visibility.Visible;
         }
 
         public void PlayerBetButton_Click(object sender, RoutedEventArgs e)
@@ -349,9 +351,33 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;
+                    ChangeBidVisibilites();
                     //start round
                     break;
             }
+        }
+        public void ChangeBidVisibilites()
+        {
+            Blackjack_StackPanel_Bids_1.Visibility = Visibility.Collapsed;
+            Blackjack_StackPanel_Bids_2.Visibility = Visibility.Collapsed;
+            Blackjack_StackPanel_Bids_3.Visibility = Visibility.Collapsed;
+            Blackjack_StackPanel_Bids_4.Visibility = Visibility.Collapsed;
+            Blackjack_StackPanel_Bids_5.Visibility = Visibility.Collapsed;
+
+            Blackjack_Hand_Player_1.Visibility = Visibility.Visible;
+            Blackjack_Hand_Split_Player_1.Visibility = Visibility.Visible;
+
+            Blackjack_Hand_Player_2.Visibility = Visibility.Visible;
+            Blackjack_Hand_Split_Player_2.Visibility = Visibility.Visible;
+
+            Blackjack_Hand_Player_3.Visibility = Visibility.Visible;
+            Blackjack_Hand_Split_Player_3.Visibility = Visibility.Visible;
+
+            Blackjack_Hand_Player_4.Visibility = Visibility.Visible;
+            Blackjack_Hand_Split_Player_4.Visibility = Visibility.Visible;
+
+            Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
+            Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
         }
         public void ShuffleDeck()
         {
