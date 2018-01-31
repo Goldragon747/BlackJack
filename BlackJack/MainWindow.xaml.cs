@@ -35,6 +35,7 @@ namespace BlackJack
             InitializeComponent();
             BindToPlayers();
             StartBettingPhase();
+            ShuffleDeck();
         }
 
         public void BindToPlayers()
