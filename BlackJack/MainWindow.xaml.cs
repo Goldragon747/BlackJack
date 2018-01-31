@@ -22,32 +22,46 @@ namespace BlackJack
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Player Player1;
-        public Player Player2;
-        public Player Player3;
-        public Player Player4;
-        public Player Player5;
-        public bool Player1Playing;
-        public bool Player2Playing;
-        public bool Player3Playing;
-        public bool Player4Playing;
-        public bool Player5Playing;
+        public Player Player1 = new Player();
+        public Player Player2 = new Player();
+        public Player Player3 = new Player();
+        public Player Player4 = new Player();
+        public Player Player5 = new Player();
         public Player Dealer;
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
         public MainWindow()
         {
             InitializeComponent();
+            BindToPlayers();
         }
 
-        //Creates each player, which sets their bank to 20, their hand to a new list of CardEnum, and bet to 0 (to be changed at beginning of round)
-        public void PlayerCreation()
+        public void BindToPlayers()
         {
-            Player1 = new Player();
-            Player2 = new Player();
-            Player3 = new Player();
-            Player4 = new Player();
-            Player5 = new Player();
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            List<StackPanel> playerDisplay = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            //change 5 to Slider.Value later, once created
+            for (int i = 0; i < 5; i++)
+            {
+                Binding b = new Binding("Player");
+                b.Mode = BindingMode.OneWay;
+                playerDisplay[i].DataContext = players[i];
+                //set bindings to display wherever you need
+            }
         }
 
         public void CheckIfBankrupt()
@@ -55,27 +69,27 @@ namespace BlackJack
             if (Player1.Bank < -50)
             {
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
-                Player1Playing = false;
+                Player1.Playing = false;
             }
             if (Player2.Bank < -50)
             {
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
-                Player2Playing = false;
+                Player2.Playing = false;
             }
             if (Player3.Bank < -50)
             {
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
-                Player3Playing = false;
+                Player3.Playing = false;
             }
             if (Player4.Bank < -50)
             {
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
-                Player4Playing = false;
+                Player4.Playing = false;
             }
             if (Player5.Bank < -50)
             {
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
-                Player5Playing = false;
+                Player5.Playing = false;
             }
         }
 
@@ -103,6 +117,18 @@ namespace BlackJack
         {
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
+        }
+        /// <summary>
+        /// Gets the image of the card in the player's hand at the index passed in.
+        /// </summary>
+        /// <param name="player">Player whose hand you wish to show</param>
+        /// <param name="index">The index of the particular card you wish to show</param>
+        /// <returns>An image brush with the image of the card</returns>
+        public ImageBrush ShowCard(Player player, int index)
+        {
+            ImageBrush image = new ImageBrush();
+            image.ImageSource = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+            return image;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -138,11 +164,39 @@ namespace BlackJack
                             Player1.Bank -= 5;
                             break;
                         case "o":
-                            Player1Playing = false;
+                            Player1.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_1.IsEnabled = false;
-                    Blackjack_StackPanel_Player_2.IsEnabled = false;
+                    if(!Player2.Playing)
+                    {
+                        if(!Player3.Playing)
+                        {
+                            if(!Player4.Playing)
+                            {
+                                if(!Player5.Playing)
+                                {
+                                    //start game
+                                }
+                                else
+                                {
+                                    Blackjack_StackPanel_Player_5.IsEnabled = true;
+                                }
+                            }
+                            else
+                            {
+                                Blackjack_StackPanel_Player_4.IsEnabled = true;
+                            }
+                        }
+                        else
+                        {
+                            Blackjack_StackPanel_Player_3.IsEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_2.IsEnabled = true;
+                    }
                     break;
                 case 2:
                     switch (BidResult)
@@ -164,11 +218,32 @@ namespace BlackJack
                             Player2.Bank -= 5;
                             break;
                         case "o":
-                            Player2Playing = false;
+                            Player2.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_2.IsEnabled = false;
-                    Blackjack_StackPanel_Player_3.IsEnabled = false;
+                    if (!Player3.Playing)
+                    {
+                        if (!Player4.Playing)
+                        {
+                            if (!Player5.Playing)
+                            {
+                                //start game
+                            }
+                            else
+                            {
+                                Blackjack_StackPanel_Player_5.IsEnabled = true;
+                            }
+                        }
+                        else
+                        {
+                            Blackjack_StackPanel_Player_4.IsEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_3.IsEnabled = true;
+                    }
                     break;
                 case 3:
                     switch (BidResult)
@@ -190,11 +265,25 @@ namespace BlackJack
                             Player3.Bank -= 5;
                             break;
                         case "o":
-                            Player3Playing = false;
+                            Player3.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_3.IsEnabled = false;
-                    Blackjack_StackPanel_Player_4.IsEnabled = false;
+                    if (!Player4.Playing)
+                    {
+                        if (!Player5.Playing)
+                        {
+                            //start game
+                        }
+                        else
+                        {
+                            Blackjack_StackPanel_Player_5.IsEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_4.IsEnabled = true;
+                    }
                     break;
                 case 4:
                     switch (BidResult)
@@ -216,11 +305,18 @@ namespace BlackJack
                             Player4.Bank -= 5;
                             break;
                         case "o":
-                            Player4Playing = false;
+                            Player4.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_4.IsEnabled = false;
-                    Blackjack_StackPanel_Player_5.IsEnabled = false;
+                    if (!Player5.Playing)
+                    {
+                        //start game
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_5.IsEnabled = true;
+                    }
                     break;
                 case 5:
                     switch (BidResult)
@@ -242,7 +338,7 @@ namespace BlackJack
                             Player5.Bank -= 5;
                             break;
                         case "o":
-                            Player5Playing = false;
+                            Player5.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;

@@ -23,5 +23,7 @@ namespace BlackJack
         public List<CardEnum> Hand { get; set; }
 
         public int FinalHandAmount { get; set; }
+
+        public bool Playing { get; set; }
     }
 }
