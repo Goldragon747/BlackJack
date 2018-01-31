@@ -60,7 +60,6 @@ namespace BlackJack
                 Binding b = new Binding("Player");
                 b.Mode = BindingMode.OneWay;
                 playerDisplay[i].DataContext = players[i];
-                //set bindings to display wherever you need
             }
         }
 

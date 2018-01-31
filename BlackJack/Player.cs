@@ -10,11 +10,15 @@ namespace BlackJack
     {
         public Player()
         {
+            Name = "Player";
             Bank = 20;
             Bet = 0;
             Hand = new List<CardEnum>();
             FinalHandAmount = 0;
+            Playing = true;
         }
+
+        public string Name { get; set; }
 
         public int Bank { get; set; }
 
