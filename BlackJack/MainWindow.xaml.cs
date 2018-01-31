@@ -170,8 +170,6 @@ namespace BlackJack
         {
             Button b = (Button)sender;
 
-            int PlayerNumber = (int)b.Name[24];
-            string BidResult = b.Name[30].ToString();
             int PlayerNumber = Convert.ToInt32(b.Name[24] + "");
             string BidResult = b.Name[30].ToString(); 
 
@@ -181,7 +179,7 @@ namespace BlackJack
                     switch (BidResult)
                     {
                         case "1":
-                            if(b.Name[31] == 0)
+                            if(b.Name.Count() == 32)
                             {
                                 Player1.Bet = 10;
                                 Player1.Bank -= 10;
@@ -235,7 +233,7 @@ namespace BlackJack
                     switch (BidResult)
                     {
                         case "1":
-                            if (b.Name[31] == 0)
+                            if (b.Name.Count() == 32)
                             {
                                 Player2.Bet = 10;
                                 Player2.Bank -= 10;
@@ -282,7 +280,7 @@ namespace BlackJack
                     switch (BidResult)
                     {
                         case "1":
-                            if (b.Name[31] == 0)
+                            if (b.Name.Count() == 32)
                             {
                                 Player3.Bet = 10;
                                 Player3.Bank -= 10;
@@ -322,7 +320,7 @@ namespace BlackJack
                     switch (BidResult)
                     {
                         case "1":
-                            if (b.Name[31] == 0)
+                            if (b.Name.Count() == 32)
                             {
                                 Player4.Bet = 10;
                                 Player4.Bank -= 10;
@@ -355,7 +353,7 @@ namespace BlackJack
                     switch (BidResult)
                     {
                         case "1":
-                            if (b.Name[31] == 0)
+                            if (b.Name.Count() == 32)
                             {
                                 Player5.Bet = 10;
                                 Player5.Bank -= 10;
