@@ -119,6 +119,7 @@ namespace BlackJack
         }
         /// <summary>
         /// Gets the image of the card in the player's hand at the index passed in.
+        /// Gets the CardBack image if isFirstCard is true
         /// </summary>
         /// <param name="player">Player whose hand you wish to show</param>
         /// <param name="index">The index of the particular card you wish to show</param>
