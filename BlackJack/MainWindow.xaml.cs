@@ -38,6 +38,35 @@ namespace BlackJack
         public MainWindow()
         {
             InitializeComponent();
+            BindToPlayers();
+        }
+
+        public void BindToPlayers()
+        {
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            List<StackPanel> playerDisplay = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            //change 5 to Slider.Value later, once created
+            for (int i = 0; i < 5; i++)
+            {
+                Binding b = new Binding("Player");
+                b.Mode = BindingMode.OneWay;
+                playerDisplay[i].DataContext = players[i];
+                //set bindings to display wherever you need
+            }
         }
 
         //Creates each player, which sets their bank to 20, their hand to a new list of CardEnum, and bet to 0 (to be changed at beginning of round)
