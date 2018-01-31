@@ -142,7 +142,35 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_1.IsEnabled = false;
-                    Blackjack_StackPanel_Player_2.IsEnabled = false;
+                    if(!Player2Playing)
+                    {
+                        if(!Player3Playing)
+                        {
+                            if(!Player4Playing)
+                            {
+                                if(!Player5Playing)
+                                {
+                                    //start game
+                                }
+                                else
+                                {
+                                    Blackjack_StackPanel_Player_5.IsEnabled = true;
+                                }
+                            }
+                            else
+                            {
+                                Blackjack_StackPanel_Player_4.IsEnabled = true;
+                            }
+                        }
+                        else
+                        {
+                            Blackjack_StackPanel_Player_3.IsEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_2.IsEnabled = true;
+                    }
                     break;
                 case 2:
                     switch (BidResult)
@@ -168,7 +196,28 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_2.IsEnabled = false;
-                    Blackjack_StackPanel_Player_3.IsEnabled = false;
+                    if (!Player3Playing)
+                    {
+                        if (!Player4Playing)
+                        {
+                            if (!Player5Playing)
+                            {
+                                //start game
+                            }
+                            else
+                            {
+                                Blackjack_StackPanel_Player_5.IsEnabled = true;
+                            }
+                        }
+                        else
+                        {
+                            Blackjack_StackPanel_Player_4.IsEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_3.IsEnabled = true;
+                    }
                     break;
                 case 3:
                     switch (BidResult)
@@ -194,7 +243,21 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_3.IsEnabled = false;
-                    Blackjack_StackPanel_Player_4.IsEnabled = false;
+                    if (!Player4Playing)
+                    {
+                        if (!Player5Playing)
+                        {
+                            //start game
+                        }
+                        else
+                        {
+                            Blackjack_StackPanel_Player_5.IsEnabled = true;
+                        }
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_4.IsEnabled = true;
+                    }
                     break;
                 case 4:
                     switch (BidResult)
@@ -220,7 +283,14 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_4.IsEnabled = false;
-                    Blackjack_StackPanel_Player_5.IsEnabled = false;
+                    if (!Player5Playing)
+                    {
+                        //start game
+                    }
+                    else
+                    {
+                        Blackjack_StackPanel_Player_5.IsEnabled = true;
+                    }
                     break;
                 case 5:
                     switch (BidResult)
