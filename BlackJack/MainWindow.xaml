@@ -7,7 +7,17 @@
         xmlns:uc1="clr-namespace:BlackJack.User_Controls"
         mc:Ignorable="d"
         Title="Card Games!" Height="350" Width="525" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="Red" Opacity=".5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
+        
         <Image Source="Images/BlackjackTable.jpg" Stretch="Fill"/>
         <Grid x:Name="Title_Screen" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -43,37 +53,19 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Grid.Row="2" BorderThickness="2" BorderBrush="Black" Background="IndianRed">
-                <Label x:Name="Blackjack_Label_Money_1" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
-            </Border>
-            <Border Grid.Column="1" Grid.Row="2" BorderThickness="2" BorderBrush="Black" Background="IndianRed">
-                <Label x:Name="Blackjack_Label_Money_2" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
-            </Border>
-            <Border Grid.Column="2" Grid.Row="2" BorderThickness="2" BorderBrush="Black" Background="IndianRed">
-                <Label x:Name="Blackjack_Label_Money_3" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
-            </Border>
-            <Border Grid.Column="3" Grid.Row="2" BorderThickness="2" BorderBrush="Black" Background="IndianRed">
-                <Label x:Name="Blackjack_Label_Money_4" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
-            </Border>
-            <Border Grid.Column="4" Grid.Row="2" BorderThickness="2" BorderBrush="Black" Background="IndianRed">
-                <Label x:Name="Blackjack_Label_Money_5" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
-            </Border>
+
+            
+            
+            
+            
             <Border Grid.Column="0" BorderThickness="4" BorderBrush="Black">
                 <Grid x:Name="Blackjack_Grid_House">
                     <Label HorizontalAlignment="Center" Foreground="White" FontSize="18">HOUSE</Label>
                     <uc1:PlayerHandsUserControl />
                 </Grid>
             </Border>
-            <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" Content="HIT" FontSize="50" Foreground="White" Margin="40 100">
-                <Button.Background>
-                    <SolidColorBrush Color="Red" Opacity=".5"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="Blackjack_Button_Stay" Grid.Column="3" Content="STAY" FontSize="50" Foreground="White" Margin="40 100">
-                <Button.Background>
-                    <SolidColorBrush Color="Red" Opacity=".5"/>
-                </Button.Background>
-            </Button>
+            <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" Content="HIT" FontSize="50" Foreground="White" Margin="40 100"/>
+            <Button x:Name="Blackjack_Button_Stay" Grid.Column="3" Content="STAY" FontSize="50" Foreground="White" Margin="40 100" />
             <Button x:Name="Blackjack_Button_Split" Grid.Column="4" Content="SPLIT" FontSize="50" Foreground="White" Margin="40 100">
                 <Button.Background>
                     <SolidColorBrush Color="Red" Opacity=".5"/>
@@ -81,12 +73,18 @@
             </Button>
             <Border Grid.Column="0" Grid.Row="3" BorderThickness="2" BorderBrush="Black">
                 <StackPanel x:Name="Blackjack_StackPanel_Player_1">
+                    <Border BorderThickness="2" BorderBrush="Black" Height="40">
+                        <Border.Background>
+                            <SolidColorBrush Color="Red" Opacity=".5"/>
+                        </Border.Background>
+                        <Label x:Name="Blackjack_Label_Money_1" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
+                    </Border>
                     <Label x:Name="Blackjack_Label_Player_1" HorizontalAlignment="Center" Foreground="White" FontSize="18">PLAYER 1</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 90">
-                        <Button x:Name="Blackjack_Button_Player_1_Bid_1" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="1$" />
-                        <Button x:Name="Blackjack_Button_Player_1_Bid_5" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="5$" />
-                        <Button x:Name="Blackjack_Button_Player_1_Bid_10" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="10$"/>
-                        <Button x:Name="Blackjack_Button_Player_1_Bid_out" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="Out" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 75">
+                        <Button x:Name="Blackjack_Button_Player_1_Bid_1" Width="50" Height="50" Foreground="White" Margin="5" Content="1$" />
+                        <Button x:Name="Blackjack_Button_Player_1_Bid_5" Width="50" Height="50" Foreground="White" Margin="5" Content="5$" />
+                        <Button x:Name="Blackjack_Button_Player_1_Bid_10" Width="50" Height="50" Foreground="White" Margin="5" Content="10$"/>
+                        <Button x:Name="Blackjack_Button_Player_1_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_1" Visibility="Collapsed" />
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_1" Margin="0 -50 0 0" Visibility="Collapsed" />
@@ -94,12 +92,18 @@
             </Border>
             <Border Grid.Column="1" Grid.Row="3" BorderThickness="2" BorderBrush="Black">
                 <StackPanel x:Name="Blackjack_StackPanel_Player_2">
+                    <Border BorderThickness="2" BorderBrush="Black" Height="40">
+                        <Border.Background>
+                            <SolidColorBrush Color="Red" Opacity=".5"/>
+                        </Border.Background>
+                        <Label x:Name="Blackjack_Label_Money_2" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
+                    </Border>
                     <Label x:Name="Blackjack_Label_Player_2" HorizontalAlignment="Center" Foreground="White" FontSize="18">PLAYER 2</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 90">
-                        <Button x:Name="Blackjack_Button_Player_2_Bid_1" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="1$" />
-                        <Button x:Name="Blackjack_Button_Player_2_Bid_5" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="5$" />
-                        <Button x:Name="Blackjack_Button_Player_2_Bid_10" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="10$"/>
-                        <Button x:Name="Blackjack_Button_Player_2_Bid_out" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="Out" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 75">
+                        <Button x:Name="Blackjack_Button_Player_2_Bid_1" Width="50" Height="50" Foreground="White" Margin="5" Content="1$" />
+                        <Button x:Name="Blackjack_Button_Player_2_Bid_5" Width="50" Height="50" Foreground="White" Margin="5" Content="5$" />
+                        <Button x:Name="Blackjack_Button_Player_2_Bid_10" Width="50" Height="50" Foreground="White" Margin="5" Content="10$"/>
+                        <Button x:Name="Blackjack_Button_Player_2_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_2" Visibility="Collapsed" />
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_2" Margin="0 -50 0 0" Visibility="Collapsed" />
@@ -110,12 +114,18 @@
                     <StackPanel.Background>
                         <SolidColorBrush Color="Black" Opacity=".1" />
                     </StackPanel.Background>
+                    <Border BorderThickness="2" BorderBrush="Black" Height="40">
+                        <Border.Background>
+                            <SolidColorBrush Color="Red" Opacity=".5"/>
+                        </Border.Background>
+                        <Label x:Name="Blackjack_Label_Money_3" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
+                    </Border>
                     <Label x:Name="Blackjack_Label_Player_3" HorizontalAlignment="Center" Foreground="White" FontSize="18">PLAYER 3</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 90">
-                        <Button x:Name="Blackjack_Button_Player_3_Bid_1" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="1$" />
-                        <Button x:Name="Blackjack_Button_Player_3_Bid_5" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="5$" />
-                        <Button x:Name="Blackjack_Button_Player_3_Bid_10" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="10$"/>
-                        <Button x:Name="Blackjack_Button_Player_3_Bid_out" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="Out" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 75">
+                        <Button x:Name="Blackjack_Button_Player_3_Bid_1" Width="50" Height="50" Foreground="White" Margin="5" Content="1$" />
+                        <Button x:Name="Blackjack_Button_Player_3_Bid_5" Width="50" Height="50" Foreground="White" Margin="5" Content="5$" />
+                        <Button x:Name="Blackjack_Button_Player_3_Bid_10" Width="50" Height="50" Foreground="White" Margin="5" Content="10$"/>
+                        <Button x:Name="Blackjack_Button_Player_3_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_3" Visibility="Collapsed" />
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_3" Margin="0 -50 0 0" Visibility="Collapsed" />
@@ -126,12 +136,18 @@
                     <StackPanel.Background>
                         <SolidColorBrush Color="Black" Opacity=".2" />
                     </StackPanel.Background>
+                    <Border BorderThickness="2" BorderBrush="Black" Height="40">
+                        <Border.Background>
+                            <SolidColorBrush Color="Red" Opacity=".5"/>
+                        </Border.Background>
+                        <Label x:Name="Blackjack_Label_Money_4" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
+                    </Border>
                     <Label x:Name="Blackjack_Label_Player_4" HorizontalAlignment="Center" Foreground="White" FontSize="18">PLAYER 4</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 90">
-                        <Button x:Name="Blackjack_Button_Player_4_Bid_1" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="1$" />
-                        <Button x:Name="Blackjack_Button_Player_4_Bid_5" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="5$" />
-                        <Button x:Name="Blackjack_Button_Player_4_Bid_10" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="10$"/>
-                        <Button x:Name="Blackjack_Button_Player_4_Bid_out" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="Out" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 75">
+                        <Button x:Name="Blackjack_Button_Player_4_Bid_1" Width="50" Height="50" Foreground="White" Margin="5" Content="1$" />
+                        <Button x:Name="Blackjack_Button_Player_4_Bid_5" Width="50" Height="50" Foreground="White" Margin="5" Content="5$" />
+                        <Button x:Name="Blackjack_Button_Player_4_Bid_10" Width="50" Height="50" Foreground="White" Margin="5" Content="10$"/>
+                        <Button x:Name="Blackjack_Button_Player_4_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_4" Visibility="Collapsed"/>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_4" Margin="0 -50 0 0" Visibility="Collapsed"/>
@@ -142,12 +158,18 @@
                     <StackPanel.Background>
                         <SolidColorBrush Color="Black" Opacity=".3" />
                     </StackPanel.Background>
+                    <Border BorderThickness="2" BorderBrush="Black" Height="40">
+                        <Border.Background>
+                            <SolidColorBrush Color="Red" Opacity=".5"/>
+                        </Border.Background>
+                        <Label x:Name="Blackjack_Label_Money_5" HorizontalAlignment="Center" Foreground="White" FontSize="20" Content="$20 " />
+                    </Border>
                     <Label x:Name="Blackjack_Label_Player_5" HorizontalAlignment="Center" Foreground="White" FontSize="18">PLAYER 5</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 90">
-                        <Button x:Name="Blackjack_Button_Player_5_Bid_1" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="1$" />
-                        <Button x:Name="Blackjack_Button_Player_5_Bid_5" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="5$" />
-                        <Button x:Name="Blackjack_Button_Player_5_Bid_10" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="10$"/>
-                        <Button x:Name="Blackjack_Button_Player_5_Bid_out" Width="50" Height="50" Background="IndianRed" Foreground="White" Margin="5" Content="Out" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Visible" Margin="0 75">
+                        <Button x:Name="Blackjack_Button_Player_5_Bid_1" Width="50" Height="50" Foreground="White" Margin="5" Content="1$" />
+                        <Button x:Name="Blackjack_Button_Player_5_Bid_5" Width="50" Height="50" Foreground="White" Margin="5" Content="5$" />
+                        <Button x:Name="Blackjack_Button_Player_5_Bid_10" Width="50" Height="50" Foreground="White" Margin="5" Content="10$"/>
+                        <Button x:Name="Blackjack_Button_Player_5_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_5" Visibility="Collapsed"/>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_5" Margin="0 -50 0 0" Visibility="Collapsed"/>
