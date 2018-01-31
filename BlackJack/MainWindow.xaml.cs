@@ -118,6 +118,18 @@ namespace BlackJack
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
         }
+        /// <summary>
+        /// Gets the image of the card in the player's hand at the index passed in.
+        /// </summary>
+        /// <param name="player">Player whose hand you wish to show</param>
+        /// <param name="index">The index of the particular card you wish to show</param>
+        /// <returns>An image brush with the image of the card</returns>
+        public ImageBrush ShowCard(Player player, int index)
+        {
+            ImageBrush image = new ImageBrush();
+            image.ImageSource = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+            return image;
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
