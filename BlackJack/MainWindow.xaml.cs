@@ -60,7 +60,6 @@ namespace BlackJack
                 Binding b = new Binding("Player");
                 b.Mode = BindingMode.OneWay;
                 playerDisplay[i].DataContext = players[i];
-                //set bindings to display wherever you need
             }
         }
 
@@ -123,11 +122,19 @@ namespace BlackJack
         /// </summary>
         /// <param name="player">Player whose hand you wish to show</param>
         /// <param name="index">The index of the particular card you wish to show</param>
+        /// <param name="isFirstCard">True for the first card, false for any card after</param>
         /// <returns>An image brush with the image of the card</returns>
-        public ImageBrush ShowCard(Player player, int index)
+        public ImageBrush ShowCard(Player player, int index, bool isFirstCard)
         {
             ImageBrush image = new ImageBrush();
-            image.ImageSource = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+            if(!isFirstCard)
+            {
+                image.ImageSource = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+            }
+            else
+            {
+                image.ImageSource = new BitmapImage(new Uri("../Images/CardBack.png"));
+            }
             return image;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
