@@ -444,5 +444,16 @@ namespace BlackJack
             }
         }
 
+        private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
+        {
+            Blackjack_Game_Screen.Visibility = Visibility.Collapsed;
+            Blackjack_Instructions_Screen.Visibility = Visibility.Visible;
+        }
+
+        private void Blackjack_Button_Instructions_Back_Click(object sender, RoutedEventArgs e)
+        {
+            Blackjack_Game_Screen.Visibility = Visibility.Visible;
+            Blackjack_Instructions_Screen.Visibility = Visibility.Collapsed;
+        }
     }
 }

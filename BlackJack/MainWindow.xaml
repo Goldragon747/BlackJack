@@ -39,6 +39,13 @@
         <Grid x:Name="Blackjack_Options_Screen" Visibility="Collapsed">
             
         </Grid>
+        <Grid x:Name="Blackjack_Instructions_Screen" Visibility="Collapsed">
+            <StackPanel>
+                <Label Foreground="White" Content="Instructions" FontSize="80" Margin="100 100 100 0"/>
+                <Label Foreground="White" Content="insert instructions here" FontSize="20" Margin="100 100 100 0"/>
+                <Button Content="Back" FontSize="25" Margin="50" Foreground="White" Width="400" Height="80" Click="Blackjack_Button_Instructions_Back_Click"/>
+            </StackPanel>
+        </Grid>
         <Grid x:Name="Blackjack_Game_Screen" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height=".75*"/>
@@ -58,6 +65,11 @@
                     <uc1:PlayerHandsUserControl />
                 </Grid>
             </Border>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Height="80" Width="240" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button x:Name="Blackjack_Button_Save" Content="SAVE" FontSize="50" Foreground="White" Height="80" Width="60" VerticalAlignment="Bottom" Click="Blackjack_Button_Instructions_Click"/>
+                <Button x:Name="Blackjack_Button_Load" Content="LOAD" FontSize="50" Foreground="White" Height="80" Width="60" VerticalAlignment="Bottom" Click="Blackjack_Button_Instructions_Click"/>
+                <Button x:Name="Blackjack_Button_Instructions" Content="?" FontSize="50" Foreground="White" Height="80" Width="60" VerticalAlignment="Bottom" Click="Blackjack_Button_Instructions_Click"/>
+            </StackPanel>
             <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" Content="HIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom"/>
             <Button x:Name="Blackjack_Button_Stay" Grid.Column="3" Content="STAY" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" />
             <Button x:Name="Blackjack_Button_Split" Grid.Column="4" Content="SPLIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom">
