@@ -22,16 +22,11 @@ namespace BlackJack
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Player Player1;
-        public Player Player2;
-        public Player Player3;
-        public Player Player4;
-        public Player Player5;
-        public bool Player1Playing;
-        public bool Player2Playing;
-        public bool Player3Playing;
-        public bool Player4Playing;
-        public bool Player5Playing;
+        public Player Player1 = new Player();
+        public Player Player2 = new Player();
+        public Player Player3 = new Player();
+        public Player Player4 = new Player();
+        public Player Player5 = new Player();
         public Player Dealer;
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
@@ -69,42 +64,32 @@ namespace BlackJack
             }
         }
 
-        //Creates each player, which sets their bank to 20, their hand to a new list of CardEnum, and bet to 0 (to be changed at beginning of round)
-        public void PlayerCreation()
-        {
-            Player1 = new Player();
-            Player2 = new Player();
-            Player3 = new Player();
-            Player4 = new Player();
-            Player5 = new Player();
-        }
-
         public void CheckIfBankrupt()
         {
             if (Player1.Bank < -50)
             {
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
-                Player1Playing = false;
+                Player1.Playing = false;
             }
             if (Player2.Bank < -50)
             {
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
-                Player2Playing = false;
+                Player2.Playing = false;
             }
             if (Player3.Bank < -50)
             {
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
-                Player3Playing = false;
+                Player3.Playing = false;
             }
             if (Player4.Bank < -50)
             {
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
-                Player4Playing = false;
+                Player4.Playing = false;
             }
             if (Player5.Bank < -50)
             {
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
-                Player5Playing = false;
+                Player5.Playing = false;
             }
         }
 
@@ -167,17 +152,17 @@ namespace BlackJack
                             Player1.Bank -= 5;
                             break;
                         case "o":
-                            Player1Playing = false;
+                            Player1.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_1.IsEnabled = false;
-                    if(!Player2Playing)
+                    if(!Player2.Playing)
                     {
-                        if(!Player3Playing)
+                        if(!Player3.Playing)
                         {
-                            if(!Player4Playing)
+                            if(!Player4.Playing)
                             {
-                                if(!Player5Playing)
+                                if(!Player5.Playing)
                                 {
                                     //start game
                                 }
@@ -221,15 +206,15 @@ namespace BlackJack
                             Player2.Bank -= 5;
                             break;
                         case "o":
-                            Player2Playing = false;
+                            Player2.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_2.IsEnabled = false;
-                    if (!Player3Playing)
+                    if (!Player3.Playing)
                     {
-                        if (!Player4Playing)
+                        if (!Player4.Playing)
                         {
-                            if (!Player5Playing)
+                            if (!Player5.Playing)
                             {
                                 //start game
                             }
@@ -268,13 +253,13 @@ namespace BlackJack
                             Player3.Bank -= 5;
                             break;
                         case "o":
-                            Player3Playing = false;
+                            Player3.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_3.IsEnabled = false;
-                    if (!Player4Playing)
+                    if (!Player4.Playing)
                     {
-                        if (!Player5Playing)
+                        if (!Player5.Playing)
                         {
                             //start game
                         }
@@ -308,11 +293,11 @@ namespace BlackJack
                             Player4.Bank -= 5;
                             break;
                         case "o":
-                            Player4Playing = false;
+                            Player4.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_4.IsEnabled = false;
-                    if (!Player5Playing)
+                    if (!Player5.Playing)
                     {
                         //start game
                     }
@@ -341,7 +326,7 @@ namespace BlackJack
                             Player5.Bank -= 5;
                             break;
                         case "o":
-                            Player5Playing = false;
+                            Player5.Playing = false;
                             break;
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;
