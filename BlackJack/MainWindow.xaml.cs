@@ -435,7 +435,7 @@ namespace BlackJack
         public void SaveGame_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            saveFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.RestoreDirectory = true;
             if (saveFileDialog.ShowDialog() == true)
@@ -450,7 +450,7 @@ namespace BlackJack
         public void LoadGame_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            openFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
             openFileDialog.FilterIndex = 1;
             openFileDialog.RestoreDirectory = true;
             if (openFileDialog.ShowDialog() == true)
