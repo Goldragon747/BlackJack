@@ -30,7 +30,7 @@ namespace BlackJack
         public Player Player3 = new Player();
         public Player Player4 = new Player();
         public Player Player5 = new Player();
-        public Player Dealer;
+        public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
         public MainWindow()
@@ -129,23 +129,35 @@ namespace BlackJack
         /// Pays each player based on their hand compared to dealer, and their bet
         /// </summary>
         /// <param name="player">The player being compaered to dealer and paid</param>
-        public void PayoutAfterRound(Player player)
+        public void PayoutAfterRound()
         {
-            if (player.Hand.Count() == 5)
+            List<Player> players = new List<Player>()
             {
-                player.Bank = player.Bank + (player.Bet * 4);
-            }
-            else if (player.FinalHandAmount > Dealer.FinalHandAmount && player.FinalHandAmount != 21)
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            //change to slider value
+            for(int i=0;i<5;i++)
             {
-                player.Bank = player.Bank + (player.Bet * 2);
-            }
-            else if (player.FinalHandAmount > Dealer.FinalHandAmount && player.FinalHandAmount == 21)
-            {
-                player.Bank = player.Bank + (player.Bet * 3);
-            }
-            else if (player.FinalHandAmount == Dealer.FinalHandAmount)
-            {
-                player.Bank = player.Bank + player.Bet;
+                if (players[i].Hand.Count() == 5)
+                {
+                    players[i].Bank = players[i].Bank + (players[i].Bet * 4);
+                }
+                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21)
+                {
+                    players[i].Bank = players[i].Bank + (players[i].Bet * 2);
+                }
+                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21)
+                {
+                    players[i].Bank = players[i].Bank + (players[i].Bet * 3);
+                }
+                else if (players[i].FinalHandAmount == Dealer.FinalHandAmount)
+                {
+                    players[i].Bank = players[i].Bank + players[i].Bet;
+                }
             }
         }
 
@@ -153,6 +165,100 @@ namespace BlackJack
         {
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
+        }
+
+        public void InitialDraw()
+        {
+            List<Player> players = new List<Player>()
+            {
+                Dealer,
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            //Change i to be less than slider value + 1 later
+            for(int i = 0; i < players.Count(); i++)
+            {
+                DrawCard(players[i]);
+                DrawCard(players[i]);
+                ShowCard(players[i], 0, true);
+                ShowCard(players[i], 1, false);
+            }            
+        }
+        /// <summary>
+        /// Determines and sets the value of the player hand by passing the player object, sifting through the hand, and adding the values to the hand
+        /// </summary>
+        /// <param name="p"></param>
+        public void DetermineHandValue(Player p)
+        {
+            int AcesDrawnCount = 0;
+            int handValue = 0;
+            for (int i = 0; i < p.Hand.Count; i++)
+            {
+                if (p.Hand[i].ToString().Contains("King") || p.Hand[i].ToString().Contains("Queen")
+                    || p.Hand[i].ToString().Contains("Jack") || p.Hand[i].ToString().Contains("Ten"))
+                {
+                    handValue += 10;
+                }
+                else if (p.Hand[i].ToString().Contains("Ace"))
+                {
+                    handValue += 11;
+                    AcesDrawnCount++;
+
+                }
+                else if (p.Hand[i].ToString().Contains("Two"))
+                {
+                    handValue += 2;
+                }
+                else if (p.Hand[i].ToString().Contains("Three"))
+                {
+                    handValue += 3;
+                }
+                else if (p.Hand[i].ToString().Contains("Four"))
+                {
+                    handValue += 4;
+                }
+                else if (p.Hand[i].ToString().Contains("Five"))
+                {
+                    handValue += 5;
+                }
+                else if (p.Hand[i].ToString().Contains("Six"))
+                {
+                    handValue += 6;
+                }
+                else if (p.Hand[i].ToString().Contains("Seven"))
+                {
+                    handValue += 7;
+                }
+                else if (p.Hand[i].ToString().Contains("Eight"))
+                {
+                    handValue += 8;
+                }
+                else if (p.Hand[i].ToString().Contains("Nine"))
+                {
+                    handValue += 9;
+                }
+                else
+                {
+                    //Hand is empty
+                }
+            }
+
+            for (int i = 0; i < AcesDrawnCount; i++)
+            {
+                if (handValue > 21)
+                {
+                    handValue -= 10;
+                }
+            }
+            p.FinalHandAmount = handValue;
+        }
+  
+        public void DealerTurn()
+        {
+
         }
 
         /// <summary>
@@ -176,11 +282,48 @@ namespace BlackJack
             }
             return image;
         }
+
+        public void HitButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            //replace 5 with how many players are playing
+            for(int i=0; i<5; i++)
+            {
+                if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
+                {
+                    DrawCard(players[i]);
+                    ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                }
+            }
+        }
+
         private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
             Title_Screen.Visibility = Visibility.Collapsed;
-            //options screen
-            Blackjack_Game_Screen.Visibility = Visibility.Visible;
+            Blackjack_Options_Screen.Visibility = Visibility.Visible;
         }
 
         public void PlayerBetButton_Click(object sender, RoutedEventArgs e)
@@ -395,6 +538,7 @@ namespace BlackJack
                     break;
             }
         }
+
         public void ChangeBidVisibilites()
         {
             Blackjack_StackPanel_Bids_1.Visibility = Visibility.Collapsed;
@@ -418,6 +562,7 @@ namespace BlackJack
             Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
             Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
         }
+
         public void ShuffleDeck()
         {
             Random rand = new Random();
@@ -430,6 +575,7 @@ namespace BlackJack
                 Deck[k] = temp.ToString();
             }
         }
+
         /// <summary>
         /// Basic skeleton for saving the game. NOT DONE
         /// </summary>
@@ -445,6 +591,7 @@ namespace BlackJack
             {
             }
         }
+
         /// <summary>
         /// Basic skeleton for loading the game. NOT DONE
         /// </summary>
@@ -481,6 +628,54 @@ namespace BlackJack
         {
             Blackjack_Game_Screen.Visibility = Visibility.Visible;
             Blackjack_Instructions_Screen.Visibility = Visibility.Collapsed;
+        }
+
+        private void Blackjack_Slider_Players_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            switch (Blackjack_Slider_Players.Value)
+            {
+                case 1:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 2:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 3:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 4:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 5:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
+        private void Blackjack_Slider_Players_Loaded(object sender, RoutedEventArgs e)
+        {
+            Blackjack_Slider_Players.ValueChanged += Blackjack_Slider_Players_ValueChanged;
+        }
+
+        private void Blackjack_Button_Startgame_Click(object sender, RoutedEventArgs e)
+        {
+            Blackjack_Options_Screen.Visibility = Visibility.Collapsed;
+            Blackjack_Game_Screen.Visibility = Visibility.Visible;
         }
     }
 }
