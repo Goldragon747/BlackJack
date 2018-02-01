@@ -128,6 +128,7 @@ namespace BlackJack
         /// <param name="player">The player being compaered to dealer and paid</param>
         public void PayoutAfterRound()
         {
+            bool dealerBusted = false;
             List<Player> players = new List<Player>()
             {
                 Player1,
@@ -137,17 +138,21 @@ namespace BlackJack
                 Player5
             };
             //change to slider value
-            for(int i=0;i<5;i++)
+            for (int i = 0; i < 5; i++)
             {
-                if (players[i].Hand.Count() == 5)
+                if (players[i].FinalHandAmount > 21)
+                {
+
+                }
+                else if (players[i].Hand.Count() == 5)
                 {
                     players[i].Bank = players[i].Bank + (players[i].Bet * 4);
                 }
-                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21)
+                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 || (dealerBusted && players[i].FinalHandAmount != 21))
                 {
                     players[i].Bank = players[i].Bank + (players[i].Bet * 2);
                 }
-                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21)
+                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21 || (dealerBusted && players[i].FinalHandAmount == 21))
                 {
                     players[i].Bank = players[i].Bank + (players[i].Bet * 3);
                 }
@@ -252,10 +257,20 @@ namespace BlackJack
             }
             p.FinalHandAmount = handValue;
         }
-  
+        /// <summary>
+        /// Takes the Dealer object and checks FinalHandAmount to make the dealer continously draw until he either busts or is above 17
+        /// PayoutsAfterRound() called afterward.
+        /// </summary>
         public void DealerTurn()
         {
-
+           
+            while(Dealer.FinalHandAmount < 17 && Dealer.FinalHandAmount <= 21)
+            {
+                DetermineHandValue(Dealer);
+                DrawCard(Dealer);
+                DetermineHandValue(Dealer);
+            }
+            PayoutAfterRound();
         }
 
         /// <summary>
