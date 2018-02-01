@@ -155,30 +155,32 @@ namespace BlackJack
         public void InitialDraw()
         {
             //Do this in a loop for how many players are playing later
-            DrawCard(Player1);
-            DrawCard(Player1);
-            ShowCard(Player1, 0, true);
-            ShowCard(Player1, 1, false);
-            DrawCard(Player2);
-            DrawCard(Player2);
-            ShowCard(Player2, 0, true);
-            ShowCard(Player2, 1, false);
-            DrawCard(Player3);
-            DrawCard(Player3);
-            ShowCard(Player3, 0, true);
-            ShowCard(Player3, 1, false);
-            DrawCard(Player4);
-            DrawCard(Player4);
-            ShowCard(Player4, 0, true);
-            ShowCard(Player4, 1, false);
-            DrawCard(Player5);
-            DrawCard(Player5);
-            ShowCard(Player5, 0, true);
-            ShowCard(Player5, 1, false);
-            DrawCard(Dealer);
-            DrawCard(Dealer);
-            ShowCard(Dealer, 0, true);
-            ShowCard(Dealer, 1, false);
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5,
+                Dealer
+            };
+            for(int i = 0; i < players.Count(); i++)
+            {
+                if(i == 5)
+                {
+                    DrawCard(Dealer);
+                    DrawCard(Dealer);
+                    ShowCard(Dealer, 0, true);
+                    ShowCard(Dealer, 1, false);
+                }
+                else
+                {
+                    DrawCard(players[i]);
+                    DrawCard(players[i]);
+                    ShowCard(players[i], 0, true);
+                    ShowCard(players[i], 1, false);
+                }
+            }            
         }
 
         /// <summary>
@@ -548,10 +550,6 @@ namespace BlackJack
         {
             Blackjack_Game_Screen.Visibility = Visibility.Visible;
             Blackjack_Instructions_Screen.Visibility = Visibility.Collapsed;
-        }
-        public void CreateDeck()
-        {
-            List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
         }
     }
 }
