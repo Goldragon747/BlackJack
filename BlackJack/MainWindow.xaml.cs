@@ -33,9 +33,6 @@ namespace BlackJack
         public MainWindow()
         {
             InitializeComponent();
-            BindToPlayers();
-            StartBettingPhase();
-            ShuffleDeck();
         }
 
         /// <summary>
@@ -59,12 +56,31 @@ namespace BlackJack
                 Blackjack_StackPanel_Player_4,
                 Blackjack_StackPanel_Player_5
             };
-            //change 5 to Slider.Value later, once created
-            for (int i = 0; i < 5; i++)
+            List<TextBox> playerNames = new List<TextBox>()
             {
+                Blackjack_TextBox_Playername_1,
+                Blackjack_TextBox_Playername_2,
+                Blackjack_TextBox_Playername_3,
+                Blackjack_TextBox_Playername_4,
+                Blackjack_TextBox_Playername_5
+            };
+            for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
+            {
+                if(playerNames[i].Text == null || playerNames[i].Text.ToString().Trim() == "")
+                {
+                    players[i].Name = "Player " + (i + 1);
+                }
+                else
+                {
+                    players[i].Name = playerNames[i].Text;
+                }
                 Binding b = new Binding("Player");
                 b.Mode = BindingMode.OneWay;
                 playerDisplay[i].DataContext = players[i];
+            }
+            for(int j = (int)Blackjack_Slider_Players.Value; j < 5; j++)
+            {
+                players[j].Playing = false;
             }
         }
 
@@ -136,8 +152,7 @@ namespace BlackJack
                 Player4,
                 Player5
             };
-            //change to slider value
-            for(int i=0;i<5;i++)
+            for(int i=0;i<Blackjack_Slider_Players.Value;i++)
             {
                 if (players[i].Hand.Count() == 5)
                 {
@@ -280,6 +295,11 @@ namespace BlackJack
             return image;
         }
 
+        /// <summary>
+        /// Adds a card to players hand, makes sure it is face up.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void HitButton_Click(object sender, RoutedEventArgs e)
         {
             List<StackPanel> stackPanels = new List<StackPanel>()
@@ -306,8 +326,7 @@ namespace BlackJack
                 Player4,
                 Player5
             };
-            //replace 5 with how many players are playing
-            for(int i=0; i<5; i++)
+            for(int i=0; i<Blackjack_Slider_Players.Value; i++)
             {
                 if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
                 {
@@ -323,6 +342,11 @@ namespace BlackJack
             Blackjack_Options_Screen.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// When a betting option is chosen, makes it the next available player's turn to bet. If no more, starts the round.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void PlayerBetButton_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -364,7 +388,8 @@ namespace BlackJack
                             {
                                 if(!Player5.Playing)
                                 {
-                                    //start game
+                                    Blackjack_StackPanel_Player_5.IsEnabled = false;
+                                    ChangeBidVisibilites();
                                 }
                                 else
                                 {
@@ -416,7 +441,8 @@ namespace BlackJack
                         {
                             if (!Player5.Playing)
                             {
-                                //start game
+                                Blackjack_StackPanel_Player_5.IsEnabled = false;
+                                ChangeBidVisibilites();
                             }
                             else
                             {
@@ -461,7 +487,8 @@ namespace BlackJack
                     {
                         if (!Player5.Playing)
                         {
-                            //start game
+                            Blackjack_StackPanel_Player_5.IsEnabled = false;
+                            ChangeBidVisibilites();
                         }
                         else
                         {
@@ -499,7 +526,8 @@ namespace BlackJack
                     Blackjack_StackPanel_Player_4.IsEnabled = false;
                     if (!Player5.Playing)
                     {
-                        //start game
+                        Blackjack_StackPanel_Player_5.IsEnabled = false;
+                        ChangeBidVisibilites();
                     }
                     else
                     {
@@ -531,7 +559,6 @@ namespace BlackJack
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;
                     ChangeBidVisibilites();
-                    //start round
                     break;
             }
         }
@@ -672,6 +699,9 @@ namespace BlackJack
         {
             Blackjack_Options_Screen.Visibility = Visibility.Collapsed;
             Blackjack_Game_Screen.Visibility = Visibility.Visible;
+            BindToPlayers();
+            ShuffleDeck();
+            StartBettingPhase();
         }
     }
 }
