@@ -166,20 +166,10 @@ namespace BlackJack
             };
             for(int i = 0; i < players.Count(); i++)
             {
-                if(i == 5)
-                {
-                    DrawCard(Dealer);
-                    DrawCard(Dealer);
-                    ShowCard(Dealer, 0, true);
-                    ShowCard(Dealer, 1, false);
-                }
-                else
-                {
-                    DrawCard(players[i]);
-                    DrawCard(players[i]);
-                    ShowCard(players[i], 0, true);
-                    ShowCard(players[i], 1, false);
-                }
+                DrawCard(players[i]);
+                DrawCard(players[i]);
+                ShowCard(players[i], 0, true);
+                ShowCard(players[i], 1, false);
             }            
         }
 
