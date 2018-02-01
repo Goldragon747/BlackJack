@@ -1,7 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -335,8 +338,7 @@ namespace BlackJack
         private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
             Title_Screen.Visibility = Visibility.Collapsed;
-            //options screen
-            Blackjack_Game_Screen.Visibility = Visibility.Visible;
+            Blackjack_Options_Screen.Visibility = Visibility.Visible;
         }
 
         public void PlayerBetButton_Click(object sender, RoutedEventArgs e)
@@ -633,6 +635,7 @@ namespace BlackJack
                 "Stay - elect to draw no cards, you do this if you have faith your total will beat the dealer \n" +
                 "Split - if you have two cards of the same denomination, you can have a second bet equal to your first and split the pair,\n" +
                 "using each card as the first card in a separate hand \n" +
+                "BlackJack - a two card 21 \n" +
                 "Out - Quit playing";
         }
 
@@ -640,6 +643,54 @@ namespace BlackJack
         {
             Blackjack_Game_Screen.Visibility = Visibility.Visible;
             Blackjack_Instructions_Screen.Visibility = Visibility.Collapsed;
+        }
+
+        private void Blackjack_Slider_Players_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            switch (Blackjack_Slider_Players.Value)
+            {
+                case 1:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 2:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 3:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Hidden;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 4:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Hidden;
+                    break;
+                case 5:
+                    Blackjack_Grid_Playername_2.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_3.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_4.Visibility = Visibility.Visible;
+                    Blackjack_Grid_Playername_5.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
+        private void Blackjack_Slider_Players_Loaded(object sender, RoutedEventArgs e)
+        {
+            Blackjack_Slider_Players.ValueChanged += Blackjack_Slider_Players_ValueChanged;
+        }
+
+        private void Blackjack_Button_Startgame_Click(object sender, RoutedEventArgs e)
+        {
+            Blackjack_Options_Screen.Visibility = Visibility.Collapsed;
+            Blackjack_Game_Screen.Visibility = Visibility.Visible;
         }
     }
 }

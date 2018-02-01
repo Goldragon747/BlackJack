@@ -36,13 +36,35 @@
             <Button Grid.Row="1" Grid.Column="2" Content="Go fish (unimplimented)" FontSize="20" IsEnabled="False" />
             <Button Grid.Row="1" Grid.Column="3" Content="War (unimplimented)" FontSize="20" IsEnabled="False" />
         </Grid>
-        <Grid x:Name="Blackjack_Options_Screen" Visibility="Collapsed" Margin="200">
+        <Grid x:Name="Blackjack_Options_Screen" Visibility="Collapsed" Margin="200 100 200 0">
             <StackPanel>
                 <Label Content="Blackjack Settings" FontSize="50" Foreground="White"/>
-                <Grid>
-                    <Label Content="Number of Players: " />
-                    <Slider TickFrequency="1" IsSnapToTickEnabled="True" Maximum="5" Minimum="1" Value="5" Height="40" />
+                <Grid Margin="0 50 0 0">
+                    <Label Content="Number of Players: " HorizontalAlignment="Left" Foreground="White" FontSize="20"/>
+                    <Label Content="{Binding ElementName=Blackjack_Slider_Players, Path=Value}" HorizontalAlignment="Center" Foreground="White" FontSize="20" />
+                    <Slider x:Name="Blackjack_Slider_Players" TickFrequency="1" IsSnapToTickEnabled="True" Maximum="5" Minimum="1" Value="5" Margin="0 10 0 0" Width="400" HorizontalAlignment="Right" Loaded="Blackjack_Slider_Players_Loaded" />
                 </Grid>
+                <Grid x:Name="Blackjack_Grid_Playername_1" Margin="50 20 50 0">
+                    <Label Content="Player 1's Name: " HorizontalAlignment="Left" Foreground="White" FontSize="20"/>
+                    <TextBox x:Name="Blackjack_TextBox_Playername_1" FontSize="20" Width="350" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid x:Name="Blackjack_Grid_Playername_2" Margin="50 20 50 0">
+                    <Label Content="Player 2's Name: " HorizontalAlignment="Left" Foreground="White" FontSize="20"/>
+                    <TextBox x:Name="Blackjack_TextBox_Playername_2" FontSize="20" Width="350" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid x:Name="Blackjack_Grid_Playername_3" Margin="50 20 50 0">
+                    <Label Content="Player 3's Name: " HorizontalAlignment="Left" Foreground="White" FontSize="20"/>
+                    <TextBox x:Name="Blackjack_TextBox_Playername_3" FontSize="20" Width="350" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid x:Name="Blackjack_Grid_Playername_4" Margin="50 20 50 0">
+                    <Label Content="Player 4's Name: " HorizontalAlignment="Left" Foreground="White" FontSize="20"/>
+                    <TextBox x:Name="Blackjack_TextBox_Playername_4" FontSize="20" Width="350" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid x:Name="Blackjack_Grid_Playername_5" Margin="50 20 50 0">
+                    <Label Content="Player 5's Name: " HorizontalAlignment="Left" Foreground="White" FontSize="20"/>
+                    <TextBox x:Name="Blackjack_TextBox_Playername_5" FontSize="20" Width="350" HorizontalAlignment="Right"/>
+                </Grid>
+                <Button x:Name="Blackjack_Button_Startgame" Width="400" FontSize="20" Height="50" Margin="50" Content="START" Foreground="White" Click="Blackjack_Button_Startgame_Click"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="Blackjack_Instructions_Screen" Visibility="Collapsed">
