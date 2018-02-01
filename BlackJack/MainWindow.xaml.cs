@@ -1,7 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -470,6 +473,7 @@ namespace BlackJack
                 "Stay - elect to draw no cards, you do this if you have faith your total will beat the dealer \n" +
                 "Split - if you have two cards of the same denomination, you can have a second bet equal to your first and split the pair,\n" +
                 "using each card as the first card in a separate hand \n" +
+                "BlackJack - a two card 21 \n" +
                 "Out - Quit playing";
         }
 
