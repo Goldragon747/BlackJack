@@ -126,23 +126,35 @@ namespace BlackJack
         /// Pays each player based on their hand compared to dealer, and their bet
         /// </summary>
         /// <param name="player">The player being compaered to dealer and paid</param>
-        public void PayoutAfterRound(Player player)
+        public void PayoutAfterRound()
         {
-            if (player.Hand.Count() == 5)
+            List<Player> players = new List<Player>()
             {
-                player.Bank = player.Bank + (player.Bet * 4);
-            }
-            else if (player.FinalHandAmount > Dealer.FinalHandAmount && player.FinalHandAmount != 21)
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            //change to slider value
+            for(int i=0;i<5;i++)
             {
-                player.Bank = player.Bank + (player.Bet * 2);
-            }
-            else if (player.FinalHandAmount > Dealer.FinalHandAmount && player.FinalHandAmount == 21)
-            {
-                player.Bank = player.Bank + (player.Bet * 3);
-            }
-            else if (player.FinalHandAmount == Dealer.FinalHandAmount)
-            {
-                player.Bank = player.Bank + player.Bet;
+                if (players[i].Hand.Count() == 5)
+                {
+                    players[i].Bank = players[i].Bank + (players[i].Bet * 4);
+                }
+                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21)
+                {
+                    players[i].Bank = players[i].Bank + (players[i].Bet * 2);
+                }
+                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21)
+                {
+                    players[i].Bank = players[i].Bank + (players[i].Bet * 3);
+                }
+                else if (players[i].FinalHandAmount == Dealer.FinalHandAmount)
+                {
+                    players[i].Bank = players[i].Bank + players[i].Bet;
+                }
             }
         }
 
@@ -245,7 +257,6 @@ namespace BlackJack
         {
 
         }
-
 
         /// <summary>
         /// Gets the image of the card in the player's hand at the index passed in.
