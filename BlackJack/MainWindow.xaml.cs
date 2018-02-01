@@ -38,6 +38,9 @@ namespace BlackJack
             ShuffleDeck();
         }
 
+        /// <summary>
+        /// Binds each players display stack panel to the respective player class.
+        /// </summary>
         public void BindToPlayers()
         {
             List<Player> players = new List<Player>()
@@ -65,6 +68,9 @@ namespace BlackJack
             }
         }
 
+        /// <summary>
+        /// Starts the betting phase of play, clearing any cards, and player 1 can bet
+        /// </summary>
         public void StartBettingPhase()
         {
             Blackjack_Hand_Player_1.Visibility = Visibility.Collapsed;
@@ -84,6 +90,9 @@ namespace BlackJack
             Blackjack_StackPanel_Player_5.IsEnabled = false;
         }
 
+        /// <summary>
+        /// Checks if any player has less that -$50, and takes them out if so
+        /// </summary>
         public void CheckIfBankrupt()
         {
             if (Player1.Bank < -50)
@@ -113,6 +122,10 @@ namespace BlackJack
             }
         }
 
+        /// <summary>
+        /// Pays each player based on their hand compared to dealer, and their bet
+        /// </summary>
+        /// <param name="player">The player being compaered to dealer and paid</param>
         public void PayoutAfterRound(Player player)
         {
             if (player.Hand.Count() == 5)
