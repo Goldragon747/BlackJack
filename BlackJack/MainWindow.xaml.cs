@@ -462,6 +462,15 @@ namespace BlackJack
         {
             Blackjack_Game_Screen.Visibility = Visibility.Collapsed;
             Blackjack_Instructions_Screen.Visibility = Visibility.Visible;
+            Blackjack_Label_Instructions.Content = " Blackjack uses one standard deck of 52 cards wheere the object is to get as close to 21 without going over. \n " +
+                "Blackjack is started by players placing their bet of $1, $5, or $10. After Players are given 2 cards to start. \n" +
+                "Cards are delt face down. After the cards are delt Players decide how to play their hand \n" +
+                "Cards 2-10 are worth face value while King, Queen, and Jack are worth 10. Ace's are worth either 1 or 11.\n " +
+                "Hit - Take another card until you are as close to 21 as possible. If you exceed 21 you 'Bust' \n" +
+                "Stay - elect to draw no cards, you do this if you have faith your total will beat the dealer \n" +
+                "Split - if you have two cards of the same denomination, you can have a second bet equal to your first and split the pair,\n" +
+                "using each card as the first card in a separate hand \n" +
+                "Out - Quit playing";
         }
 
         private void Blackjack_Button_Instructions_Back_Click(object sender, RoutedEventArgs e)
