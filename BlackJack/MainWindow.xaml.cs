@@ -172,6 +172,80 @@ namespace BlackJack
                 ShowCard(players[i], 1, false);
             }            
         }
+        /// <summary>
+        /// Determines and sets the value of the player hand by passing the player object, sifting through the hand, and adding the values to the hand
+        /// </summary>
+        /// <param name="p"></param>
+        public void DetermineHandValue(Player p)
+        {
+            int AcesDrawnCount = 0;
+            int handValue = 0;
+            for (int i = 0; i < p.Hand.Count; i++)
+            {
+                if (p.Hand[i].ToString().Contains("King") || p.Hand[i].ToString().Contains("Queen")
+                    || p.Hand[i].ToString().Contains("Jack") || p.Hand[i].ToString().Contains("Ten"))
+                {
+                    handValue += 10;
+                }
+                else if (p.Hand[i].ToString().Contains("Ace"))
+                {
+                    handValue += 11;
+                    AcesDrawnCount++;
+
+                }
+                else if (p.Hand[i].ToString().Contains("Two"))
+                {
+                    handValue += 2;
+                }
+                else if (p.Hand[i].ToString().Contains("Three"))
+                {
+                    handValue += 3;
+                }
+                else if (p.Hand[i].ToString().Contains("Four"))
+                {
+                    handValue += 4;
+                }
+                else if (p.Hand[i].ToString().Contains("Five"))
+                {
+                    handValue += 5;
+                }
+                else if (p.Hand[i].ToString().Contains("Six"))
+                {
+                    handValue += 6;
+                }
+                else if (p.Hand[i].ToString().Contains("Seven"))
+                {
+                    handValue += 7;
+                }
+                else if (p.Hand[i].ToString().Contains("Eight"))
+                {
+                    handValue += 8;
+                }
+                else if (p.Hand[i].ToString().Contains("Nine"))
+                {
+                    handValue += 9;
+                }
+                else
+                {
+                    //Hand is empty
+                }
+            }
+
+            for (int i = 0; i < AcesDrawnCount; i++)
+            {
+                if (handValue > 21)
+                {
+                    handValue -= 10;
+                }
+            }
+            p.FinalHandAmount = handValue;
+        }
+  
+        public void DealerTurn()
+        {
+
+        }
+
 
         /// <summary>
         /// Gets the image of the card in the player's hand at the index passed in.
