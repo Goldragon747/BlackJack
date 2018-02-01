@@ -27,7 +27,7 @@ namespace BlackJack
         public Player Player3 = new Player();
         public Player Player4 = new Player();
         public Player Player5 = new Player();
-        public Player Dealer;
+        public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
         public MainWindow()
@@ -150,6 +150,35 @@ namespace BlackJack
         {
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
+        }
+
+        public void InitialDraw()
+        {
+            //Do this in a loop for how many players are playing later
+            DrawCard(Player1);
+            DrawCard(Player1);
+            ShowCard(Player1, 0, true);
+            ShowCard(Player1, 1, false);
+            DrawCard(Player2);
+            DrawCard(Player2);
+            ShowCard(Player2, 0, true);
+            ShowCard(Player2, 1, false);
+            DrawCard(Player3);
+            DrawCard(Player3);
+            ShowCard(Player3, 0, true);
+            ShowCard(Player3, 1, false);
+            DrawCard(Player4);
+            DrawCard(Player4);
+            ShowCard(Player4, 0, true);
+            ShowCard(Player4, 1, false);
+            DrawCard(Player5);
+            DrawCard(Player5);
+            ShowCard(Player5, 0, true);
+            ShowCard(Player5, 1, false);
+            DrawCard(Dealer);
+            DrawCard(Dealer);
+            ShowCard(Dealer, 0, true);
+            ShowCard(Dealer, 1, false);
         }
 
         /// <summary>
