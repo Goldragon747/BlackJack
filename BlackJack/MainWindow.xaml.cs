@@ -173,6 +173,44 @@ namespace BlackJack
             }
             return image;
         }
+
+        public void HitButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            //replace 5 with how many players are playing
+            for(int i=0; i<5; i++)
+            {
+                if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
+                {
+                    DrawCard(players[i]);
+                    ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                }
+            }
+        }
+
         private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
             Title_Screen.Visibility = Visibility.Collapsed;
@@ -392,6 +430,7 @@ namespace BlackJack
                     break;
             }
         }
+
         public void ChangeBidVisibilites()
         {
             Blackjack_StackPanel_Bids_1.Visibility = Visibility.Collapsed;
@@ -415,6 +454,7 @@ namespace BlackJack
             Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
             Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
         }
+
         public void ShuffleDeck()
         {
             Random rand = new Random();
@@ -427,6 +467,7 @@ namespace BlackJack
                 Deck[k] = temp.ToString();
             }
         }
+
         /// <summary>
         /// Basic skeleton for saving the game. NOT DONE
         /// </summary>
@@ -435,13 +476,14 @@ namespace BlackJack
         public void SaveGame_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            saveFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.RestoreDirectory = true;
             if (saveFileDialog.ShowDialog() == true)
             {
             }
         }
+
         /// <summary>
         /// Basic skeleton for loading the game. NOT DONE
         /// </summary>
@@ -450,7 +492,7 @@ namespace BlackJack
         public void LoadGame_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "cargam files (*.cargam)|*.cargam";
+            openFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
             openFileDialog.FilterIndex = 1;
             openFileDialog.RestoreDirectory = true;
             if (openFileDialog.ShowDialog() == true)
@@ -462,6 +504,15 @@ namespace BlackJack
         {
             Blackjack_Game_Screen.Visibility = Visibility.Collapsed;
             Blackjack_Instructions_Screen.Visibility = Visibility.Visible;
+            Blackjack_Label_Instructions.Content = " Blackjack uses one standard deck of 52 cards wheere the object is to get as close to 21 without going over. \n " +
+                "Blackjack is started by players placing their bet of $1, $5, or $10. After Players are given 2 cards to start. \n" +
+                "Cards are delt face down. After the cards are delt Players decide how to play their hand \n" +
+                "Cards 2-10 are worth face value while King, Queen, and Jack are worth 10. Ace's are worth either 1 or 11.\n " +
+                "Hit - Take another card until you are as close to 21 as possible. If you exceed 21 you 'Bust' \n" +
+                "Stay - elect to draw no cards, you do this if you have faith your total will beat the dealer \n" +
+                "Split - if you have two cards of the same denomination, you can have a second bet equal to your first and split the pair,\n" +
+                "using each card as the first card in a separate hand \n" +
+                "Out - Quit playing";
         }
 
         private void Blackjack_Button_Instructions_Back_Click(object sender, RoutedEventArgs e)

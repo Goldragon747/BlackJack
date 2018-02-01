@@ -67,6 +67,17 @@ namespace BlackJack
             }
         }
 
+        private List<CardEnum> splitHand;
+
+        public List<CardEnum> SplitHand
+        {
+            get { return splitHand; }
+            set {
+                splitHand = value;
+                FieldChanged();
+            }
+        }
+
 
         private int finalHandAmount;
 
