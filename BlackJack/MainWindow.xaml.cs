@@ -173,6 +173,44 @@ namespace BlackJack
             }
             return image;
         }
+
+        public void HitButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            //replace 5 with how many players are playing
+            for(int i=0; i<5; i++)
+            {
+                if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
+                {
+                    DrawCard(players[i]);
+                    ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                }
+            }
+        }
+
         private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
             Title_Screen.Visibility = Visibility.Collapsed;
@@ -392,6 +430,7 @@ namespace BlackJack
                     break;
             }
         }
+
         public void ChangeBidVisibilites()
         {
             Blackjack_StackPanel_Bids_1.Visibility = Visibility.Collapsed;
@@ -415,6 +454,7 @@ namespace BlackJack
             Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
             Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
         }
+
         public void ShuffleDeck()
         {
             Random rand = new Random();
@@ -427,6 +467,7 @@ namespace BlackJack
                 Deck[k] = temp.ToString();
             }
         }
+
         /// <summary>
         /// Basic skeleton for saving the game. NOT DONE
         /// </summary>
@@ -442,6 +483,7 @@ namespace BlackJack
             {
             }
         }
+
         /// <summary>
         /// Basic skeleton for loading the game. NOT DONE
         /// </summary>
