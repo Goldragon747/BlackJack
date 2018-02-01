@@ -30,7 +30,6 @@ namespace BlackJack
         public Player Player3 = new Player();
         public Player Player4 = new Player();
         public Player Player5 = new Player();
-        public Player Player56 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
 
