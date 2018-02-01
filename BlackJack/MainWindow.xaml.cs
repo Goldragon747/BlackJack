@@ -194,12 +194,14 @@ namespace BlackJack
         }
         /// <summary>
         /// Determines and sets the value of the player hand by passing the player object, sifting through the hand, and adding the values to the hand
+        /// Returns a boolean indicating wether or not the player busted
         /// </summary>
         /// <param name="p"></param>
-        public void DetermineHandValue(Player p)
+        public bool DetermineHandValue(Player p)
         {
             int AcesDrawnCount = 0;
             int handValue = 0;
+            bool playerBusted = false;
             for (int i = 0; i < p.Hand.Count; i++)
             {
                 if (p.Hand[i].ToString().Contains("King") || p.Hand[i].ToString().Contains("Queen")
@@ -258,7 +260,12 @@ namespace BlackJack
                     handValue -= 10;
                 }
             }
+            if(p.FinalHandAmount > 21)
+            {
+                playerBusted = true;
+            }
             p.FinalHandAmount = handValue;
+            return playerBusted;
         }
         /// <summary>
         /// Takes the Dealer object and checks FinalHandAmount to make the dealer continously draw until he either busts or is above 17
