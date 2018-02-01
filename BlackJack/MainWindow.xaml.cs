@@ -284,18 +284,40 @@ namespace BlackJack
         /// <param name="index">The index of the particular card you wish to show</param>
         /// <param name="isFirstCard">True for the first card, false for any card after</param>
         /// <returns>An image brush with the image of the card</returns>
-        public ImageBrush ShowCard(Player player, int index, bool isFirstCard)
+        public void ShowCard(Player player, int index, bool isFirstCard)
         {
-            ImageBrush image = new ImageBrush();
             if(!isFirstCard)
             {
-                image.ImageSource = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+                if(player == Player1)
+                {
+                    Blackjack_Hand_Player_1.Visibility = Visibility.Visible;
+                    if(index == 0)
+                    {
+                        Blackjack_Hand_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+                    }
+                    else if(index == 1)
+                    {
+                        Blackjack_Hand_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+                    }
+                    else if(index == 2)
+                    {
+                        Blackjack_Hand_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+                    }
+                    else if (index == 3)
+                    {
+                        Blackjack_Hand_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+                    }
+                    else if (index == 4)
+                    {
+                        Blackjack_Hand_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png"));
+                    }
+                }
+                 
             }
             else
             {
-                image.ImageSource = new BitmapImage(new Uri("../Images/CardBack.png"));
+                Blackjack_Hand_Player_1.Slot1 = new BitmapImage(new Uri("../Images/CardBack.png"));
             }
-            return image;
         }
 
         public void HitButton_Click(object sender, RoutedEventArgs e)
@@ -627,15 +649,14 @@ namespace BlackJack
         {
             Blackjack_Game_Screen.Visibility = Visibility.Collapsed;
             Blackjack_Instructions_Screen.Visibility = Visibility.Visible;
-            Blackjack_Label_Instructions.Content = " Blackjack uses one standard deck of 52 cards wheere the object is to get as close to 21 without going over. \n " +
-                "Blackjack is started by players placing their bet of $1, $5, or $10. After Players are given 2 cards to start. \n" +
-                "Cards are delt face down. After the cards are delt Players decide how to play their hand \n" +
-                "Cards 2-10 are worth face value while King, Queen, and Jack are worth 10. Ace's are worth either 1 or 11.\n " +
-                "Hit - Take another card until you are as close to 21 as possible. If you exceed 21 you 'Bust' \n" +
-                "Stay - elect to draw no cards, you do this if you have faith your total will beat the dealer \n" +
+            Blackjack_Label_Instructions.Content = "Blackjack uses one standard deck of 52 cards wheere the object is to get as close to 21 without going over.\n" +
+                "Blackjack is started by players placing their bet of $1, $5, or $10. After Players are given 2 cards to start.\n" +
+                "Cards are dealt face down. After the cards are dealt Players decide how to play their hand.\n" +
+                "Cards 2-10 are worth face value while King, Queen, and Jack are worth 10. Ace's are worth either 1 or 11.\n" +
+                "Hit - Take another card until you are as close to 21 as possible. If you exceed 21 you 'Bust'\n" +
+                "Stay - elect to draw no cards, you do this if you have faith your total will beat the dealer\n" +
                 "Split - if you have two cards of the same denomination, you can have a second bet equal to your first and split the pair,\n" +
-                "using each card as the first card in a separate hand \n" +
-                "BlackJack - a two card 21 \n" +
+                "using each card as the first card in a separate hand\n" +
                 "Out - Quit playing";
         }
 
