@@ -154,16 +154,16 @@ namespace BlackJack
 
         public void InitialDraw()
         {
-            //Do this in a loop for how many players are playing later
             List<Player> players = new List<Player>()
             {
+                Dealer,
                 Player1,
                 Player2,
                 Player3,
                 Player4,
-                Player5,
-                Dealer
+                Player5
             };
+            //Change i to be less than slider value + 1 later
             for(int i = 0; i < players.Count(); i++)
             {
                 DrawCard(players[i]);
