@@ -211,8 +211,8 @@ namespace BlackJack
         }
         /// <summary>
         /// Calls DetermineHandValueHelper() twice, once for the players hand and once for their split hand value
-        /// changing the players FinalSplitAmount and FinalHandAmount property
-        /// returns a boolean indicating wether or not the player busted
+        /// changing the players FinalSplitAmount and FinalHandAmount property, changes haveBusted and SlitHasBusted property
+        /// returns void
         /// </summary>
         /// <param name="p"></param>
         public void DetermineHandValue(Player p)
