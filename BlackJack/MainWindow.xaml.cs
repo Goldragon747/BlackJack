@@ -1050,29 +1050,45 @@ namespace BlackJack
                 Player4,
                 Player5
             };
+            bool playerBusted = false;
             for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
             {
-                if (stackPanels[i].IsEnabled && (userControls[i * 2].IsEnabled || userControls[(i * 2) + 1].IsEnabled))
+                if(!playerBusted)
                 {
-                    if (userControls[i * 2].IsEnabled)
+                    if (stackPanels[i].IsEnabled && (userControls[i * 2].IsEnabled || userControls[(i * 2) + 1].IsEnabled))
                     {
-                        DrawCard(players[i]);
-                        ShowCard(players[i], players[i].Hand.Count() - 1, false);
-                        DetermineHandValue(players[i]);
-                        if(players[i].HaveBusted)
+                        if (userControls[i * 2].IsEnabled)
                         {
-                            //flip all cards
-                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                            DrawCard(players[i]);
+                            ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                            DetermineHandValue(players[i]);
+                            if(players[i].HaveBusted)
+                            {
+                                //flip all cards
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
+                            else if(players[i].Hand.Count() == 5)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
                         }
-                    }
-                    else
-                    {
-                        //DrawCard(players[i]); add to split hand
-                        //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
-                        if (players[i].SplitHasBusted)
+                        else
                         {
-                            //flip all cards
-                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                            //DrawCard(players[i]); add to split hand
+                            //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
+                            if (players[i].SplitHasBusted)
+                            {
+                                //flip all cards
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
+                            else if (players[i].SplitHand.Count() == 5)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
                         }
                     }
                 }
