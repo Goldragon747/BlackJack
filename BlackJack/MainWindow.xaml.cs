@@ -625,6 +625,9 @@ namespace BlackJack
 
             Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
             Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
+
+            Blackjack_Button_Hit.IsEnabled = true;
+            Blackjack_Button_Stay.IsEnabled = true;
         }
 
         public void ShuffleDeck()
@@ -742,6 +745,21 @@ namespace BlackJack
             BindToPlayers();
             ShuffleDeck();
             StartBettingPhase();
+        }
+
+        private void Blackjack_Button_Split_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Blackjack_Button_Stay_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
