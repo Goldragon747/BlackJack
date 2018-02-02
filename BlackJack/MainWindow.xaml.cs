@@ -805,7 +805,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Saves the game to a file
+        /// Saves the game to a file (I believe this works... Atleast in theory)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -827,7 +827,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Loads a game from a file
+        /// Loads a game from a file(DOES NOT WORK)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -843,6 +843,7 @@ namespace BlackJack
                 Stream stream = new FileStream(openFile.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                 SaveInformation save = new SaveInformation();
                 save = (SaveInformation)form.Deserialize(stream);
+                stream.Close();
                 Player1 = save.Player1;
                 Player2 = save.Player2;
                 Player3 = save.Player3;
