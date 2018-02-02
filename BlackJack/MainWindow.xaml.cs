@@ -983,12 +983,20 @@ namespace BlackJack
                                 }
                                 else
                                 {
+                                    SolidColorBrush sb = new SolidColorBrush();
+                                    sb.Color = Colors.Black;
+                                    sb.Opacity = .2;
+                                    stackPanels[i].Background = sb;
+                                    
+
                                     stackPanels[i].IsEnabled = false;
                                     userControls[i * 2].IsEnabled = false;
                                     stackPanels[i + 1].IsEnabled = true;
                                     userControls[(i + 1)* 2].IsEnabled = true;
                                     switchTurn = true;
                                     //show turn progression here
+                                    sb.Color = Colors.Wheat;
+                                    stackPanels[i + 1].Background = sb;
                                 }
                             }
                             else
@@ -1006,12 +1014,20 @@ namespace BlackJack
                             }
                             else
                             {
+                                SolidColorBrush sb = new SolidColorBrush();
+                                sb.Color = Colors.Black;
+                                sb.Opacity = .2;
+                                stackPanels[i].Background = sb;
+                                
+
                                 stackPanels[i].IsEnabled = false;
                                 userControls[i * 2].IsEnabled = false;
                                 stackPanels[i + 1].IsEnabled = true;
                                 userControls[(i + 1) * 2].IsEnabled = true;
                                 switchTurn = true;
                                 //show turn progression here
+                                sb.Color = Colors.Wheat;
+                                stackPanels[i + 1].Background = sb;
                             }
                         }
                     }
