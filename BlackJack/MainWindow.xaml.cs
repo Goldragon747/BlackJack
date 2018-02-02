@@ -770,6 +770,12 @@ namespace BlackJack
 
             Blackjack_Button_Hit.IsEnabled = true;
             Blackjack_Button_Stay.IsEnabled = true;
+
+            Blackjack_StackPanel_Player_1.IsEnabled = true;
+            Blackjack_StackPanel_Player_2.IsEnabled = false;
+            Blackjack_StackPanel_Player_3.IsEnabled = false;
+            Blackjack_StackPanel_Player_4.IsEnabled = false;
+            Blackjack_StackPanel_Player_5.IsEnabled = false;
         }
 
         public void ShuffleDeck()
