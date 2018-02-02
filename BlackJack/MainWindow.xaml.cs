@@ -806,35 +806,53 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Basic skeleton for saving the game. NOT DONE
+        /// Saves the game to a file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void SaveGame_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
-            saveFileDialog.FilterIndex = 1;
-            saveFileDialog.RestoreDirectory = true;
-            if (saveFileDialog.ShowDialog() == true)
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "blackjack files (*.blackjack)|*.blackjack";
+            saveFile.FilterIndex = 1;
+            saveFile.RestoreDirectory = true;
+            if (saveFile.ShowDialog() == true)
             {
+                IFormatter form = new BinaryFormatter();
+                Stream s = new FileStream(saveFile.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                SaveInformation save = new SaveInformation(Player1, Player2, Player3, Player4, Player5, Dealer, Deck);
+                form.Serialize(s, save);
+                s.Close();
             }
+
         }
 
         /// <summary>
-        /// Basic skeleton for loading the game. NOT DONE
+        /// Loads a game from a file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void LoadGame_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.RestoreDirectory = true;
-            if (openFileDialog.ShowDialog() == true)
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "blackjack files (*.blackjack)|*.blackjack";
+            openFile.FilterIndex = 1;
+            openFile.RestoreDirectory = true;
+            if (openFile.ShowDialog() == true)
             {
+                IFormatter form = new BinaryFormatter();
+                Stream stream = new FileStream(openFile.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                SaveInformation save = new SaveInformation();
+                save = (SaveInformation)form.Deserialize(stream);
+                Player1 = save.Player1;
+                Player2 = save.Player2;
+                Player3 = save.Player3;
+                Player4 = save.Player4;
+                Player5 = save.Player5;
+                Dealer = save.Dealer;
+                Deck = save.Deck;
             }
+
         }
 
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
