@@ -34,8 +34,6 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
-        bool playerBusted = false;
-        bool splitBusted = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -216,18 +214,20 @@ namespace BlackJack
         /// returns a boolean indicating wether or not the player busted
         /// </summary>
         /// <param name="p"></param>
-        public bool DetermineHandValue(Player p)
+        public void DetermineHandValue(Player p)
         {
-            
             int handValue = DetermineHandValueHelper(p.Hand);
             int splitValue = DetermineHandValueHelper(p.SplitHand);
             p.FinalSplitAmount = splitValue;
             p.FinalHandAmount = handValue;
             if (p.FinalHandAmount > 21)
             {
-                playerBusted = true;
-            }          
-            return playerBusted;
+                p.HaveBusted = true;
+            }    
+            if(p.FinalSplitAmount > 21)
+            {
+                p.SplitHasBusted = true;
+            }
         }
         /// <summary>
         /// By passing a list of CardEnums to this method it will determine the value of the cards inside the list 
@@ -773,7 +773,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Saves the game to a file
+        /// Saves the game to a file (I believe this works... Atleast in theory)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -795,7 +795,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Loads a game from a file
+        /// Loads a game from a file(DOES NOT WORK)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -811,6 +811,7 @@ namespace BlackJack
                 Stream stream = new FileStream(openFile.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                 SaveInformation save = new SaveInformation();
                 save = (SaveInformation)form.Deserialize(stream);
+                stream.Close();
                 Player1 = save.Player1;
                 Player2 = save.Player2;
                 Player3 = save.Player3;
