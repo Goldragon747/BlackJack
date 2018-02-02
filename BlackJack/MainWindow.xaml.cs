@@ -204,14 +204,15 @@ namespace BlackJack
             {
                 DrawCard(players[i]);
                 DrawCard(players[i]);
-                ShowCard(players[i], 0, true);
+                ShowCard(players[i], 0, false); //change back
                 ShowCard(players[i], 1, false);
-            }            
+                DetermineHandValue(players[i]);
+            }
         }
         /// <summary>
         /// Calls DetermineHandValueHelper() twice, once for the players hand and once for their split hand value
-        /// changing the players FinalSplitAmount and FinalHandAmount property
-        /// returns a boolean indicating wether or not the player busted
+        /// changing the players FinalSplitAmount and FinalHandAmount property, changes haveBusted and SlitHasBusted property
+        /// returns void
         /// </summary>
         /// <param name="p"></param>
         public void DetermineHandValue(Player p)
@@ -773,7 +774,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Saves the game to a file (I believe this works... Atleast in theory)
+        /// Saves the game to a file 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -795,7 +796,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Loads a game from a file(DOES NOT WORK)
+        /// Loads a game from a file (Not Finished)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -813,12 +814,29 @@ namespace BlackJack
                 save = (SaveInformation)form.Deserialize(stream);
                 stream.Close();
                 Player1 = save.Player1;
+                Blackjack_Label_Player_1.Content = Player1.Name;
+                Blackjack_Label_Money_1.Content = Player1.Bank;
+                //Blackjack_Hand_Player_1.Content = Player1.Hand;
                 Player2 = save.Player2;
+                Blackjack_Label_Player_2.Content = Player2.Name;
+                Blackjack_Label_Money_2.Content = Player2.Bank;
+                //Blackjack_Hand_Player_2.Content = Player2.Hand;
                 Player3 = save.Player3;
+                Blackjack_Label_Player_3.Content = Player3.Name;
+                Blackjack_Label_Money_3.Content = Player3.Bank;
+                //Blackjack_Hand_Player_3.Content = Player3.Hand;
                 Player4 = save.Player4;
+                Blackjack_Label_Player_4.Content = Player4.Name;
+                Blackjack_Label_Money_4.Content = Player4.Bank;
+                //Blackjack_Hand_Player_4.Content = Player4.Hand;
                 Player5 = save.Player5;
+                Blackjack_Label_Player_5.Content = Player5.Name;
+                Blackjack_Label_Money_5.Content = Player5.Bank;
+                Blackjack_Hand_Player_5.Content = Player5.Hand;
                 Dealer = save.Dealer;
+                //Blackjack_Hand_Dealer.Content = Dealer.Hand;
                 Deck = save.Deck;
+
             }
 
         }
@@ -970,6 +988,7 @@ namespace BlackJack
                                     stackPanels[i + 1].IsEnabled = true;
                                     userControls[(i + 1)* 2].IsEnabled = true;
                                     switchTurn = true;
+                                    //show turn progression here
                                 }
                             }
                             else
@@ -992,6 +1011,7 @@ namespace BlackJack
                                 stackPanels[i + 1].IsEnabled = true;
                                 userControls[(i + 1) * 2].IsEnabled = true;
                                 switchTurn = true;
+                                //show turn progression here
                             }
                         }
                     }
@@ -1038,11 +1058,22 @@ namespace BlackJack
                     {
                         DrawCard(players[i]);
                         ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                        DetermineHandValue(players[i]);
+                        if(players[i].HaveBusted)
+                        {
+                            //flip all cards
+                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                        }
                     }
                     else
                     {
                         //DrawCard(players[i]); add to split hand
                         //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
+                        if (players[i].SplitHasBusted)
+                        {
+                            //flip all cards
+                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                        }
                     }
                 }
             }
