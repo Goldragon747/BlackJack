@@ -99,7 +99,7 @@
                 </StackPanel>
                 <Button x:Name="Blackjack_Button_Instructions" HorizontalAlignment="Right" Content="?" FontSize="50" Foreground="White" Height="80" Width="60" VerticalAlignment="Bottom" Click="Blackjack_Button_Instructions_Click"/>
             </Grid>
-            <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" IsEnabled="False" Content="HIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Hit_Click"/>
+            <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" IsEnabled="False" Content="HIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="HitButton_Click"/>
             <Button x:Name="Blackjack_Button_Stay" Grid.Column="3" IsEnabled="False" Content="STAY" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Stay_Click"/>
             <Button x:Name="Blackjack_Button_Split" Grid.Column="4" IsEnabled="False" Content="SPLIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Split_Click" />
             <Border Grid.Column="0" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
@@ -124,7 +124,7 @@
                         <Button x:Name="Blackjack_Button_Player_1_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" Click="PlayerBetButton_Click" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_1" Visibility="Collapsed" />
-                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_1" Margin="0 -50 0 0" Visibility="Collapsed" />
+                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_1" IsEnabled="False" Margin="0 -50 0 0" Visibility="Collapsed" />
                 </StackPanel>
             </Border>
             <Border Grid.Column="1" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
@@ -149,7 +149,7 @@
                         <Button x:Name="Blackjack_Button_Player_2_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" Click="PlayerBetButton_Click" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_2" Visibility="Collapsed" />
-                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_2" Margin="0 -50 0 0" Visibility="Collapsed" />
+                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_2" IsEnabled="False" Margin="0 -50 0 0" Visibility="Collapsed" />
                 </StackPanel>
             </Border>
             <Border Grid.Column="2" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
@@ -174,7 +174,7 @@
                         <Button x:Name="Blackjack_Button_Player_3_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" Click="PlayerBetButton_Click" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_3" Visibility="Collapsed" />
-                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_3" Margin="0 -50 0 0" Visibility="Collapsed" />
+                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_3" IsEnabled="False" Margin="0 -50 0 0" Visibility="Collapsed" />
                 </StackPanel>
             </Border>
             <Border Grid.Column="3" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
@@ -199,7 +199,7 @@
                         <Button x:Name="Blackjack_Button_Player_4_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" Click="PlayerBetButton_Click" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_4" Visibility="Collapsed"/>
-                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_4" Margin="0 -50 0 0" Visibility="Collapsed"/>
+                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_4" IsEnabled="False" Margin="0 -50 0 0" Visibility="Collapsed"/>
                 </StackPanel>
             </Border>
             <Border Grid.Column="4" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
@@ -224,7 +224,7 @@
                         <Button x:Name="Blackjack_Button_Player_5_Bid_out" Width="50" Height="50" Foreground="White" Margin="5" Content="Out" Click="PlayerBetButton_Click" />
                     </StackPanel>
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Player_5" Visibility="Collapsed"/>
-                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_5" Margin="0 -50 0 0" Visibility="Collapsed"/>
+                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Split_Player_5" IsEnabled="False" Margin="0 -50 0 0" Visibility="Collapsed"/>
                 </StackPanel>
             </Border>
         </Grid>
