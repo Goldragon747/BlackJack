@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack
 {
+    [Serializable]
     public class Player : INotifyPropertyChanged
     {
         public Player()
@@ -16,7 +17,9 @@ namespace BlackJack
             Bank = 20;
             Bet = 0;
             Hand = new List<CardEnum>();
+            SplitHand = new List<CardEnum>();
             FinalHandAmount = 0;
+            FinalSplitAmount = 0;
             Playing = true;
         }
 
@@ -86,6 +89,18 @@ namespace BlackJack
             get { return finalHandAmount; }
             set {
                 finalHandAmount = value;
+                FieldChanged();
+            }
+        }
+
+        private int finalSplitAmount;
+
+        public int FinalSplitAmount
+        {
+            get { return finalSplitAmount; }
+            set
+            {
+                finalSplitAmount = value;
                 FieldChanged();
             }
         }

@@ -32,7 +32,8 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
-
+        bool playerBusted = false;
+        bool splitBusted = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -185,6 +186,7 @@ namespace BlackJack
         {
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
+            ShowCard(player, player.Hand.Count() - 1, false);
         }
 
         public void InitialDraw()
@@ -207,72 +209,90 @@ namespace BlackJack
             }            
         }
         /// <summary>
-        /// Determines and sets the value of the player hand by passing the player object, sifting through the hand, and adding the values to the hand
+        /// Calls DetermineHandValueHelper() twice, once for the players hand and once for their split hand value
+        /// changing the players FinalSplitAmount and FinalHandAmount property
+        /// returns a boolean indicating wether or not the player busted
         /// </summary>
         /// <param name="p"></param>
-        public void DetermineHandValue(Player p)
+        public bool DetermineHandValue(Player p)
         {
-            int AcesDrawnCount = 0;
-            int handValue = 0;
-            for (int i = 0; i < p.Hand.Count; i++)
+            
+            int handValue = DetermineHandValueHelper(p.Hand);
+            int splitValue = DetermineHandValueHelper(p.SplitHand);
+            p.FinalSplitAmount = splitValue;
+            p.FinalHandAmount = handValue;
+            if (p.FinalHandAmount > 21)
             {
-                if (p.Hand[i].ToString().Contains("King") || p.Hand[i].ToString().Contains("Queen")
-                    || p.Hand[i].ToString().Contains("Jack") || p.Hand[i].ToString().Contains("Ten"))
+                playerBusted = true;
+            }          
+            return playerBusted;
+        }
+        /// <summary>
+        /// By passing a list of CardEnums to this method it will determine the value of the cards inside the list 
+        /// returns an int indicating the total value of the players hand
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public int DetermineHandValueHelper(List<CardEnum> list)
+        {
+            int handAcesDrawnCount = 0;
+            int handValue = 0;
+           
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].ToString().Contains("King") || list[i].ToString().Contains("Queen")
+                    || list[i].ToString().Contains("Jack") || list[i].ToString().Contains("Ten"))
                 {
                     handValue += 10;
                 }
-                else if (p.Hand[i].ToString().Contains("Ace"))
+                else if (list[i].ToString().Contains("Ace"))
                 {
                     handValue += 11;
-                    AcesDrawnCount++;
+                    handAcesDrawnCount++;
 
                 }
-                else if (p.Hand[i].ToString().Contains("Two"))
+                else if (list[i].ToString().Contains("Two"))
                 {
                     handValue += 2;
                 }
-                else if (p.Hand[i].ToString().Contains("Three"))
+                else if (list[i].ToString().Contains("Three"))
                 {
                     handValue += 3;
                 }
-                else if (p.Hand[i].ToString().Contains("Four"))
+                else if (list[i].ToString().Contains("Four"))
                 {
                     handValue += 4;
                 }
-                else if (p.Hand[i].ToString().Contains("Five"))
+                else if (list[i].ToString().Contains("Five"))
                 {
                     handValue += 5;
                 }
-                else if (p.Hand[i].ToString().Contains("Six"))
+                else if (list[i].ToString().Contains("Six"))
                 {
                     handValue += 6;
                 }
-                else if (p.Hand[i].ToString().Contains("Seven"))
+                else if (list[i].ToString().Contains("Seven"))
                 {
                     handValue += 7;
                 }
-                else if (p.Hand[i].ToString().Contains("Eight"))
+                else if (list[i].ToString().Contains("Eight"))
                 {
                     handValue += 8;
                 }
-                else if (p.Hand[i].ToString().Contains("Nine"))
+                else if (list[i].ToString().Contains("Nine"))
                 {
                     handValue += 9;
                 }
-                else
-                {
-                    //Hand is empty
-                }
             }
-
-            for (int i = 0; i < AcesDrawnCount; i++)
+            for (int i = 0; i < handAcesDrawnCount; i++)
             {
                 if (handValue > 21)
                 {
                     handValue -= 10;
                 }
             }
-            p.FinalHandAmount = handValue;
+            return handValue;
         }
         /// <summary>
         /// Takes the Dealer object and checks FinalHandAmount to make the dealer continously draw until he either busts or is above 17
@@ -792,35 +812,53 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Basic skeleton for saving the game. NOT DONE
+        /// Saves the game to a file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void SaveGame_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
-            saveFileDialog.FilterIndex = 1;
-            saveFileDialog.RestoreDirectory = true;
-            if (saveFileDialog.ShowDialog() == true)
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "blackjack files (*.blackjack)|*.blackjack";
+            saveFile.FilterIndex = 1;
+            saveFile.RestoreDirectory = true;
+            if (saveFile.ShowDialog() == true)
             {
+                IFormatter form = new BinaryFormatter();
+                Stream s = new FileStream(saveFile.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                SaveInformation save = new SaveInformation(Player1, Player2, Player3, Player4, Player5, Dealer, Deck);
+                form.Serialize(s, save);
+                s.Close();
             }
+
         }
 
         /// <summary>
-        /// Basic skeleton for loading the game. NOT DONE
+        /// Loads a game from a file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void LoadGame_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "blackjack files (*.blackjack)|*.blackjack";
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.RestoreDirectory = true;
-            if (openFileDialog.ShowDialog() == true)
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "blackjack files (*.blackjack)|*.blackjack";
+            openFile.FilterIndex = 1;
+            openFile.RestoreDirectory = true;
+            if (openFile.ShowDialog() == true)
             {
+                IFormatter form = new BinaryFormatter();
+                Stream stream = new FileStream(openFile.FileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                SaveInformation save = new SaveInformation();
+                save = (SaveInformation)form.Deserialize(stream);
+                Player1 = save.Player1;
+                Player2 = save.Player2;
+                Player3 = save.Player3;
+                Player4 = save.Player4;
+                Player5 = save.Player5;
+                Dealer = save.Dealer;
+                Deck = save.Deck;
             }
+
         }
 
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
@@ -901,11 +939,6 @@ namespace BlackJack
         }
 
         private void Blackjack_Button_Stay_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
 
         }
