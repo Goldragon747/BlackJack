@@ -21,6 +21,9 @@ namespace BlackJack
             FinalHandAmount = 0;
             FinalSplitAmount = 0;
             Playing = true;
+            HasSplit = false;
+            HaveBusted = false;
+            splitHasBusted = false;
         }
 
         private string name;
@@ -117,6 +120,42 @@ namespace BlackJack
             }
         }
 
+        private bool hasSplit;
+
+        public bool HasSplit
+        {
+            get { return hasSplit; }
+            set
+            {
+                hasSplit = value;
+                FieldChanged();
+            }
+        }
+
+
+        private bool haveBusted;
+
+        public bool HaveBusted
+        {
+            get { return haveBusted; }
+            set
+            {
+                haveBusted = value;
+                FieldChanged();
+            }
+        }
+
+        private bool splitHasBusted;
+
+        public bool SplitHasBusted
+        {
+            get { return splitHasBusted; }
+            set
+            {
+                splitHasBusted = value;
+                FieldChanged();
+            }
+        }
 
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;

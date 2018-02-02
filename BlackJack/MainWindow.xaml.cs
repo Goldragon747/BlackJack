@@ -32,8 +32,6 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
-        bool playerBusted = false;
-        bool splitBusted = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -186,6 +184,7 @@ namespace BlackJack
         {
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
+            ShowCard(player, player.Hand.Count() - 1, false);
         }
 
         public void InitialDraw()
@@ -213,18 +212,20 @@ namespace BlackJack
         /// returns a boolean indicating wether or not the player busted
         /// </summary>
         /// <param name="p"></param>
-        public bool DetermineHandValue(Player p)
+        public void DetermineHandValue(Player p)
         {
-            
             int handValue = DetermineHandValueHelper(p.Hand);
             int splitValue = DetermineHandValueHelper(p.SplitHand);
             p.FinalSplitAmount = splitValue;
             p.FinalHandAmount = handValue;
             if (p.FinalHandAmount > 21)
             {
-                playerBusted = true;
-            }          
-            return playerBusted;
+                p.HaveBusted = true;
+            }    
+            if(p.FinalSplitAmount > 21)
+            {
+                p.SplitHasBusted = true;
+            }
         }
         /// <summary>
         /// By passing a list of CardEnums to this method it will determine the value of the cards inside the list 
@@ -789,6 +790,12 @@ namespace BlackJack
 
             Blackjack_Button_Hit.IsEnabled = true;
             Blackjack_Button_Stay.IsEnabled = true;
+
+            Blackjack_StackPanel_Player_1.IsEnabled = true;
+            Blackjack_StackPanel_Player_2.IsEnabled = false;
+            Blackjack_StackPanel_Player_3.IsEnabled = false;
+            Blackjack_StackPanel_Player_4.IsEnabled = false;
+            Blackjack_StackPanel_Player_5.IsEnabled = false;
         }
 
         public void ShuffleDeck()
@@ -933,11 +940,6 @@ namespace BlackJack
         }
 
         private void Blackjack_Button_Stay_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
 
         }
