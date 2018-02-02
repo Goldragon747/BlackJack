@@ -919,6 +919,23 @@ namespace BlackJack
                     break;
             }
         }
+        public bool PlayerHasSplit(Player p)
+        {
+            return (p.Hand.Count == 2) && (
+                   (p.Hand[0].ToString().Contains("Ace") && p.Hand[1].ToString().Contains("Ace")) ||
+                   (p.Hand[0].ToString().Contains("Two") && p.Hand[1].ToString().Contains("Two")) ||
+                   (p.Hand[0].ToString().Contains("Three") && p.Hand[1].ToString().Contains("Three")) ||
+                   (p.Hand[0].ToString().Contains("Four") && p.Hand[1].ToString().Contains("Four")) ||
+                   (p.Hand[0].ToString().Contains("Five") && p.Hand[1].ToString().Contains("Five")) ||
+                   (p.Hand[0].ToString().Contains("Six") && p.Hand[1].ToString().Contains("Six")) ||
+                   (p.Hand[0].ToString().Contains("Seven") && p.Hand[1].ToString().Contains("Seven")) ||
+                   (p.Hand[0].ToString().Contains("Eight") && p.Hand[1].ToString().Contains("Eight")) ||
+                   (p.Hand[0].ToString().Contains("Nine") && p.Hand[1].ToString().Contains("Nine")) ||
+                   (p.Hand[0].ToString().Contains("Ten") && p.Hand[1].ToString().Contains("Ten")) ||
+                   (p.Hand[0].ToString().Contains("Jack") && p.Hand[1].ToString().Contains("Jack")) ||
+                   (p.Hand[0].ToString().Contains("Queen") && p.Hand[1].ToString().Contains("Queen")) ||
+                   (p.Hand[0].ToString().Contains("King") && p.Hand[1].ToString().Contains("King")));
+        }
 
         private void Blackjack_Slider_Players_Loaded(object sender, RoutedEventArgs e)
         {

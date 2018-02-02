@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SaveInformation.cs" />
     <Compile Include="User Controls\PlayerHandsUserControl.xaml.cs">
       <DependentUpon>PlayerHandsUserControl.xaml</DependentUpon>
     </Compile>
