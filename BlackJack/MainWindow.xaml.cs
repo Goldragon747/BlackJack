@@ -936,10 +936,5 @@ namespace BlackJack
         {
 
         }
-
-        private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
