@@ -32,7 +32,8 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
-
+        bool playerBusted = false;
+        bool splitBusted = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -193,79 +194,90 @@ namespace BlackJack
             }            
         }
         /// <summary>
-        /// Determines and sets the value of the player hand by passing the player object, sifting through the hand, and adding the values to the hand
-        /// Returns a boolean indicating wether or not the player busted
+        /// Calls DetermineHandValueHelper() twice, once for the players hand and once for their split hand value
+        /// changing the players FinalSplitAmount and FinalHandAmount property
+        /// returns a boolean indicating wether or not the player busted
         /// </summary>
         /// <param name="p"></param>
         public bool DetermineHandValue(Player p)
         {
-            int AcesDrawnCount = 0;
-            int handValue = 0;
-            bool playerBusted = false;
-            for (int i = 0; i < p.Hand.Count; i++)
+            
+            int handValue = DetermineHandValueHelper(p.Hand);
+            int splitValue = DetermineHandValueHelper(p.SplitHand);
+            p.FinalSplitAmount = splitValue;
+            p.FinalHandAmount = handValue;
+            if (p.FinalHandAmount > 21)
             {
-                if (p.Hand[i].ToString().Contains("King") || p.Hand[i].ToString().Contains("Queen")
-                    || p.Hand[i].ToString().Contains("Jack") || p.Hand[i].ToString().Contains("Ten"))
+                playerBusted = true;
+            }          
+            return playerBusted;
+        }
+        /// <summary>
+        /// By passing a list of CardEnums to this method it will determine the value of the cards inside the list 
+        /// returns an int indicating the total value of the players hand
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public int DetermineHandValueHelper(List<CardEnum> list)
+        {
+            int handAcesDrawnCount = 0;
+            int handValue = 0;
+           
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].ToString().Contains("King") || list[i].ToString().Contains("Queen")
+                    || list[i].ToString().Contains("Jack") || list[i].ToString().Contains("Ten"))
                 {
                     handValue += 10;
                 }
-                else if (p.Hand[i].ToString().Contains("Ace"))
+                else if (list[i].ToString().Contains("Ace"))
                 {
                     handValue += 11;
-                    AcesDrawnCount++;
+                    handAcesDrawnCount++;
 
                 }
-                else if (p.Hand[i].ToString().Contains("Two"))
+                else if (list[i].ToString().Contains("Two"))
                 {
                     handValue += 2;
                 }
-                else if (p.Hand[i].ToString().Contains("Three"))
+                else if (list[i].ToString().Contains("Three"))
                 {
                     handValue += 3;
                 }
-                else if (p.Hand[i].ToString().Contains("Four"))
+                else if (list[i].ToString().Contains("Four"))
                 {
                     handValue += 4;
                 }
-                else if (p.Hand[i].ToString().Contains("Five"))
+                else if (list[i].ToString().Contains("Five"))
                 {
                     handValue += 5;
                 }
-                else if (p.Hand[i].ToString().Contains("Six"))
+                else if (list[i].ToString().Contains("Six"))
                 {
                     handValue += 6;
                 }
-                else if (p.Hand[i].ToString().Contains("Seven"))
+                else if (list[i].ToString().Contains("Seven"))
                 {
                     handValue += 7;
                 }
-                else if (p.Hand[i].ToString().Contains("Eight"))
+                else if (list[i].ToString().Contains("Eight"))
                 {
                     handValue += 8;
                 }
-                else if (p.Hand[i].ToString().Contains("Nine"))
+                else if (list[i].ToString().Contains("Nine"))
                 {
                     handValue += 9;
                 }
-                else
-                {
-                    //Hand is empty
-                }
             }
-
-            for (int i = 0; i < AcesDrawnCount; i++)
+            for (int i = 0; i < handAcesDrawnCount; i++)
             {
                 if (handValue > 21)
                 {
                     handValue -= 10;
                 }
             }
-            if(p.FinalHandAmount > 21)
-            {
-                playerBusted = true;
-            }
-            p.FinalHandAmount = handValue;
-            return playerBusted;
+            return handValue;
         }
         /// <summary>
         /// Takes the Dealer object and checks FinalHandAmount to make the dealer continously draw until he either busts or is above 17
