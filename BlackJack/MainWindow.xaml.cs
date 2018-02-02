@@ -25,6 +25,8 @@ namespace BlackJack
     /// </summary>
     public partial class MainWindow : Window
     {
+        //b.Style = (Style)Application.Current.Resources["MyButtonStyle"];
+
         public Player Player1 = new Player();
         public Player Player2 = new Player();
         public Player Player3 = new Player();
@@ -496,47 +498,6 @@ namespace BlackJack
             }
         }
 
-        /// <summary>
-        /// Adds a card to players hand, makes sure it is face up.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void HitButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<StackPanel> stackPanels = new List<StackPanel>()
-            {
-                Blackjack_StackPanel_Player_1,
-                Blackjack_StackPanel_Player_2,
-                Blackjack_StackPanel_Player_3,
-                Blackjack_StackPanel_Player_4,
-                Blackjack_StackPanel_Player_5
-            };
-            List<UserControl> userControls = new List<UserControl>()
-            {
-                Blackjack_Hand_Player_1,
-                Blackjack_Hand_Player_2,
-                Blackjack_Hand_Player_3,
-                Blackjack_Hand_Player_4,
-                Blackjack_Hand_Player_5
-            };
-            List<Player> players = new List<Player>()
-            {
-                Player1,
-                Player2,
-                Player3,
-                Player4,
-                Player5
-            };
-            for(int i=0; i<Blackjack_Slider_Players.Value; i++)
-            {
-                if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
-                {
-                    DrawCard(players[i]);
-                    ShowCard(players[i], players[i].Hand.Count() - 1, false);
-                }
-            }
-        }
-
         private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
             Title_Screen.Visibility = Visibility.Collapsed;
@@ -940,7 +901,133 @@ namespace BlackJack
 
         private void Blackjack_Button_Stay_Click(object sender, RoutedEventArgs e)
         {
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Split_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Split_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Split_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Split_Player_4,
+                Blackjack_Hand_Player_5,
+                Blackjack_Hand_Split_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            bool switchTurn = false;
+            for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
+            {
+                if(!switchTurn)
+                {
+                    if (stackPanels[i].IsEnabled && (userControls[i * 2].IsEnabled || userControls[(i * 2) + 1].IsEnabled))
+                    {
+                        if (userControls[i * 2].IsEnabled)
+                        {
+                            if(players[i].SplitHand.Count == 0)
+                            {
+                                if (i == Blackjack_Slider_Players.Value - 1)
+                                {
+                                    DealerTurn();
+                                }
+                                else
+                                {
+                                    stackPanels[i].IsEnabled = false;
+                                    userControls[i * 2].IsEnabled = false;
+                                    stackPanels[i + 1].IsEnabled = true;
+                                    userControls[(i + 1)* 2].IsEnabled = true;
+                                    switchTurn = true;
+                                }
+                            }
+                            else
+                            {
+                                userControls[i * 2].IsEnabled = false;
+                                userControls[(i * 2) + 1].IsEnabled = true;
+                                switchTurn = true;
+                            }
+                        }
+                        else
+                        {
+                            if (i == Blackjack_Slider_Players.Value - 1)
+                            {
+                                DealerTurn();
+                            }
+                            else
+                            {
+                                stackPanels[i].IsEnabled = false;
+                                userControls[i * 2].IsEnabled = false;
+                                stackPanels[i + 1].IsEnabled = true;
+                                userControls[(i + 1) * 2].IsEnabled = true;
+                                switchTurn = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
+        private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
+        {
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Split_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Split_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Split_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Split_Player_4,
+                Blackjack_Hand_Player_5,
+                Blackjack_Hand_Split_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
+            {
+                if (stackPanels[i].IsEnabled && (userControls[i * 2].IsEnabled || userControls[(i * 2) + 1].IsEnabled))
+                {
+                    if (userControls[i * 2].IsEnabled)
+                    {
+                        DrawCard(players[i]);
+                        ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                    }
+                    else
+                    {
+                        //DrawCard(players[i]); add to split hand
+                        //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
+                    }
+                }
+            }
         }
     }
 }
