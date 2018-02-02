@@ -17,7 +17,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        
         <Image Source="Images/BlackjackTable.jpg" Stretch="Fill"/>
         <Grid x:Name="Title_Screen" Visibility="Visible">
             <Grid.RowDefinitions>
