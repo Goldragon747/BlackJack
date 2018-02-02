@@ -835,9 +835,16 @@ namespace BlackJack
                 Dealer = save.Dealer;
                 //Blackjack_Hand_Dealer.Content = Dealer.Hand;
                 Deck = save.Deck;
-
             }
 
+        }
+        
+        public void ReLoadCards(Player player)
+        {
+            foreach (CardEnum card in player.Hand)
+            {
+
+            }
         }
 
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
