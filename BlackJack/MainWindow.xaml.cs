@@ -204,9 +204,10 @@ namespace BlackJack
             {
                 DrawCard(players[i]);
                 DrawCard(players[i]);
-                ShowCard(players[i], 0, true);
+                ShowCard(players[i], 0, false); //change back
                 ShowCard(players[i], 1, false);
-            }            
+                DetermineHandValue(players[i]);
+            }
         }
         /// <summary>
         /// Calls DetermineHandValueHelper() twice, once for the players hand and once for their split hand value
@@ -987,6 +988,7 @@ namespace BlackJack
                                     stackPanels[i + 1].IsEnabled = true;
                                     userControls[(i + 1)* 2].IsEnabled = true;
                                     switchTurn = true;
+                                    //show turn progression here
                                 }
                             }
                             else
@@ -1009,6 +1011,7 @@ namespace BlackJack
                                 stackPanels[i + 1].IsEnabled = true;
                                 userControls[(i + 1) * 2].IsEnabled = true;
                                 switchTurn = true;
+                                //show turn progression here
                             }
                         }
                     }
@@ -1055,11 +1058,22 @@ namespace BlackJack
                     {
                         DrawCard(players[i]);
                         ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                        DetermineHandValue(players[i]);
+                        if(players[i].HaveBusted)
+                        {
+                            //flip all cards
+                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                        }
                     }
                     else
                     {
                         //DrawCard(players[i]); add to split hand
                         //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
+                        if (players[i].SplitHasBusted)
+                        {
+                            //flip all cards
+                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                        }
                     }
                 }
             }
