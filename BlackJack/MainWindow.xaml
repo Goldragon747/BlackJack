@@ -89,12 +89,12 @@
             <Border Grid.Column="0" BorderThickness="4" BorderBrush="Black">
                 <Grid x:Name="Blackjack_Grid_House">
                     <Label HorizontalAlignment="Center" Foreground="White" FontSize="18">HOUSE</Label>
-                    <uc1:PlayerHandsUserControl />
+                    <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Dealer"/>
                 </Grid>
             </Border>
             <Grid Grid.Column="1" Height="80" Width="240" VerticalAlignment="Bottom">
                 <StackPanel Orientation="Vertical" Width="120" Height="80" HorizontalAlignment="Center">
-                    <Button x:Name="Blackjack_Button_Save" Content="SAVE" FontSize="20" Foreground="White" Height="40" Width="120" VerticalAlignment="Bottom" Click="SaveGame_Click"/>
+                    <Button x:Name="Blackjack_Button_Save" Content="SAVE" FontSize="21" Foreground="White" Height="40" Width="120" VerticalAlignment="Bottom" Click="SaveGame_Click"/>
                     <Button x:Name="Blackjack_Button_Load" Content="LOAD" FontSize="20" Foreground="White" Height="40" Width="120" VerticalAlignment="Bottom" Click="LoadGame_Click"/>
                 </StackPanel>
                 <Button x:Name="Blackjack_Button_Instructions" HorizontalAlignment="Right" Content="?" FontSize="50" Foreground="White" Height="80" Width="60" VerticalAlignment="Bottom" Click="Blackjack_Button_Instructions_Click"/>
