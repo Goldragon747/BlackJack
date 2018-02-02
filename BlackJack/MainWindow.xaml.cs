@@ -186,6 +186,7 @@ namespace BlackJack
         {
             player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
             Deck.RemoveAt(0);
+            ShowCard(player, player.Hand.Count() - 1, false);
         }
 
         public void InitialDraw()

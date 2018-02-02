@@ -99,7 +99,7 @@
                 </StackPanel>
                 <Button x:Name="Blackjack_Button_Instructions" HorizontalAlignment="Right" Content="?" FontSize="50" Foreground="White" Height="80" Width="60" VerticalAlignment="Bottom" Click="Blackjack_Button_Instructions_Click"/>
             </Grid>
-            <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" IsEnabled="False" Content="HIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Hit_Click"/>
+            <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" IsEnabled="False" Content="HIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="HitButton_Click"/>
             <Button x:Name="Blackjack_Button_Stay" Grid.Column="3" IsEnabled="False" Content="STAY" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Stay_Click"/>
             <Button x:Name="Blackjack_Button_Split" Grid.Column="4" IsEnabled="False" Content="SPLIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Split_Click" />
             <Border Grid.Column="0" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
