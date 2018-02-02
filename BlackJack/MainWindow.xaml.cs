@@ -773,7 +773,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Saves the game to a file (I believe this works... Atleast in theory)
+        /// Saves the game to a file 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -795,7 +795,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Loads a game from a file(DOES NOT WORK)
+        /// Loads a game from a file (Not Finished)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -813,12 +813,29 @@ namespace BlackJack
                 save = (SaveInformation)form.Deserialize(stream);
                 stream.Close();
                 Player1 = save.Player1;
+                Blackjack_Label_Player_1.Content = Player1.Name;
+                Blackjack_Label_Money_1.Content = Player1.Bank;
+                //Blackjack_Hand_Player_1.Content = Player1.Hand;
                 Player2 = save.Player2;
+                Blackjack_Label_Player_2.Content = Player2.Name;
+                Blackjack_Label_Money_2.Content = Player2.Bank;
+                //Blackjack_Hand_Player_2.Content = Player2.Hand;
                 Player3 = save.Player3;
+                Blackjack_Label_Player_3.Content = Player3.Name;
+                Blackjack_Label_Money_3.Content = Player3.Bank;
+                //Blackjack_Hand_Player_3.Content = Player3.Hand;
                 Player4 = save.Player4;
+                Blackjack_Label_Player_4.Content = Player4.Name;
+                Blackjack_Label_Money_4.Content = Player4.Bank;
+                //Blackjack_Hand_Player_4.Content = Player4.Hand;
                 Player5 = save.Player5;
+                Blackjack_Label_Player_5.Content = Player5.Name;
+                Blackjack_Label_Money_5.Content = Player5.Bank;
+                Blackjack_Hand_Player_5.Content = Player5.Hand;
                 Dealer = save.Dealer;
+                //Blackjack_Hand_Dealer.Content = Dealer.Hand;
                 Deck = save.Deck;
+
             }
 
         }
