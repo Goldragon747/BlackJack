@@ -499,6 +499,103 @@ namespace BlackJack
             }
         }
 
+        public void ShowAllCards()
+        {
+            List<Player> players = new List<Player>()
+            {
+                Dealer,
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+
+            if(Blackjack_StackPanel_Player_1.IsEnabled)
+            {
+                for(int i = 0; i < Player1.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player1, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_2.IsEnabled)
+            {
+                for (int i = 0; i < Player2.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player2, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_3.IsEnabled)
+            {
+                for (int i = 0; i < Player3.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player3, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_4.IsEnabled)
+            {
+                for (int i = 0; i < Player4.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player4, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_5.IsEnabled)
+            {
+                for (int i = 0; i < Player5.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player5, i, false);
+                }
+            }
+            else if (Blackjack_Grid_House.IsEnabled)
+            {
+                for (int i = 0; i < Dealer.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Dealer, i, false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds a card to players hand, makes sure it is face up.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void HitButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            for(int i=0; i<Blackjack_Slider_Players.Value; i++)
+            {
+                if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
+                {
+                    DrawCard(players[i]);
+                    ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                }
+            }
+        }
+
         private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
             Title_Screen.Visibility = Visibility.Collapsed;
@@ -1066,29 +1163,45 @@ namespace BlackJack
                 Player4,
                 Player5
             };
+            bool playerBusted = false;
             for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
             {
-                if (stackPanels[i].IsEnabled && (userControls[i * 2].IsEnabled || userControls[(i * 2) + 1].IsEnabled))
+                if(!playerBusted)
                 {
-                    if (userControls[i * 2].IsEnabled)
+                    if (stackPanels[i].IsEnabled && (userControls[i * 2].IsEnabled || userControls[(i * 2) + 1].IsEnabled))
                     {
-                        DrawCard(players[i]);
-                        ShowCard(players[i], players[i].Hand.Count() - 1, false);
-                        DetermineHandValue(players[i]);
-                        if(players[i].HaveBusted)
+                        if (userControls[i * 2].IsEnabled)
                         {
-                            //flip all cards
-                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                            DrawCard(players[i]);
+                            ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                            DetermineHandValue(players[i]);
+                            if(players[i].HaveBusted)
+                            {
+                                //flip all cards
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
+                            else if(players[i].Hand.Count() == 5)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
                         }
-                    }
-                    else
-                    {
-                        //DrawCard(players[i]); add to split hand
-                        //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
-                        if (players[i].SplitHasBusted)
+                        else
                         {
-                            //flip all cards
-                            Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                            //DrawCard(players[i]); add to split hand
+                            //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
+                            if (players[i].SplitHasBusted)
+                            {
+                                //flip all cards
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
+                            else if (players[i].SplitHand.Count() == 5)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
                         }
                     }
                 }
