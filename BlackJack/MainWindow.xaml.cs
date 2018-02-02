@@ -204,7 +204,7 @@ namespace BlackJack
             {
                 DrawCard(players[i]);
                 DrawCard(players[i]);
-                ShowCard(players[i], 0, false); //change back
+                ShowCard(players[i], 0, true); //change back
                 ShowCard(players[i], 1, false);
                 DetermineHandValue(players[i]);
             }
@@ -855,6 +855,8 @@ namespace BlackJack
             Blackjack_StackPanel_Player_3.IsEnabled = false;
             Blackjack_StackPanel_Player_4.IsEnabled = false;
             Blackjack_StackPanel_Player_5.IsEnabled = false;
+
+            ShowAllCards();
         }
 
         public void ShuffleDeck()
@@ -1085,15 +1087,15 @@ namespace BlackJack
                                     sb.Opacity = .2;
                                     stackPanels[i].Background = sb;
                                     
-
+                                    //flip back in not busted
                                     stackPanels[i].IsEnabled = false;
                                     userControls[i * 2].IsEnabled = false;
                                     stackPanels[i + 1].IsEnabled = true;
                                     userControls[(i + 1)* 2].IsEnabled = true;
                                     switchTurn = true;
-                                    //show turn progression here
                                     sb.Color = Colors.Wheat;
                                     stackPanels[i + 1].Background = sb;
+                                    ShowAllCards();
                                 }
                             }
                             else
@@ -1101,6 +1103,7 @@ namespace BlackJack
                                 userControls[i * 2].IsEnabled = false;
                                 userControls[(i * 2) + 1].IsEnabled = true;
                                 switchTurn = true;
+                                //Show all cards for split here
                             }
                         }
                         else
@@ -1115,16 +1118,16 @@ namespace BlackJack
                                 sb.Color = Colors.Black;
                                 sb.Opacity = .2;
                                 stackPanels[i].Background = sb;
-                                
 
+                                //flip back in not busted
                                 stackPanels[i].IsEnabled = false;
                                 userControls[i * 2].IsEnabled = false;
                                 stackPanels[i + 1].IsEnabled = true;
                                 userControls[(i + 1) * 2].IsEnabled = true;
                                 switchTurn = true;
-                                //show turn progression here
                                 sb.Color = Colors.Wheat;
                                 stackPanels[i + 1].Background = sb;
+                                ShowAllCards();
                             }
                         }
                     }
@@ -1177,7 +1180,7 @@ namespace BlackJack
                             DetermineHandValue(players[i]);
                             if(players[i].HaveBusted)
                             {
-                                //flip all cards
+                                ShowAllCards();
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
@@ -1193,7 +1196,7 @@ namespace BlackJack
                             //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
                             if (players[i].SplitHasBusted)
                             {
-                                //flip all cards
+                                ShowAllCards();
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
