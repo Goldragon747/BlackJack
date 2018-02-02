@@ -105,7 +105,7 @@
             <Border Grid.Column="0" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
                 <StackPanel x:Name="Blackjack_StackPanel_Player_1">
                     <StackPanel.Background>
-                        <SolidColorBrush Color="Black" Opacity=".2" />
+                        <SolidColorBrush Color="Wheat" Opacity=".2" />
                     </StackPanel.Background>
                     <Border BorderThickness="2" BorderBrush="Black" Height="40">
                         <Border.Background>
