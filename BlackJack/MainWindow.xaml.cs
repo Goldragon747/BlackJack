@@ -37,6 +37,7 @@ namespace BlackJack
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
         private DispatcherTimer notificationTimer;
+        private DispatcherTimer delayTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -315,12 +316,12 @@ namespace BlackJack
             if (p.FinalHandAmount > 21)
             {
                 p.HaveBusted = true;
-                Notify("Busted!", 3);
+                Notify("Busted!", 2);
             }    
             if(p.FinalSplitAmount > 21)
             {
                 p.SplitHasBusted = true;
-                Notify("Busted!", 3);
+                Notify("Busted!", 2);
             }
         }
         /// <summary>
@@ -403,7 +404,7 @@ namespace BlackJack
                 DrawCard(Dealer, false);
                 DetermineHandValue(Dealer);
             }
-            RestartRound();
+            DelayRoundStart(8);
         }
         public void RestartRound()
         {
@@ -1347,6 +1348,20 @@ namespace BlackJack
 
         }
 
+        private void DelayRoundStart(int seconds)
+        {
+            delayTimer = new DispatcherTimer();
+            delayTimer.Interval = TimeSpan.FromSeconds(seconds);
+            delayTimer.Tick += DelayTick;
+            delayTimer.Start();
+        }
+
+        private void DelayTick(object sender, EventArgs e)
+        {
+            RestartRound();
+            delayTimer.Stop();
+            delayTimer.Tick -= DelayTick;
+        }
 
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
         {
@@ -1738,7 +1753,7 @@ namespace BlackJack
             if(time != 0)
             {
                 notificationTimer = new DispatcherTimer();
-                notificationTimer.Interval = new TimeSpan(time * 10000);
+                notificationTimer.Interval = TimeSpan.FromSeconds(time);
                 notificationTimer.Tick += NotifyTicked;
                 notificationTimer.Start();
             }
