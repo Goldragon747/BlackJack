@@ -222,6 +222,10 @@ namespace BlackJack
         public void PayoutAfterRound()
         {
             bool dealerBusted = false;
+            if(Dealer.FinalHandAmount > 21)
+            {
+                dealerBusted = true;
+            }
             List<Player> players = new List<Player>()
             {
                 Player1,
@@ -230,22 +234,23 @@ namespace BlackJack
                 Player4,
                 Player5
             };
-            string payoutString = "Player payouts: ";
+            string payoutString = "Round Over! Payouts: ";
             for(int i=0;i<Blackjack_Slider_Players.Value;i++)
             {
                 if (players[i].FinalHandAmount > 21) { }
-                else if(Dealer.Hand.Count() == 5 && players[i].Hand.Count() != 5) { }
-                else if(Dealer.Hand.Count() == 5 && players[i].Hand.Count() == 5)
+                else if(Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() != 5) { }
+                else if(Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22)
                 {
                     players[i].Bank = players[i].Bank + players[i].Bet;
                 }
-                else if (players[i].Hand.Count() == 5 && Dealer.Hand.Count() != 5)
+                else if (players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22 && Dealer.Hand.Count() != 5)
                 {
                     int newAmount = (players[i].Bet * 4);
                     players[i].Bank = players[i].Bank + newAmount;
                     payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
-                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 || (dealerBusted && players[i].FinalHandAmount != 21))
+                else if ((players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22) 
+                    || (dealerBusted && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22))
                 {
                     int newAmount = (players[i].Bet * 2);
                     players[i].Bank = players[i].Bank + newAmount;
@@ -264,7 +269,11 @@ namespace BlackJack
                     payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
             }
-            Notify(payoutString, 10);
+            if (payoutString.Length == 21)
+                payoutString += "none.";
+            else
+                payoutString.TrimEnd(new char[] { ' ', ',' });
+            Notify(payoutString, 18);
         }
 
         public void DrawCard(Player player, bool isSplitHand)
@@ -1180,17 +1189,20 @@ namespace BlackJack
             Blackjack_Button_Hit.IsEnabled = true;
             Blackjack_Button_Stay.IsEnabled = true;
 
-            DetermineHandValue(Player1);
-            DetermineHandValue(Player2);
-            DetermineHandValue(Player3);
-            DetermineHandValue(Player4);
-            DetermineHandValue(Player5);
-
-            PlayerHasSplit(Player1);
-            PlayerHasSplit(Player2);
-            PlayerHasSplit(Player3);
-            PlayerHasSplit(Player4);
-            PlayerHasSplit(Player5);
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
+            {
+                DetermineHandValue(players[i]);
+                PlayerHasSplit(players[i]);
+                players[i].HaveBusted = false;
+            }
 
             if (Player1.Playing && Player1.FinalHandAmount != 21)
             {
@@ -1608,6 +1620,7 @@ namespace BlackJack
                             {
                                 if (i == Blackjack_Slider_Players.Value - 1)
                                 {
+                                    ShowCard(players[i], 0, true, false);
                                     DealerTurn();
                                 }
                                 else
@@ -1628,6 +1641,7 @@ namespace BlackJack
                                                 {
                                                     if (!players[i + 4].Playing)
                                                     {
+                                                        ShowCard(players[i], 0, true, false);
                                                         DealerTurn();
                                                     }
                                                     else
@@ -1707,6 +1721,7 @@ namespace BlackJack
                                         }
                                     } catch (Exception ex)
                                     {
+                                        ShowCard(players[i], 0, true, false);
                                         DealerTurn();
                                     }
                                 }
@@ -1727,6 +1742,7 @@ namespace BlackJack
                                             {
                                                 if (!players[i + 4].Playing)
                                                 {
+                                                    ShowCard(players[i], 0, true, false);
                                                     DealerTurn();
                                                 }
                                                 else
@@ -1775,6 +1791,7 @@ namespace BlackJack
                                 }
                                 catch (Exception ex)
                                 {
+                                    ShowCard(players[i], 0, true, false);
                                     DealerTurn();
                                 }
                                 //end
@@ -1784,6 +1801,7 @@ namespace BlackJack
                         {
                             if (i == Blackjack_Slider_Players.Value - 1)
                             {
+                                ShowCard(players[i], 0, true, false);
                                 DealerTurn();
                             }
                             else
@@ -1884,6 +1902,7 @@ namespace BlackJack
                                 }
                                 catch (Exception ex)
                                 {
+                                    ShowCard(players[i], 0, true, false);
                                     DealerTurn();
                                 }
                             }
@@ -1980,13 +1999,14 @@ namespace BlackJack
             }
         }
 
-        private void Notify(string message, int time)
+        private void Notify(string message, int seconds)
         {
+            ClearNotify();
             Blackjack_Label_Notifications.Content = message;
-            if(time != 0)
+            if(seconds != 0)
             {
                 notificationTimer = new DispatcherTimer();
-                notificationTimer.Interval = TimeSpan.FromSeconds(time);
+                notificationTimer.Interval = TimeSpan.FromSeconds(seconds);
                 notificationTimer.Tick += NotifyTicked;
                 notificationTimer.Start();
             }
