@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BlackJack.User_Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
