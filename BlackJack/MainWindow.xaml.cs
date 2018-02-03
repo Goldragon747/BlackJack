@@ -1815,30 +1815,6 @@ namespace BlackJack
             }
         }
 
-        private void SetPanelToWheat(StackPanel p)
-        {
-            SolidColorBrush sb = new SolidColorBrush();
-            sb.Color = Colors.Wheat;
-            sb.Opacity = .2;
-            p.Background = sb;
-        }
-
-        private void ResetStackPanelBackgroundsToBlack()
-        {
-            SolidColorBrush sb = new SolidColorBrush();
-            sb.Color = Colors.Black;
-            sb.Opacity = .2;
-            //sb.Opacity = Blackjack_StackPanel_Player_1.IsEnabled ? .2 : .6;
-            Blackjack_StackPanel_Player_1.Background = sb;
-            //sb.Opacity = Blackjack_StackPanel_Player_2.IsEnabled ? .2 : .6;
-            Blackjack_StackPanel_Player_2.Background = sb;
-            //sb.Opacity = Blackjack_StackPanel_Player_3.IsEnabled ? .2 : .6;
-            Blackjack_StackPanel_Player_3.Background = sb;
-            //sb.Opacity = Blackjack_StackPanel_Player_4.IsEnabled ? .2 : .6;
-            Blackjack_StackPanel_Player_4.Background = sb;
-            //sb.Opacity = Blackjack_StackPanel_Player_5.IsEnabled ? .2 : .6;
-            Blackjack_StackPanel_Player_5.Background = sb;
-        }
         private void Notify(string message, int time)
         {
             Blackjack_Label_Notifications.Content = message;
@@ -1975,23 +1951,6 @@ namespace BlackJack
             Blackjack_StackPanel_Player_5.Background = sb;
         }
 
-        private void Notify(string message, int time)
-        {
-            Blackjack_Label_Notifications.Content = message;
-            if(time != 0)
-            {
-                notificationTimer = new DispatcherTimer();
-                notificationTimer.Interval = new TimeSpan(time * 10000);
-                notificationTimer.Tick += NotifyTicked;
-                notificationTimer.Start();
-            }
-        }
-
-        private void NotifyTicked(object sender, EventArgs e)
-        {
-            Blackjack_Label_Notifications.Content = " ";
-            notificationTimer.Stop();
-        }
 
     }
 }
