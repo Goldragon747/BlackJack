@@ -915,7 +915,7 @@ namespace BlackJack
                 Player1 = save.Player1;
                 Blackjack_Label_Player_1.Content = Player1.Name;
                 Blackjack_Label_Money_1.Content = Player1.Bank;
-                //Blackjack_Hand_Player_1.Content = Player1.Hand;
+                //Blackjack_Hand_Player_1.Content = ReLoadCards(Player1);
                 Player2 = save.Player2;
                 Blackjack_Label_Player_2.Content = Player2.Name;
                 Blackjack_Label_Money_2.Content = Player2.Bank;
@@ -939,11 +939,26 @@ namespace BlackJack
 
         }
         
+        /// <summary>
+        /// May need this method to reput the cards onto the gui 
+        /// I know this doesn't work the way i originally thought
+        /// </summary>
+        /// <param name="player"></param>
         public void ReLoadCards(Player player)
         {
             foreach (CardEnum card in player.Hand)
             {
-
+                for(int i = 0;  i < player.Hand.Count; i++)
+                {
+                    if(i == 0)
+                    {
+                        ShowCard(player, 0, true);
+                    }
+                    else
+                    {
+                        ShowCard(player, i, false);
+                    }
+                }
             }
         }
 
