@@ -112,7 +112,31 @@ namespace BlackJack
             Blackjack_StackPanel_Player_4.IsEnabled = false;
             Blackjack_StackPanel_Player_5.IsEnabled = false;
         }
-
+        /// <summary>
+        /// Clears all images when passed null using recursion.
+        /// </summary>
+        /// <param name="pc">Pass this null!</param>
+        private void ClearAllImages(User_Controls.PlayerHandsUserControl pc)
+        {
+            if(pc == null)
+            {
+                ClearAllImages(Blackjack_Hand_Dealer);
+                ClearAllImages(Blackjack_Hand_Player_1);
+                ClearAllImages(Blackjack_Hand_Player_2);
+                ClearAllImages(Blackjack_Hand_Player_3);
+                ClearAllImages(Blackjack_Hand_Player_4);
+                ClearAllImages(Blackjack_Hand_Player_5);
+            }
+            else
+            {
+                pc.slot1 = null;
+                pc.slot2 = null;
+                pc.slot3 = null;
+                pc.slot4 = null;
+                pc.slot5 = null;
+            }
+            
+        }
         public void ClearAllHands()
         {          
             Player1.Hand.Clear();
