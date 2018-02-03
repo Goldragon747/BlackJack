@@ -129,11 +129,11 @@ namespace BlackJack
             }
             else
             {
-                pc.slot1 = null;
-                pc.slot2 = null;
-                pc.slot3 = null;
-                pc.slot4 = null;
-                pc.slot5 = null;
+                pc.slot1 = new Image();
+                pc.slot2 = new Image();
+                pc.slot3 = new Image();
+                pc.slot4 = new Image();
+                pc.slot5 = new Image();
             }
             
         }
