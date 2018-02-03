@@ -160,26 +160,14 @@ namespace BlackJack
         /// Clears all images when passed null using recursion.
         /// </summary>
         /// <param name="pc">Pass this null!</param>
-        private void ClearAllImages(User_Controls.PlayerHandsUserControl pc)
+        private void ClearAllImages()
         {
-            if(pc == null)
-            {
-                ClearAllImages(Blackjack_Hand_Dealer);
-                ClearAllImages(Blackjack_Hand_Player_1);
-                ClearAllImages(Blackjack_Hand_Player_2);
-                ClearAllImages(Blackjack_Hand_Player_3);
-                ClearAllImages(Blackjack_Hand_Player_4);
-                ClearAllImages(Blackjack_Hand_Player_5);
-            }
-            else
-            {
-                pc.slot1 = new Image();
-                pc.slot2 = new Image();
-                pc.slot3 = new Image();
-                pc.slot4 = new Image();
-                pc.slot5 = new Image();
-            }
-            
+            Blackjack_Hand_Dealer.Initialize();
+            Blackjack_Hand_Player_1.Initialize();
+            Blackjack_Hand_Player_2.Initialize();
+            Blackjack_Hand_Player_3.Initialize();
+            Blackjack_Hand_Player_4.Initialize();
+            Blackjack_Hand_Player_5.Initialize();
         }
         public void ClearAllHands()
         {          
@@ -327,10 +315,12 @@ namespace BlackJack
             if (p.FinalHandAmount > 21)
             {
                 p.HaveBusted = true;
+                Notify("Busted!", 3);
             }    
             if(p.FinalSplitAmount > 21)
             {
                 p.SplitHasBusted = true;
+                Notify("Busted!", 3);
             }
         }
         /// <summary>
@@ -1656,7 +1646,7 @@ namespace BlackJack
             if(time != 0)
             {
                 notificationTimer = new DispatcherTimer();
-                notificationTimer.Interval = new TimeSpan(time * 1000);
+                notificationTimer.Interval = new TimeSpan(time * 10000);
                 notificationTimer.Tick += NotifyTicked;
                 notificationTimer.Start();
             }

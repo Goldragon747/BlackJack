@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BlackJack.User_Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -25,10 +25,10 @@
             <RowDefinition />
             <RowDefinition Height=".15*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="slot1" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />
-        <Image x:Name="slot2" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />
+        <!--<Image x:Name="slot1" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />-->
+        <!--<Image x:Name="slot2" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />
         <Image x:Name="slot3" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />
         <Image x:Name="slot4" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />
-        <Image x:Name="slot5" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />
+        <Image x:Name="slot5" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" />-->
     </Grid>
 </UserControl>
