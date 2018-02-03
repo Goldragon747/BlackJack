@@ -372,11 +372,12 @@ namespace BlackJack
             RestartRound();
         }
         public void RestartRound()
-        {         
-            ClearAllHands();
+        {                    
             PayoutAfterRound();
-            StartBettingPhase();
-            ShowAllCards(false);
+            ClearAllHands();
+            ClearAllImages(null);
+            //StartBettingPhase();
+            //ShowAllCards(false);
         }
         /// <summary>
         /// Gets the image of the card in the player's hand at the index passed in.
@@ -1206,11 +1207,11 @@ namespace BlackJack
                 {
                     if(i == 0)
                     {
-                        ShowCard(player, 0, true);
+                        ShowCard(player, 0, true, false);
                     }
                     else
                     {
-                        ShowCard(player, i, false);
+                        ShowCard(player, i, false, false);
                     }
                 }
             }
