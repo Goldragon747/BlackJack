@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:BlackJack"
         xmlns:uc1="clr-namespace:BlackJack.User_Controls"
         mc:Ignorable="d"
-        Title="Card Games!" Height="350" Width="525" WindowState="Maximized" ResizeMode="NoResize">
+        Title="Card Games!" Height="350" Width="525" WindowState="Maximized" >
+    <!--ResizeMode="NoResize"-->
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background">

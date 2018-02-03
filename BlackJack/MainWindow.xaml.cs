@@ -390,7 +390,10 @@ namespace BlackJack
         /// </summary>
         public void DealerTurn()
         {
-           
+            Blackjack_Button_Hit.IsEnabled = false;
+            Blackjack_Button_Stay.IsEnabled = false;
+            Blackjack_Button_Split.IsEnabled = false;
+            ShowCard(Dealer, 0, false, false);
             while(Dealer.FinalHandAmount < 17 && Dealer.FinalHandAmount <= 21)
             {
                 DetermineHandValue(Dealer);
@@ -1178,6 +1181,7 @@ namespace BlackJack
                     Blackjack_Button_Split.IsEnabled = true;
                 }
                 SetPanelToWheat(Blackjack_StackPanel_Player_1);
+                Blackjack_Hand_Player_1.IsEnabled = true;
                 Blackjack_StackPanel_Player_1.IsEnabled = true;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
@@ -1193,6 +1197,7 @@ namespace BlackJack
                 SetPanelToWheat(Blackjack_StackPanel_Player_2);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = true;
+                Blackjack_Hand_Player_2.IsEnabled = true;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
@@ -1207,6 +1212,7 @@ namespace BlackJack
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = true;
+                Blackjack_Hand_Player_3.IsEnabled = true;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
@@ -1221,6 +1227,7 @@ namespace BlackJack
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = true;
+                Blackjack_Hand_Player_4.IsEnabled = true;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
             else if (Player5.Playing && Player5.FinalHandAmount != 21)
@@ -1235,6 +1242,7 @@ namespace BlackJack
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = true;
+                Blackjack_Hand_Player_5.IsEnabled = true;
             }
             ShowAllCards(false);
         }
@@ -1523,7 +1531,6 @@ namespace BlackJack
                             {
                                 if (i == Blackjack_Slider_Players.Value - 1)
                                 {
-                                    Blackjack_Button_Split.IsEnabled = false;
                                     DealerTurn();
                                 }
                                 else
@@ -1544,7 +1551,6 @@ namespace BlackJack
                                                 {
                                                     if (!players[i + 4].Playing)
                                                     {
-                                                        Blackjack_Button_Split.IsEnabled = false;
                                                         DealerTurn();
                                                     }
                                                     else
@@ -1624,7 +1630,6 @@ namespace BlackJack
                                         }
                                     } catch (Exception ex)
                                     {
-                                        Blackjack_Button_Split.IsEnabled = false;
                                         DealerTurn();
                                     }
                                 }
@@ -1693,7 +1698,6 @@ namespace BlackJack
                                 }
                                 catch (Exception ex)
                                 {
-                                    Blackjack_Button_Split.IsEnabled = false;
                                     DealerTurn();
                                 }
                                 //end
@@ -1703,7 +1707,6 @@ namespace BlackJack
                         {
                             if (i == Blackjack_Slider_Players.Value - 1)
                             {
-                                Blackjack_Button_Split.IsEnabled = false;
                                 DealerTurn();
                             }
                             else
@@ -1724,7 +1727,6 @@ namespace BlackJack
                                             {
                                                 if (!players[i + 4].Playing)
                                                 {
-                                                    Blackjack_Button_Split.IsEnabled = false;
                                                     DealerTurn();
                                                 }
                                                 else
@@ -1805,7 +1807,6 @@ namespace BlackJack
                                 }
                                 catch (Exception ex)
                                 {
-                                    Blackjack_Button_Split.IsEnabled = false;
                                     DealerTurn();
                                 }
                             }
