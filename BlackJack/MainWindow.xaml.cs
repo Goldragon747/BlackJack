@@ -410,7 +410,7 @@ namespace BlackJack
             Blackjack_Button_Hit.IsEnabled = false;
             PayoutAfterRound();
             ClearAllHands();
-            ClearAllImages(null);
+            ClearAllImages();
             StartBettingPhase();
             //ShowAllCards(false);
         }
