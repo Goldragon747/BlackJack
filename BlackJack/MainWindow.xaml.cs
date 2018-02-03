@@ -640,6 +640,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_1.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_2);
                     if(!Player2.Playing)
                     {
                         if(!Player3.Playing)
@@ -695,6 +697,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_2.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_3);
                     if (!Player3.Playing)
                     {
                         if (!Player4.Playing)
@@ -743,6 +747,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_3.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_4);
                     if (!Player4.Playing)
                     {
                         if (!Player5.Playing)
@@ -784,6 +790,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_4.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_5);
                     if (!Player5.Playing)
                     {
                         Blackjack_StackPanel_Player_5.IsEnabled = false;
@@ -818,6 +826,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_1);
                     ChangeBidVisibilites();
                     break;
             }
@@ -1080,20 +1090,14 @@ namespace BlackJack
                                 }
                                 else
                                 {
-                                    SolidColorBrush sb = new SolidColorBrush();
-                                    sb.Color = Colors.Black;
-                                    sb.Opacity = .2;
-                                    stackPanels[i].Background = sb;
-                                    
-
+                                    ResetStackPanelBackgroundsToBlack();
                                     stackPanels[i].IsEnabled = false;
                                     userControls[i * 2].IsEnabled = false;
                                     stackPanels[i + 1].IsEnabled = true;
                                     userControls[(i + 1)* 2].IsEnabled = true;
                                     switchTurn = true;
                                     //show turn progression here
-                                    sb.Color = Colors.Wheat;
-                                    stackPanels[i + 1].Background = sb;
+                                    SetPanelToWheat(stackPanels[i + 1]);
                                 }
                             }
                             else
@@ -1111,25 +1115,37 @@ namespace BlackJack
                             }
                             else
                             {
-                                SolidColorBrush sb = new SolidColorBrush();
-                                sb.Color = Colors.Black;
-                                sb.Opacity = .2;
-                                stackPanels[i].Background = sb;
-                                
-
+                                ResetStackPanelBackgroundsToBlack();
                                 stackPanels[i].IsEnabled = false;
                                 userControls[i * 2].IsEnabled = false;
                                 stackPanels[i + 1].IsEnabled = true;
                                 userControls[(i + 1) * 2].IsEnabled = true;
                                 switchTurn = true;
                                 //show turn progression here
-                                sb.Color = Colors.Wheat;
-                                stackPanels[i + 1].Background = sb;
+                                SetPanelToWheat(stackPanels[i + 1]);
                             }
                         }
                     }
                 }
             }
+        }
+        private void SetPanelToWheat(StackPanel p)
+        {
+            SolidColorBrush sb = new SolidColorBrush();
+            sb.Color = Colors.Wheat;
+            sb.Opacity = .2;
+            p.Background = sb;
+        }
+        private void ResetStackPanelBackgroundsToBlack()
+        {
+            SolidColorBrush sb = new SolidColorBrush();
+            sb.Color = Colors.Black;
+            sb.Opacity = .2;
+            Blackjack_StackPanel_Player_1.Background = sb;
+            Blackjack_StackPanel_Player_2.Background = sb;
+            Blackjack_StackPanel_Player_3.Background = sb;
+            Blackjack_StackPanel_Player_4.Background = sb;
+            Blackjack_StackPanel_Player_5.Background = sb;
         }
 
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
