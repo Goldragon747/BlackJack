@@ -1336,13 +1336,21 @@ namespace BlackJack
                 Blackjack_Label_Player_1.Content = Player1.Name;
                 Blackjack_Label_Money_1.Content = Player1.Bank;
                 Blackjack_Hand_Player_1.Slot1 = loadedcards[0];
+                Blackjack_StackPanel_Bids_1.Visibility = Visibility.Collapsed;
+                Blackjack_Hand_Player_1.Visibility = Visibility.Visible;
+                Blackjack_Hand_Split_Player_1.Visibility = Visibility.Visible;
+                Blackjack_Button_Hit.IsEnabled = true;
+                Blackjack_Button_Stay.IsEnabled = true;
                 Player2 = save.Player2;
                 if(Player2.Playing == true)
                 {
                     loadedcards = ReLoadCards(Player2);
                     Blackjack_Label_Player_2.Content = Player2.Name;
                     Blackjack_Label_Money_2.Content = Player2.Bank;
-                    Blackjack_Hand_Player_1.Slot2 = loadedcards[0];
+                    Blackjack_Hand_Player_2.Slot1 = loadedcards[0];
+                    Blackjack_StackPanel_Bids_2.Visibility = Visibility.Collapsed;
+                    Blackjack_Hand_Player_2.Visibility = Visibility.Visible;
+                    Blackjack_Hand_Split_Player_2.Visibility = Visibility.Visible;
                 }
                 Player3 = save.Player3;
                 if (Player3.Playing == true)
@@ -1350,7 +1358,10 @@ namespace BlackJack
                     loadedcards = ReLoadCards(Player3);
                     Blackjack_Label_Player_3.Content = Player3.Name;
                     Blackjack_Label_Money_3.Content = Player3.Bank;
-                    Blackjack_Hand_Player_1.Slot3 = loadedcards[0];
+                    Blackjack_Hand_Player_3.Slot1 = loadedcards[0];
+                    Blackjack_StackPanel_Bids_3.Visibility = Visibility.Collapsed;
+                    Blackjack_Hand_Player_3.Visibility = Visibility.Visible;
+                    Blackjack_Hand_Split_Player_3.Visibility = Visibility.Visible;
                 }
                 Player4 = save.Player4;
                 if (Player4.Playing == true)
@@ -1358,7 +1369,10 @@ namespace BlackJack
                     loadedcards = ReLoadCards(Player4);
                     Blackjack_Label_Player_4.Content = Player4.Name;
                     Blackjack_Label_Money_4.Content = Player4.Bank;
-                    Blackjack_Hand_Player_1.Slot4 = loadedcards[0];
+                    Blackjack_Hand_Player_5.Slot1 = loadedcards[0];
+                    Blackjack_StackPanel_Bids_4.Visibility = Visibility.Collapsed;
+                    Blackjack_Hand_Player_4.Visibility = Visibility.Visible;
+                    Blackjack_Hand_Split_Player_4.Visibility = Visibility.Visible;
                 }
                 Player5 = save.Player5;
                 if (Player5.Playing == true)
@@ -1366,7 +1380,10 @@ namespace BlackJack
                     loadedcards = ReLoadCards(Player5);
                     Blackjack_Label_Player_5.Content = Player5.Name;
                     Blackjack_Label_Money_5.Content = Player5.Bank;
-                    Blackjack_Hand_Player_1.Slot5 = loadedcards[0];
+                    Blackjack_Hand_Player_5.Slot1 = loadedcards[0];
+                    Blackjack_StackPanel_Bids_5.Visibility = Visibility.Collapsed;
+                    Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
+                    Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
                 }
                 Dealer = save.Dealer;
                 loadedcards = ReLoadCards(Dealer);
