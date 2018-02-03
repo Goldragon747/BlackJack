@@ -230,7 +230,7 @@ namespace BlackJack
                 Player4,
                 Player5
             };
-            string payoutString = "Player payouts: ";
+            string payoutString = "Round Over! Payouts: ";
             for(int i=0;i<Blackjack_Slider_Players.Value;i++)
             {
                 if (players[i].FinalHandAmount > 21) { }
@@ -264,7 +264,11 @@ namespace BlackJack
                     payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
             }
-            Notify(payoutString, 10);
+            if (payoutString.Length == 21)
+                payoutString += "none.";
+            else
+                payoutString.TrimEnd(new char[] { ' ', ',' });
+            Notify(payoutString, 18);
         }
 
         public void DrawCard(Player player, bool isSplitHand)
@@ -1959,13 +1963,14 @@ namespace BlackJack
             }
         }
 
-        private void Notify(string message, int time)
+        private void Notify(string message, int seconds)
         {
+            ClearNotify();
             Blackjack_Label_Notifications.Content = message;
-            if(time != 0)
+            if(seconds != 0)
             {
                 notificationTimer = new DispatcherTimer();
-                notificationTimer.Interval = TimeSpan.FromSeconds(time);
+                notificationTimer.Interval = TimeSpan.FromSeconds(seconds);
                 notificationTimer.Tick += NotifyTicked;
                 notificationTimer.Start();
             }
