@@ -1307,29 +1307,55 @@ namespace BlackJack
             }
 
         }
-        
+
         /// <summary>
         /// May need this method to reput the cards onto the gui 
         /// I know this doesn't work the way i originally thought
         /// </summary>
         /// <param name="player"></param>
-        public void ReLoadCards(Player player)
+        public List<BitmapImage> ReLoadCards(Player player)
         {
-            foreach (CardEnum card in player.Hand)
+            List<BitmapImage> sadcards = new List<BitmapImage>();
+            if (!player.HasSplit)
             {
-                for(int i = 0;  i < player.Hand.Count; i++)
+                foreach (CardEnum card in player.Hand)
                 {
-                    if(i == 0)
+
+                    for (int i = 0; i < player.Hand.Count; i++)
                     {
-                        ShowCard(player, 0, true, false);
-                    }
-                    else
-                    {
-                        ShowCard(player, i, false, false);
+                        if (i == 0)
+                        {
+                            ShowCard(player, i, true, player.HasSplit);
+                        }
+                        else
+                        {
+                            ShowCard(player, i, false, player.HasSplit);
+                        }
                     }
                 }
             }
+            else
+            {
+                foreach (CardEnum card in player.SplitHand)
+                {
+
+                    for (int i = 0; i < player.SplitHand.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            ShowCard(player, i, true, player.HasSplit);
+                        }
+                        else
+                        {
+                            ShowCard(player, i, false, player.HasSplit);
+                        }
+                    }
+                }
+            }
+            return sadcards;
+
         }
+
 
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
         {
