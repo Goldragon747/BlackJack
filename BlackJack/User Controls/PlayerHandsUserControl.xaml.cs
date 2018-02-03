@@ -92,7 +92,7 @@ namespace BlackJack.User_Controls
             Grid.SetRowSpan(i4, 2);
             Grid.SetColumnSpan(i4, 4);
 
-            Grid.SetColumn(i5, 0);
+            Grid.SetColumn(i5, 4);
             Grid.SetRow(i5, 1);
             Grid.SetRowSpan(i5, 2);
             Grid.SetColumnSpan(i5, 4);

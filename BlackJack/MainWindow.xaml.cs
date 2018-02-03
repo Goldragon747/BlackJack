@@ -404,12 +404,12 @@ namespace BlackJack
                 DrawCard(Dealer, false);
                 DetermineHandValue(Dealer);
             }
+            Blackjack_Button_Hit.IsEnabled = false;
+            PayoutAfterRound();
             DelayRoundStart(8);
         }
         public void RestartRound()
         {
-            Blackjack_Button_Hit.IsEnabled = false;
-            PayoutAfterRound();
             ClearAllHands();
             ClearAllImages();
             StartBettingPhase();
@@ -1760,11 +1760,20 @@ namespace BlackJack
         }
         private void NotifyTicked(object sender, EventArgs e)
         {
-            Blackjack_Label_Notifications.Content = " ";
-            notificationTimer.Stop();
+            ClearNotify();
+        }
+        private void ClearNotify()
+        {
+            if(notificationTimer != null)
+            {
+                Blackjack_Label_Notifications.Content = " ";
+                notificationTimer.Stop();
+                notificationTimer.Tick -= NotifyTicked;
+            }
         }
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
+            ClearNotify();
             List<StackPanel> stackPanels = new List<StackPanel>()
             {
                 Blackjack_StackPanel_Player_1,
