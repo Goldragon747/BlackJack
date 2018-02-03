@@ -93,8 +93,6 @@ namespace BlackJack
         /// </summary>
         public void StartBettingPhase()
         {
-            ClearAllHands();
-            ShowAllCards();
             Blackjack_Hand_Player_1.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_2.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_3.Visibility = Visibility.Collapsed;
@@ -113,8 +111,7 @@ namespace BlackJack
         }
 
         public void ClearAllHands()
-        {
-            
+        {          
             Player1.Hand.Clear();
             Player2.Hand.Clear();
             Player3.Hand.Clear();
@@ -125,9 +122,14 @@ namespace BlackJack
             Player3.SplitHand.Clear();
             Player4.SplitHand.Clear();
             Player5.SplitHand.Clear();
-            
+            Dealer.Hand.Clear();
+            Dealer.SplitHand.Clear();
         }
-
+        //public void RefillDeck()
+        //{
+        //    Deck.Clear();
+        //    Deck = Enum.GetNames(typeof(CardEnum)).ToList();
+        //}
         /// <summary>
         /// Checks if any player has less that -$50, and takes them out if so
         /// </summary>
@@ -340,11 +342,17 @@ namespace BlackJack
                 DrawCard(Dealer, false);
                 DetermineHandValue(Dealer);
             }
-            ShowCard(Dealer, 0, false, false);
+            restartRound();
+        }
+        public void restartRound()
+        {
+            //ShowCard(Dealer, 0, false, false);
+           
+            ClearAllHands();
             PayoutAfterRound();
             StartBettingPhase();
+            ShowAllCards(false);
         }
-
         /// <summary>
         /// Gets the image of the card in the player's hand at the index passed in.
         /// Gets the CardBack image if isFirstCard is true
