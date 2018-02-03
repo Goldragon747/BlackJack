@@ -416,11 +416,12 @@ namespace BlackJack
             RestartRound();
         }
         public void RestartRound()
-        {                    
+        {
+            Blackjack_Button_Hit.IsEnabled = false;
             PayoutAfterRound();
             ClearAllHands();
             ClearAllImages(null);
-            //StartBettingPhase();
+            StartBettingPhase();
             //ShowAllCards(false);
         }
         /// <summary>
