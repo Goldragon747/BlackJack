@@ -488,28 +488,28 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_1.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                     }
                 }
@@ -549,28 +549,28 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_2.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_2.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_2.Slot1 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_2.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_2.Slot2 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_2.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_2.Slot3 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_2.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_2.Slot4 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_2.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_2.Slot5 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                     }
                 }
@@ -610,28 +610,28 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_3.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_3.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_3.Slot1 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_3.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_3.Slot2 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_3.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_3.Slot3 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_3.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_3.Slot4 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_3.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_3.Slot5 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                     }
                 }
@@ -671,28 +671,28 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_4.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_4.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_4.Slot1 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_4.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_4.Slot2 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_4.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_4.Slot3 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_4.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_4.Slot4 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_4.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_4.Slot5 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                     }
                 }
@@ -732,28 +732,28 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_5.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_5.Slot1 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_5.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_5.Slot2 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_5.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_5.Slot3 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_5.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_5.Slot4 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
-                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                            Blackjack_Hand_Split_Player_5.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                            image = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
+                            Blackjack_Hand_Split_Player_5.Slot5 = new BitmapImage(new Uri($"../Images/{player.SplitHand[index]}.png", UriKind.Relative));
                         }
                     }
                 }
@@ -1580,7 +1580,7 @@ namespace BlackJack
                 Blackjack_StackPanel_Player_4,
                 Blackjack_StackPanel_Player_5
             };
-            List<UserControl> userControls = new List<UserControl>()
+            List<User_Controls.PlayerHandsUserControl> userControls = new List<User_Controls.PlayerHandsUserControl>()
             {
                 Blackjack_Hand_Player_1,
                 Blackjack_Hand_Split_Player_1,
@@ -1608,6 +1608,8 @@ namespace BlackJack
                 {
                     players[i].SplitHand.Add(players[i].Hand[1]);
                     players[i].Hand.RemoveAt(1);
+                    userControls[(i * 2)].ReinitializeSlot2();
+                    ShowCard(players[i], 0, false, true);
                 }
             }
         }

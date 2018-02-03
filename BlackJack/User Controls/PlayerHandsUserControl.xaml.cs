@@ -97,5 +97,15 @@ namespace BlackJack.User_Controls
             Grid.SetRowSpan(i5, 2);
             Grid.SetColumnSpan(i5, 4);
         }
+        public void ReinitializeSlot2()
+        {
+            MainGrid.Children.Remove(i2);
+            i2 = new Image();
+            MainGrid.Children.Add(i2);
+            Grid.SetColumn(i2, 1);
+            Grid.SetRow(i2, 1);
+            Grid.SetRowSpan(i2, 2);
+            Grid.SetColumnSpan(i2, 4);
+        }
     }
 }
