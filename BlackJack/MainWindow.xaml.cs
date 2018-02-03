@@ -994,7 +994,6 @@ namespace BlackJack
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;
                     ResetStackPanelBackgroundsToBlack();
-                    SetPanelToWheat(Blackjack_StackPanel_Player_1);
                     ChangeBidVisibilites();
                     break;
             }
@@ -1027,40 +1026,51 @@ namespace BlackJack
             Blackjack_Button_Hit.IsEnabled = true;
             Blackjack_Button_Stay.IsEnabled = true;
 
-            if(Player1.Playing)
+            DetermineHandValue(Player1);
+            DetermineHandValue(Player2);
+            DetermineHandValue(Player3);
+            DetermineHandValue(Player4);
+            DetermineHandValue(Player5);
+
+            if (Player1.Playing && Player1.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_1);
                 Blackjack_StackPanel_Player_1.IsEnabled = true;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player2.Playing)
+            else if (Player2.Playing && Player2.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_2);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = true;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player3.Playing)
+            else if (Player3.Playing && Player3.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_3);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = true;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player4.Playing)
+            else if (Player4.Playing && Player4.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_4);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = true;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player5.Playing)
+            else if (Player5.Playing && Player5.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_5);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
