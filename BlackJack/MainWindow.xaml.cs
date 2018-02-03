@@ -1014,6 +1014,7 @@ namespace BlackJack
                     break;
             }
         }
+
         public bool PlayerHasSplit(Player p)
         {
             return (p.Hand.Count == 2) && (
@@ -1101,7 +1102,10 @@ namespace BlackJack
                                 {
                                     ResetStackPanelBackgroundsToBlack();
                                     
-                                    //flip back in not busted
+                                    if(players[i].FinalHandAmount <= 21)
+                                    {
+                                        ShowCard(players[i], 0, true);
+                                    }
                                     stackPanels[i].IsEnabled = false;
                                     userControls[i * 2].IsEnabled = false;
                                     stackPanels[i + 1].IsEnabled = true;
@@ -1130,7 +1134,10 @@ namespace BlackJack
                             {
                                 ResetStackPanelBackgroundsToBlack();
 
-                                //flip back in not busted
+                                if (players[i].FinalHandAmount <= 21)
+                                {
+                                    ShowCard(players[i], 0, true);
+                                }
                                 stackPanels[i].IsEnabled = false;
                                 userControls[i * 2].IsEnabled = false;
                                 stackPanels[i + 1].IsEnabled = true;
@@ -1145,6 +1152,7 @@ namespace BlackJack
                 }
             }
         }
+
         private void SetPanelToWheat(StackPanel p)
         {
             SolidColorBrush sb = new SolidColorBrush();
@@ -1152,6 +1160,7 @@ namespace BlackJack
             sb.Opacity = .2;
             p.Background = sb;
         }
+
         private void ResetStackPanelBackgroundsToBlack()
         {
             SolidColorBrush sb = new SolidColorBrush();
@@ -1218,6 +1227,11 @@ namespace BlackJack
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
+                            else if(players[i].FinalHandAmount == 21)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
                         }
                         else
                         {
@@ -1230,6 +1244,11 @@ namespace BlackJack
                                 playerBusted = true;
                             }
                             else if (players[i].SplitHand.Count() == 5)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
+                            else if(players[i].FinalSplitAmount == 21)
                             {
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
