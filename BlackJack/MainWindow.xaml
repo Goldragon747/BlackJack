@@ -86,6 +86,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Label x:Name="Blackjack_Label_Notifications" Foreground="White" FontSize="25" Content="Default Test Text" Grid.Row="1" Grid.Column="2"/>
             <Border Grid.Column="0" BorderThickness="4" BorderBrush="Black">
                 <Grid x:Name="Blackjack_Grid_House">
                     <Label HorizontalAlignment="Center" Foreground="White" FontSize="18">HOUSE</Label>
