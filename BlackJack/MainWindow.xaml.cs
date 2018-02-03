@@ -93,6 +93,8 @@ namespace BlackJack
         /// </summary>
         public void StartBettingPhase()
         {
+            ClearAllHands();
+            
             Blackjack_Hand_Player_1.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_2.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_3.Visibility = Visibility.Collapsed;
@@ -108,6 +110,22 @@ namespace BlackJack
             Blackjack_StackPanel_Player_3.IsEnabled = false;
             Blackjack_StackPanel_Player_4.IsEnabled = false;
             Blackjack_StackPanel_Player_5.IsEnabled = false;
+        }
+
+        public void ClearAllHands()
+        {
+            
+            Player1.Hand.Clear();
+            Player2.Hand.Clear();
+            Player3.Hand.Clear();
+            Player4.Hand.Clear();
+            Player5.Hand.Clear();
+            Player1.SplitHand.Clear();
+            Player2.SplitHand.Clear();
+            Player3.SplitHand.Clear();
+            Player4.SplitHand.Clear();
+            Player5.SplitHand.Clear();
+            
         }
 
         /// <summary>
@@ -319,7 +337,9 @@ namespace BlackJack
                 DrawCard(Dealer);
                 DetermineHandValue(Dealer);
             }
+            ShowCard(Dealer, 0, false);
             PayoutAfterRound();
+            StartBettingPhase();
         }
 
         /// <summary>
