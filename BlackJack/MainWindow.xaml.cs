@@ -1157,10 +1157,15 @@ namespace BlackJack
             SolidColorBrush sb = new SolidColorBrush();
             sb.Color = Colors.Black;
             sb.Opacity = .2;
+            //sb.Opacity = Blackjack_StackPanel_Player_1.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_1.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_2.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_2.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_3.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_3.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_4.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_4.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_5.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_5.Background = sb;
         }
 
