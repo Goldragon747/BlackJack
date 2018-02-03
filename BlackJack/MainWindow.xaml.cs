@@ -229,11 +229,14 @@ namespace BlackJack
             };
             for(int i = 0; i < Blackjack_Slider_Players.Value + 1; i++)
             {
-                DrawCard(players[i]);
-                DrawCard(players[i]);
-                ShowCard(players[i], 0, true); //change back
-                ShowCard(players[i], 1, false);
-                DetermineHandValue(players[i]);
+                if(players[i].Playing)
+                {
+                    DrawCard(players[i], false);
+                    DrawCard(players[i], false);
+                    ShowCard(players[i], 0, true, false);
+                    ShowCard(players[i], 1, false, false);
+                    DetermineHandValue(players[i]);
+                }
             }
         }
         /// <summary>
@@ -1024,12 +1027,46 @@ namespace BlackJack
             Blackjack_Button_Hit.IsEnabled = true;
             Blackjack_Button_Stay.IsEnabled = true;
 
-            Blackjack_StackPanel_Player_1.IsEnabled = true;
-            Blackjack_StackPanel_Player_2.IsEnabled = false;
-            Blackjack_StackPanel_Player_3.IsEnabled = false;
-            Blackjack_StackPanel_Player_4.IsEnabled = false;
-            Blackjack_StackPanel_Player_5.IsEnabled = false;
-
+            if(Player1.Playing)
+            {
+                Blackjack_StackPanel_Player_1.IsEnabled = true;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player2.Playing)
+            {
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = true;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player3.Playing)
+            {
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = true;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player4.Playing)
+            {
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = true;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player5.Playing)
+            {
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = true;
+            }
             ShowAllCards();
         }
 
