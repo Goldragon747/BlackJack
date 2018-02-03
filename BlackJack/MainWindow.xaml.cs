@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace BlackJack
 {
@@ -34,6 +36,7 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
+        private DispatcherTimer notificationTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -1378,7 +1381,22 @@ namespace BlackJack
             //sb.Opacity = Blackjack_StackPanel_Player_5.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_5.Background = sb;
         }
-
+        private void Notify(string message, int time)
+        {
+            Blackjack_Label_Notifications.Content = message;
+            if(time != 0)
+            {
+                notificationTimer = new DispatcherTimer();
+                notificationTimer.Interval = new TimeSpan(time * 1000);
+                notificationTimer.Tick += NotifyTicked;
+                notificationTimer.Start();
+            }
+        }
+        private void NotifyTicked(object sender, EventArgs e)
+        {
+            Blackjack_Label_Notifications.Content = " ";
+            notificationTimer.Stop();
+        }
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
             List<StackPanel> stackPanels = new List<StackPanel>()
