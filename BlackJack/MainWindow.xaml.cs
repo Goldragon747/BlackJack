@@ -1325,24 +1325,41 @@ namespace BlackJack
                 Blackjack_Label_Money_1.Content = Player1.Bank;
                 Blackjack_Hand_Player_1.Slot1 = loadedcards[0];
                 Player2 = save.Player2;
-                loadedcards = ReLoadCards(Player2);
-                Blackjack_Label_Player_2.Content = Player2.Name;
-                Blackjack_Label_Money_2.Content = Player2.Bank;
-                Blackjack_Hand_Player_1.Slot2 = loadedcards[0];
-                //Player3 = save.Player3;
-                //Blackjack_Label_Player_3.Content = Player3.Name;
-                //Blackjack_Label_Money_3.Content = Player3.Bank;
-                //Blackjack_Hand_Player_1.Slot3 = ReLoadCards(Player3);
-                //Player4 = save.Player4;
-                //Blackjack_Label_Player_4.Content = Player4.Name;
-                //Blackjack_Label_Money_4.Content = Player4.Bank;
-                //Blackjack_Hand_Player_1.Slot4 = ReLoadCards(Player4);
-                //Player5 = save.Player5;
-                //Blackjack_Label_Player_5.Content = Player5.Name;
-                //Blackjack_Label_Money_5.Content = Player5.Bank;
-                //Blackjack_Hand_Player_1.Slot5 = ReLoadCards(Player5);
-                //Dealer = save.Dealer;
-                //Deck = save.Deck;
+                if(Player2.Playing == true)
+                {
+                    loadedcards = ReLoadCards(Player2);
+                    Blackjack_Label_Player_2.Content = Player2.Name;
+                    Blackjack_Label_Money_2.Content = Player2.Bank;
+                    Blackjack_Hand_Player_1.Slot2 = loadedcards[0];
+                }
+                Player3 = save.Player3;
+                if (Player3.Playing == true)
+                {
+                    loadedcards = ReLoadCards(Player3);
+                    Blackjack_Label_Player_3.Content = Player3.Name;
+                    Blackjack_Label_Money_3.Content = Player3.Bank;
+                    Blackjack_Hand_Player_1.Slot3 = loadedcards[0];
+                }
+                Player4 = save.Player4;
+                if (Player4.Playing == true)
+                {
+                    loadedcards = ReLoadCards(Player4);
+                    Blackjack_Label_Player_4.Content = Player4.Name;
+                    Blackjack_Label_Money_4.Content = Player4.Bank;
+                    Blackjack_Hand_Player_1.Slot4 = loadedcards[0];
+                }
+                Player5 = save.Player5;
+                if (Player5.Playing == true)
+                {
+                    loadedcards = ReLoadCards(Player5);
+                    Blackjack_Label_Player_5.Content = Player5.Name;
+                    Blackjack_Label_Money_5.Content = Player5.Bank;
+                    Blackjack_Hand_Player_1.Slot5 = loadedcards[0];
+                }
+                Dealer = save.Dealer;
+                loadedcards = ReLoadCards(Dealer);
+                //Blackjack_Hand_Dealer = loadedcards[0];
+                Deck = save.Deck;
 
             }
 
