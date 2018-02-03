@@ -94,7 +94,7 @@ namespace BlackJack
         public void StartBettingPhase()
         {
             ClearAllHands();
-            
+            ShowAllCards();
             Blackjack_Hand_Player_1.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_2.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_3.Visibility = Visibility.Collapsed;
