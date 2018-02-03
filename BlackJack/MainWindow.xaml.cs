@@ -222,6 +222,10 @@ namespace BlackJack
         public void PayoutAfterRound()
         {
             bool dealerBusted = false;
+            if(Dealer.FinalHandAmount > 21)
+            {
+                dealerBusted = true;
+            }
             List<Player> players = new List<Player>()
             {
                 Player1,
@@ -234,18 +238,19 @@ namespace BlackJack
             for(int i=0;i<Blackjack_Slider_Players.Value;i++)
             {
                 if (players[i].FinalHandAmount > 21) { }
-                else if(Dealer.Hand.Count() == 5 && players[i].Hand.Count() != 5) { }
-                else if(Dealer.Hand.Count() == 5 && players[i].Hand.Count() == 5)
+                else if(Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() != 5) { }
+                else if(Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22)
                 {
                     players[i].Bank = players[i].Bank + players[i].Bet;
                 }
-                else if (players[i].Hand.Count() == 5 && Dealer.Hand.Count() != 5)
+                else if (players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22 && Dealer.Hand.Count() != 5)
                 {
                     int newAmount = (players[i].Bet * 4);
                     players[i].Bank = players[i].Bank + newAmount;
                     payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
-                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 || (dealerBusted && players[i].FinalHandAmount != 21))
+                else if ((players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22) 
+                    || (dealerBusted && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22))
                 {
                     int newAmount = (players[i].Bet * 2);
                     players[i].Bank = players[i].Bank + newAmount;
@@ -1184,17 +1189,20 @@ namespace BlackJack
             Blackjack_Button_Hit.IsEnabled = true;
             Blackjack_Button_Stay.IsEnabled = true;
 
-            DetermineHandValue(Player1);
-            DetermineHandValue(Player2);
-            DetermineHandValue(Player3);
-            DetermineHandValue(Player4);
-            DetermineHandValue(Player5);
-
-            PlayerHasSplit(Player1);
-            PlayerHasSplit(Player2);
-            PlayerHasSplit(Player3);
-            PlayerHasSplit(Player4);
-            PlayerHasSplit(Player5);
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
+            {
+                DetermineHandValue(players[i]);
+                PlayerHasSplit(players[i]);
+                players[i].HaveBusted = false;
+            }
 
             if (Player1.Playing && Player1.FinalHandAmount != 21)
             {
@@ -1311,6 +1319,7 @@ namespace BlackJack
         /// <param name="e"></param>
         public void LoadGame_Click(object sender, RoutedEventArgs e)
         {
+            List<BitmapImage> loadedcards = new List<BitmapImage>();
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Filter = "blackjack files (*.blackjack)|*.blackjack";
             openFile.FilterIndex = 1;
@@ -1323,28 +1332,30 @@ namespace BlackJack
                 save = (SaveInformation)form.Deserialize(stream);
                 stream.Close();
                 Player1 = save.Player1;
+                loadedcards = ReLoadCards(Player1);
                 Blackjack_Label_Player_1.Content = Player1.Name;
                 Blackjack_Label_Money_1.Content = Player1.Bank;
-                //Blackjack_Hand_Player_1.Content = ReLoadCards(Player1);
+                Blackjack_Hand_Player_1.Slot1 = loadedcards[0];
                 Player2 = save.Player2;
+                loadedcards = ReLoadCards(Player2);
                 Blackjack_Label_Player_2.Content = Player2.Name;
                 Blackjack_Label_Money_2.Content = Player2.Bank;
-                //Blackjack_Hand_Player_2.Content = Player2.Hand;
-                Player3 = save.Player3;
-                Blackjack_Label_Player_3.Content = Player3.Name;
-                Blackjack_Label_Money_3.Content = Player3.Bank;
-                //Blackjack_Hand_Player_3.Content = Player3.Hand;
-                Player4 = save.Player4;
-                Blackjack_Label_Player_4.Content = Player4.Name;
-                Blackjack_Label_Money_4.Content = Player4.Bank;
-                //Blackjack_Hand_Player_4.Content = Player4.Hand;
-                Player5 = save.Player5;
-                Blackjack_Label_Player_5.Content = Player5.Name;
-                Blackjack_Label_Money_5.Content = Player5.Bank;
-                Blackjack_Hand_Player_5.Content = Player5.Hand;
-                Dealer = save.Dealer;
-                //Blackjack_Hand_Dealer.Content = Dealer.Hand;
-                Deck = save.Deck;
+                Blackjack_Hand_Player_1.Slot2 = loadedcards[0];
+                //Player3 = save.Player3;
+                //Blackjack_Label_Player_3.Content = Player3.Name;
+                //Blackjack_Label_Money_3.Content = Player3.Bank;
+                //Blackjack_Hand_Player_1.Slot3 = ReLoadCards(Player3);
+                //Player4 = save.Player4;
+                //Blackjack_Label_Player_4.Content = Player4.Name;
+                //Blackjack_Label_Money_4.Content = Player4.Bank;
+                //Blackjack_Hand_Player_1.Slot4 = ReLoadCards(Player4);
+                //Player5 = save.Player5;
+                //Blackjack_Label_Player_5.Content = Player5.Name;
+                //Blackjack_Label_Money_5.Content = Player5.Bank;
+                //Blackjack_Hand_Player_1.Slot5 = ReLoadCards(Player5);
+                //Dealer = save.Dealer;
+                //Deck = save.Deck;
+
             }
 
         }
@@ -1366,11 +1377,11 @@ namespace BlackJack
                     {
                         if (i == 0)
                         {
-                            ShowCard(player, i, true, player.HasSplit);
+                            sadcards.Add(ShowCard(player, i, true, player.HasSplit));
                         }
                         else
                         {
-                            ShowCard(player, i, false, player.HasSplit);
+                            sadcards.Add(ShowCard(player, i, false, player.HasSplit));
                         }
                     }
                 }
@@ -1384,16 +1395,17 @@ namespace BlackJack
                     {
                         if (i == 0)
                         {
-                            ShowCard(player, i, true, player.HasSplit);
+                            sadcards.Add(ShowCard(player, i, true, player.HasSplit));
                         }
                         else
                         {
-                            ShowCard(player, i, false, player.HasSplit);
+                            sadcards.Add(ShowCard(player, i, false, player.HasSplit));
                         }
                     }
                 }
             }
             return sadcards;
+
 
         }
 
@@ -1591,6 +1603,7 @@ namespace BlackJack
                             {
                                 if (i == Blackjack_Slider_Players.Value - 1)
                                 {
+                                    ShowCard(players[i], 0, true, false);
                                     DealerTurn();
                                 }
                                 else
@@ -1611,6 +1624,7 @@ namespace BlackJack
                                                 {
                                                     if (!players[i + 4].Playing)
                                                     {
+                                                        ShowCard(players[i], 0, true, false);
                                                         DealerTurn();
                                                     }
                                                     else
@@ -1690,6 +1704,7 @@ namespace BlackJack
                                         }
                                     } catch (Exception ex)
                                     {
+                                        ShowCard(players[i], 0, true, false);
                                         DealerTurn();
                                     }
                                 }
@@ -1710,6 +1725,7 @@ namespace BlackJack
                                             {
                                                 if (!players[i + 4].Playing)
                                                 {
+                                                    ShowCard(players[i], 0, true, false);
                                                     DealerTurn();
                                                 }
                                                 else
@@ -1758,6 +1774,7 @@ namespace BlackJack
                                 }
                                 catch (Exception ex)
                                 {
+                                    ShowCard(players[i], 0, true, false);
                                     DealerTurn();
                                 }
                                 //end
@@ -1767,6 +1784,7 @@ namespace BlackJack
                         {
                             if (i == Blackjack_Slider_Players.Value - 1)
                             {
+                                ShowCard(players[i], 0, true, false);
                                 DealerTurn();
                             }
                             else
@@ -1867,6 +1885,7 @@ namespace BlackJack
                                 }
                                 catch (Exception ex)
                                 {
+                                    ShowCard(players[i], 0, true, false);
                                     DealerTurn();
                                 }
                             }
