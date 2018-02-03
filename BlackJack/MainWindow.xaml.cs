@@ -345,12 +345,10 @@ namespace BlackJack
                 DrawCard(Dealer, false);
                 DetermineHandValue(Dealer);
             }
-            restartRound();
+            RestartRound();
         }
-        public void restartRound()
-        {
-            //ShowCard(Dealer, 0, false, false);
-           
+        public void RestartRound()
+        {         
             ClearAllHands();
             PayoutAfterRound();
             StartBettingPhase();
