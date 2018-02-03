@@ -230,6 +230,7 @@ namespace BlackJack
                 Player4,
                 Player5
             };
+            string payoutString = "Player payouts: ";
             for(int i=0;i<Blackjack_Slider_Players.Value;i++)
             {
                 if (players[i].FinalHandAmount > 21)
@@ -238,21 +239,30 @@ namespace BlackJack
                 }
                 else if (players[i].Hand.Count() == 5)
                 {
-                    players[i].Bank = players[i].Bank + (players[i].Bet * 4);
+                    int newAmount = (players[i].Bet * 4);
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
                 else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 || (dealerBusted && players[i].FinalHandAmount != 21))
                 {
-                    players[i].Bank = players[i].Bank + (players[i].Bet * 2);
+                    int newAmount = (players[i].Bet * 2);
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
                 else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21 || (dealerBusted && players[i].FinalHandAmount == 21))
                 {
-                    players[i].Bank = players[i].Bank + (players[i].Bet * 3);
+                    int newAmount = (players[i].Bet * 3);
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
                 else if (players[i].FinalHandAmount == Dealer.FinalHandAmount)
                 {
-                    players[i].Bank = players[i].Bank + players[i].Bet;
+                    int newAmount = players[i].Bet;
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
             }
+            Notify(payoutString, 10);
         }
 
         public void DrawCard(Player player, bool isSplitHand)
@@ -399,7 +409,7 @@ namespace BlackJack
             }
             Blackjack_Button_Hit.IsEnabled = false;
             PayoutAfterRound();
-            DelayRoundStart(8);
+            DelayRoundStart(11);
         }
         public void RestartRound()
         {
