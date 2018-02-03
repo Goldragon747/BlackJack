@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace BlackJack
 {
@@ -34,6 +36,7 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
+        private DispatcherTimer notificationTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -1002,7 +1005,6 @@ namespace BlackJack
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;
                     ResetStackPanelBackgroundsToBlack();
-                    SetPanelToWheat(Blackjack_StackPanel_Player_1);
                     ChangeBidVisibilites();
                     break;
             }
@@ -1035,40 +1037,51 @@ namespace BlackJack
             Blackjack_Button_Hit.IsEnabled = true;
             Blackjack_Button_Stay.IsEnabled = true;
 
-            if(Player1.Playing)
+            DetermineHandValue(Player1);
+            DetermineHandValue(Player2);
+            DetermineHandValue(Player3);
+            DetermineHandValue(Player4);
+            DetermineHandValue(Player5);
+
+            if (Player1.Playing && Player1.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_1);
                 Blackjack_StackPanel_Player_1.IsEnabled = true;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player2.Playing)
+            else if (Player2.Playing && Player2.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_2);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = true;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player3.Playing)
+            else if (Player3.Playing && Player3.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_3);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = true;
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player4.Playing)
+            else if (Player4.Playing && Player4.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_4);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
                 Blackjack_StackPanel_Player_4.IsEnabled = true;
                 Blackjack_StackPanel_Player_5.IsEnabled = false;
             }
-            else if (Player5.Playing)
+            else if (Player5.Playing && Player5.FinalHandAmount != 21)
             {
+                SetPanelToWheat(Blackjack_StackPanel_Player_5);
                 Blackjack_StackPanel_Player_1.IsEnabled = false;
                 Blackjack_StackPanel_Player_2.IsEnabled = false;
                 Blackjack_StackPanel_Player_3.IsEnabled = false;
@@ -1134,7 +1147,7 @@ namespace BlackJack
                 Player1 = save.Player1;
                 Blackjack_Label_Player_1.Content = Player1.Name;
                 Blackjack_Label_Money_1.Content = Player1.Bank;
-                //Blackjack_Hand_Player_1.Content = Player1.Hand;
+                //Blackjack_Hand_Player_1.Content = ReLoadCards(Player1);
                 Player2 = save.Player2;
                 Blackjack_Label_Player_2.Content = Player2.Name;
                 Blackjack_Label_Money_2.Content = Player2.Bank;
@@ -1158,11 +1171,26 @@ namespace BlackJack
 
         }
         
+        /// <summary>
+        /// May need this method to reput the cards onto the gui 
+        /// I know this doesn't work the way i originally thought
+        /// </summary>
+        /// <param name="player"></param>
         public void ReLoadCards(Player player)
         {
             foreach (CardEnum card in player.Hand)
             {
-
+                for(int i = 0;  i < player.Hand.Count; i++)
+                {
+                    if(i == 0)
+                    {
+                        ShowCard(player, 0, true);
+                    }
+                    else
+                    {
+                        ShowCard(player, i, false);
+                    }
+                }
             }
         }
 
@@ -1386,7 +1414,22 @@ namespace BlackJack
             //sb.Opacity = Blackjack_StackPanel_Player_5.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_5.Background = sb;
         }
-
+        private void Notify(string message, int time)
+        {
+            Blackjack_Label_Notifications.Content = message;
+            if(time != 0)
+            {
+                notificationTimer = new DispatcherTimer();
+                notificationTimer.Interval = new TimeSpan(time * 1000);
+                notificationTimer.Tick += NotifyTicked;
+                notificationTimer.Start();
+            }
+        }
+        private void NotifyTicked(object sender, EventArgs e)
+        {
+            Blackjack_Label_Notifications.Content = " ";
+            notificationTimer.Stop();
+        }
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
             List<StackPanel> stackPanels = new List<StackPanel>()
