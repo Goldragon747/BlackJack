@@ -205,12 +205,12 @@ namespace BlackJack
             if(!isSplitHand)
             {
                 player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
-                ShowCard(player, player.Hand.Count() - 1, false);
+                ShowCard(player, player.Hand.Count() - 1, false, false);
             }
             else
             {
                 player.SplitHand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
-                ShowCard(player, player.SplitHand.Count() - 1, false);
+                ShowCard(player, player.SplitHand.Count() - 1, false, true);
             }
 
             Deck.RemoveAt(0);
@@ -337,10 +337,10 @@ namespace BlackJack
             while(Dealer.FinalHandAmount < 17 && Dealer.FinalHandAmount <= 21)
             {
                 DetermineHandValue(Dealer);
-                DrawCard(Dealer);
+                DrawCard(Dealer, false);
                 DetermineHandValue(Dealer);
             }
-            ShowCard(Dealer, 0, false);
+            ShowCard(Dealer, 0, false, false);
             PayoutAfterRound();
             StartBettingPhase();
         }
@@ -666,7 +666,7 @@ namespace BlackJack
             }
         }
 
-        public void ShowAllCards()
+        public void ShowAllCards(bool isSplitHand)
         {
             List<Player> players = new List<Player>()
             {
@@ -682,42 +682,42 @@ namespace BlackJack
             {
                 for(int i = 0; i < Player1.Hand.Count() - 1; i++)
                 {
-                    ShowCard(Player1, i, false);
+                    ShowCard(Player1, i, false, isSplitHand);
                 }
             }
             else if (Blackjack_StackPanel_Player_2.IsEnabled)
             {
                 for (int i = 0; i < Player2.Hand.Count() - 1; i++)
                 {
-                    ShowCard(Player2, i, false);
+                    ShowCard(Player2, i, false, isSplitHand);
                 }
             }
             else if (Blackjack_StackPanel_Player_3.IsEnabled)
             {
                 for (int i = 0; i < Player3.Hand.Count() - 1; i++)
                 {
-                    ShowCard(Player3, i, false);
+                    ShowCard(Player3, i, false, isSplitHand);
                 }
             }
             else if (Blackjack_StackPanel_Player_4.IsEnabled)
             {
                 for (int i = 0; i < Player4.Hand.Count() - 1; i++)
                 {
-                    ShowCard(Player4, i, false);
+                    ShowCard(Player4, i, false, isSplitHand);
                 }
             }
             else if (Blackjack_StackPanel_Player_5.IsEnabled)
             {
                 for (int i = 0; i < Player5.Hand.Count() - 1; i++)
                 {
-                    ShowCard(Player5, i, false);
+                    ShowCard(Player5, i, false, isSplitHand);
                 }
             }
             else if (Blackjack_Grid_House.IsEnabled)
             {
                 for (int i = 0; i < Dealer.Hand.Count() - 1; i++)
                 {
-                    ShowCard(Dealer, i, false);
+                    ShowCard(Dealer, i, false, false);
                 }
             }
         }
@@ -757,8 +757,8 @@ namespace BlackJack
             {
                 if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
                 {
-                    DrawCard(players[i]);
-                    ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                    DrawCard(players[i], false);
+                    ShowCard(players[i], players[i].Hand.Count() - 1, false, false);
                 }
             }
         }
@@ -1067,7 +1067,7 @@ namespace BlackJack
                 Blackjack_StackPanel_Player_4.IsEnabled = false;
                 Blackjack_StackPanel_Player_5.IsEnabled = true;
             }
-            ShowAllCards();
+            ShowAllCards(false);
         }
 
         public void ShuffleDeck()
@@ -1305,7 +1305,7 @@ namespace BlackJack
                                     
                                     if(players[i].FinalHandAmount <= 21)
                                     {
-                                        ShowCard(players[i], 0, true);
+                                        ShowCard(players[i], 0, true, false);
                                     }
                                     stackPanels[i].IsEnabled = false;
                                     userControls[i * 2].IsEnabled = false;
@@ -1314,7 +1314,7 @@ namespace BlackJack
                                     switchTurn = true;
                                     //show turn progression here
                                     SetPanelToWheat(stackPanels[i + 1]);
-                                    ShowAllCards();
+                                    ShowAllCards(false);
                                 }
                             }
                             else
@@ -1337,7 +1337,7 @@ namespace BlackJack
 
                                 if (players[i].FinalHandAmount <= 21)
                                 {
-                                    ShowCard(players[i], 0, true);
+                                    ShowCard(players[i], 0, true, false);
                                 }
                                 stackPanels[i].IsEnabled = false;
                                 userControls[i * 2].IsEnabled = false;
@@ -1346,7 +1346,7 @@ namespace BlackJack
                                 switchTurn = true;
                                 //show turn progression here
                                 SetPanelToWheat(stackPanels[i + 1]);
-                                ShowAllCards();
+                                ShowAllCards(false);
                             }
                         }
                     }
@@ -1419,12 +1419,12 @@ namespace BlackJack
                     {
                         if (userControls[i * 2].IsEnabled)
                         {
-                            DrawCard(players[i]);
-                            ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                            DrawCard(players[i], false);
+                            ShowCard(players[i], players[i].Hand.Count() - 1, false, false);
                             DetermineHandValue(players[i]);
                             if(players[i].HaveBusted)
                             {
-                                ShowAllCards();
+                                ShowAllCards(false);
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
@@ -1445,7 +1445,7 @@ namespace BlackJack
                             //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
                             if (players[i].SplitHasBusted)
                             {
-                                ShowAllCards();
+                                ShowAllCards(false);
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
