@@ -432,8 +432,9 @@ namespace BlackJack
         /// <param name="index">The index of the particular card you wish to show</param>
         /// <param name="isFirstCard">True for the first card, false for any card after</param>
         /// <returns>An image brush with the image of the card</returns>
-        public void ShowCard(Player player, int index, bool isFirstCard, bool isSplitHand)
+        public BitmapImage ShowCard(Player player, int index, bool isFirstCard, bool isSplitHand)
         {
+            BitmapImage image = new BitmapImage();
             if(!isFirstCard)
             {
                 if(player == Player1)
@@ -443,22 +444,27 @@ namespace BlackJack
                         Blackjack_Hand_Player_1.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -467,22 +473,27 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_1.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -494,22 +505,27 @@ namespace BlackJack
                         Blackjack_Hand_Player_2.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_2.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_2.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_2.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_2.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_2.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -518,22 +534,27 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_2.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_2.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_2.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_2.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_2.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_2.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -545,22 +566,27 @@ namespace BlackJack
                         Blackjack_Hand_Player_3.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_3.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_3.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_3.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_3.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_3.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -569,22 +595,27 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_3.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_3.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_3.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_3.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_3.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_3.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -596,22 +627,27 @@ namespace BlackJack
                         Blackjack_Hand_Player_4.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_4.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_4.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_4.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_4.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_4.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -620,22 +656,27 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_4.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_4.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_4.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_4.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_4.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_4.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -647,22 +688,27 @@ namespace BlackJack
                         Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_5.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_5.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_5.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_5.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Player_5.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -671,22 +717,27 @@ namespace BlackJack
                         Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
                         if (index == 0)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_5.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 1)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_5.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 2)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_5.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 3)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_5.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                         else if (index == 4)
                         {
+                            image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                             Blackjack_Hand_Split_Player_5.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         }
                     }
@@ -696,22 +747,27 @@ namespace BlackJack
                     Blackjack_Hand_Dealer.Visibility = Visibility.Visible;
                     if (index == 0)
                     {
+                        image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         Blackjack_Hand_Dealer.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     }
                     else if (index == 1)
                     {
+                        image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         Blackjack_Hand_Dealer.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     }
                     else if (index == 2)
                     {
+                        image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         Blackjack_Hand_Dealer.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     }
                     else if (index == 3)
                     {
+                        image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         Blackjack_Hand_Dealer.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     }
                     else if (index == 4)
                     {
+                        image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                         Blackjack_Hand_Dealer.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     }
                 }
@@ -720,29 +776,37 @@ namespace BlackJack
             {
                 if(player == Player1)
                 {
+                    image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     Blackjack_Hand_Player_1.Slot1 = new BitmapImage(new Uri("../Images/CardBack.png", UriKind.Relative));
                 }
                 else if (player == Player2)
                 {
+                    image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     Blackjack_Hand_Player_2.Slot1 = new BitmapImage(new Uri("../Images/CardBack.png", UriKind.Relative));
                 }
                 else if (player == Player3)
                 {
+                    image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     Blackjack_Hand_Player_3.Slot1 = new BitmapImage(new Uri("../Images/CardBack.png", UriKind.Relative));
                 }
                 else if (player == Player4)
                 {
+                    image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     Blackjack_Hand_Player_4.Slot1 = new BitmapImage(new Uri("../Images/CardBack.png", UriKind.Relative));
                 }
                 else if (player == Player5)
                 {
+                    image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     Blackjack_Hand_Player_5.Slot1 = new BitmapImage(new Uri("../Images/CardBack.png", UriKind.Relative));
                 }
                 else if (player == Dealer)
                 {
+                    image = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
                     Blackjack_Hand_Dealer.Slot1 = new BitmapImage(new Uri("../Images/CardBack.png", UriKind.Relative));
                 }
             }
+
+            return image;
         }
 
         public void ShowAllCards(bool isSplitHand)
@@ -1244,29 +1308,55 @@ namespace BlackJack
             }
 
         }
-        
+
         /// <summary>
         /// May need this method to reput the cards onto the gui 
         /// I know this doesn't work the way i originally thought
         /// </summary>
         /// <param name="player"></param>
-        public void ReLoadCards(Player player)
+        public List<BitmapImage> ReLoadCards(Player player)
         {
-            foreach (CardEnum card in player.Hand)
+            List<BitmapImage> sadcards = new List<BitmapImage>();
+            if (!player.HasSplit)
             {
-                for(int i = 0;  i < player.Hand.Count; i++)
+                foreach (CardEnum card in player.Hand)
                 {
-                    if(i == 0)
+
+                    for (int i = 0; i < player.Hand.Count; i++)
                     {
-                        ShowCard(player, 0, true, false);
-                    }
-                    else
-                    {
-                        ShowCard(player, i, false, false);
+                        if (i == 0)
+                        {
+                            ShowCard(player, i, true, player.HasSplit);
+                        }
+                        else
+                        {
+                            ShowCard(player, i, false, player.HasSplit);
+                        }
                     }
                 }
             }
+            else
+            {
+                foreach (CardEnum card in player.SplitHand)
+                {
+
+                    for (int i = 0; i < player.SplitHand.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            ShowCard(player, i, true, player.HasSplit);
+                        }
+                        else
+                        {
+                            ShowCard(player, i, false, player.HasSplit);
+                        }
+                    }
+                }
+            }
+            return sadcards;
+
         }
+
 
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
         {
