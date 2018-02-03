@@ -96,6 +96,7 @@ namespace BlackJack
         /// </summary>
         public void StartBettingPhase()
         {
+            ClearAllHands();
             Blackjack_Hand_Player_1.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_2.Visibility = Visibility.Collapsed;
             Blackjack_Hand_Player_3.Visibility = Visibility.Collapsed;
@@ -106,11 +107,54 @@ namespace BlackJack
             Blackjack_StackPanel_Bids_3.Visibility = Visibility.Visible;
             Blackjack_StackPanel_Bids_4.Visibility = Visibility.Visible;
             Blackjack_StackPanel_Bids_5.Visibility = Visibility.Visible;
-            Blackjack_StackPanel_Player_1.IsEnabled = true;
-            Blackjack_StackPanel_Player_2.IsEnabled = false;
-            Blackjack_StackPanel_Player_3.IsEnabled = false;
-            Blackjack_StackPanel_Player_4.IsEnabled = false;
-            Blackjack_StackPanel_Player_5.IsEnabled = false;
+            if(Player1.Playing)
+            {
+                Blackjack_StackPanel_Player_1.IsEnabled = true;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player2.Playing)
+            {
+                ResetStackPanelBackgroundsToBlack();
+                SetPanelToWheat(Blackjack_StackPanel_Player_2);
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = true;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player3.Playing)
+            {
+                ResetStackPanelBackgroundsToBlack();
+                SetPanelToWheat(Blackjack_StackPanel_Player_3);
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = true;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player4.Playing)
+            {
+                ResetStackPanelBackgroundsToBlack();
+                SetPanelToWheat(Blackjack_StackPanel_Player_4);
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = true;
+                Blackjack_StackPanel_Player_5.IsEnabled = false;
+            }
+            else if (Player5.Playing)
+            {
+                ResetStackPanelBackgroundsToBlack();
+                SetPanelToWheat(Blackjack_StackPanel_Player_5);
+                Blackjack_StackPanel_Player_1.IsEnabled = false;
+                Blackjack_StackPanel_Player_2.IsEnabled = false;
+                Blackjack_StackPanel_Player_3.IsEnabled = false;
+                Blackjack_StackPanel_Player_4.IsEnabled = false;
+                Blackjack_StackPanel_Player_5.IsEnabled = true;
+            }
         }
         /// <summary>
         /// Clears all images when passed null using recursion.
@@ -841,7 +885,6 @@ namespace BlackJack
                     }
                     Blackjack_StackPanel_Player_1.IsEnabled = false;
                     ResetStackPanelBackgroundsToBlack();
-                    SetPanelToWheat(Blackjack_StackPanel_Player_2);
                     if(!Player2.Playing)
                     {
                         if(!Player3.Playing)
@@ -856,21 +899,25 @@ namespace BlackJack
                                 else
                                 {
                                     Blackjack_StackPanel_Player_5.IsEnabled = true;
+                                    SetPanelToWheat(Blackjack_StackPanel_Player_5);
                                 }
                             }
                             else
                             {
                                 Blackjack_StackPanel_Player_4.IsEnabled = true;
+                                SetPanelToWheat(Blackjack_StackPanel_Player_4);
                             }
                         }
                         else
                         {
                             Blackjack_StackPanel_Player_3.IsEnabled = true;
+                            SetPanelToWheat(Blackjack_StackPanel_Player_3);
                         }
                     }
                     else
                     {
                         Blackjack_StackPanel_Player_2.IsEnabled = true;
+                        SetPanelToWheat(Blackjack_StackPanel_Player_2);
                     }
                     break;
                 case 2:
@@ -898,7 +945,6 @@ namespace BlackJack
                     }
                     Blackjack_StackPanel_Player_2.IsEnabled = false;
                     ResetStackPanelBackgroundsToBlack();
-                    SetPanelToWheat(Blackjack_StackPanel_Player_3);
                     if (!Player3.Playing)
                     {
                         if (!Player4.Playing)
@@ -911,15 +957,18 @@ namespace BlackJack
                             else
                             {
                                 Blackjack_StackPanel_Player_5.IsEnabled = true;
+                                SetPanelToWheat(Blackjack_StackPanel_Player_5);
                             }
                         }
                         else
                         {
+                            SetPanelToWheat(Blackjack_StackPanel_Player_4);
                             Blackjack_StackPanel_Player_4.IsEnabled = true;
                         }
                     }
                     else
                     {
+                        SetPanelToWheat(Blackjack_StackPanel_Player_3);
                         Blackjack_StackPanel_Player_3.IsEnabled = true;
                     }
                     break;
@@ -948,7 +997,6 @@ namespace BlackJack
                     }
                     Blackjack_StackPanel_Player_3.IsEnabled = false;
                     ResetStackPanelBackgroundsToBlack();
-                    SetPanelToWheat(Blackjack_StackPanel_Player_4);
                     if (!Player4.Playing)
                     {
                         if (!Player5.Playing)
@@ -959,11 +1007,13 @@ namespace BlackJack
                         else
                         {
                             Blackjack_StackPanel_Player_5.IsEnabled = true;
+                            SetPanelToWheat(Blackjack_StackPanel_Player_5);
                         }
                     }
                     else
                     {
                         Blackjack_StackPanel_Player_4.IsEnabled = true;
+                        SetPanelToWheat(Blackjack_StackPanel_Player_4);
                     }
                     break;
                 case 4:
@@ -991,7 +1041,6 @@ namespace BlackJack
                     }
                     Blackjack_StackPanel_Player_4.IsEnabled = false;
                     ResetStackPanelBackgroundsToBlack();
-                    SetPanelToWheat(Blackjack_StackPanel_Player_5);
                     if (!Player5.Playing)
                     {
                         Blackjack_StackPanel_Player_5.IsEnabled = false;
@@ -1000,6 +1049,7 @@ namespace BlackJack
                     else
                     {
                         Blackjack_StackPanel_Player_5.IsEnabled = true;
+                        SetPanelToWheat(Blackjack_StackPanel_Player_5);
                     }
                     break;
                 case 5:
@@ -1206,11 +1256,11 @@ namespace BlackJack
                 {
                     if(i == 0)
                     {
-                        ShowCard(player, 0, true);
+                        ShowCard(player, 0, true, false);
                     }
                     else
                     {
-                        ShowCard(player, i, false);
+                        ShowCard(player, i, false, false);
                     }
                 }
             }
@@ -1365,14 +1415,65 @@ namespace BlackJack
                                     {
                                         ShowCard(players[i], 0, true, false);
                                     }
-                                    stackPanels[i].IsEnabled = false;
-                                    userControls[i * 2].IsEnabled = false;
-                                    stackPanels[i + 1].IsEnabled = true;
-                                    userControls[(i + 1)* 2].IsEnabled = true;
-                                    switchTurn = true;
-                                    //show turn progression here
-                                    SetPanelToWheat(stackPanels[i + 1]);
-                                    ShowAllCards(false);
+                                    try
+                                    {
+                                        if (!players[i + 1].Playing)
+                                        {
+                                            if (!players[i + 2].Playing)
+                                            {
+                                                if (!players[i + 3].Playing)
+                                                {
+                                                    if (!players[i + 4].Playing)
+                                                    {
+                                                        DealerTurn();
+                                                    }
+                                                    else
+                                                    {
+                                                        stackPanels[i].IsEnabled = false;
+                                                        userControls[i * 2].IsEnabled = false;
+                                                        stackPanels[i + 4].IsEnabled = true;
+                                                        userControls[(i + 4) * 2].IsEnabled = true;
+                                                        switchTurn = true;
+                                                        SetPanelToWheat(stackPanels[i + 1]);
+                                                        ShowAllCards(false);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    stackPanels[i].IsEnabled = false;
+                                                    userControls[i * 2].IsEnabled = false;
+                                                    stackPanels[i + 3].IsEnabled = true;
+                                                    userControls[(i + 3) * 2].IsEnabled = true;
+                                                    switchTurn = true;
+                                                    SetPanelToWheat(stackPanels[i + 3]);
+                                                    ShowAllCards(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                stackPanels[i].IsEnabled = false;
+                                                userControls[i * 2].IsEnabled = false;
+                                                stackPanels[i + 2].IsEnabled = true;
+                                                userControls[(i + 2) * 2].IsEnabled = true;
+                                                switchTurn = true;
+                                                SetPanelToWheat(stackPanels[i + 2]);
+                                                ShowAllCards(false);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            stackPanels[i].IsEnabled = false;
+                                            userControls[i * 2].IsEnabled = false;
+                                            stackPanels[i + 1].IsEnabled = true;
+                                            userControls[(i + 1) * 2].IsEnabled = true;
+                                            switchTurn = true;
+                                            SetPanelToWheat(stackPanels[i + 1]);
+                                            ShowAllCards(false);
+                                        }
+                                    } catch (Exception ex)
+                                    {
+                                        DealerTurn();
+                                    }
                                 }
                             }
                             else
@@ -1380,7 +1481,68 @@ namespace BlackJack
                                 userControls[i * 2].IsEnabled = false;
                                 userControls[(i * 2) + 1].IsEnabled = true;
                                 switchTurn = true;
-                                //Show all cards for split here
+                                //might not work
+                                try
+                                {
+                                    if (!players[i + 1].Playing)
+                                    {
+                                        if (!players[i + 2].Playing)
+                                        {
+                                            if (!players[i + 3].Playing)
+                                            {
+                                                if (!players[i + 4].Playing)
+                                                {
+                                                    DealerTurn();
+                                                }
+                                                else
+                                                {
+                                                    stackPanels[i].IsEnabled = false;
+                                                    userControls[i * 2].IsEnabled = false;
+                                                    stackPanels[i + 4].IsEnabled = true;
+                                                    userControls[i + 9].IsEnabled = true;
+                                                    switchTurn = true;
+                                                    SetPanelToWheat(stackPanels[i + 1]);
+                                                    ShowAllCards(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                stackPanels[i].IsEnabled = false;
+                                                userControls[i * 2].IsEnabled = false;
+                                                stackPanels[i + 3].IsEnabled = true;
+                                                userControls[i + 7].IsEnabled = true;
+                                                switchTurn = true;
+                                                SetPanelToWheat(stackPanels[i + 3]);
+                                                ShowAllCards(false);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            stackPanels[i].IsEnabled = false;
+                                            userControls[i * 2].IsEnabled = false;
+                                            stackPanels[i + 2].IsEnabled = true;
+                                            userControls[i + 5].IsEnabled = true;
+                                            switchTurn = true;
+                                            SetPanelToWheat(stackPanels[i + 2]);
+                                            ShowAllCards(false);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        stackPanels[i].IsEnabled = false;
+                                        userControls[i * 2].IsEnabled = false;
+                                        stackPanels[i + 1].IsEnabled = true;
+                                        userControls[i + 3].IsEnabled = true;
+                                        switchTurn = true;
+                                        SetPanelToWheat(stackPanels[i + 1]);
+                                        ShowAllCards(false);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    DealerTurn();
+                                }
+                                //end
                             }
                         }
                         else
@@ -1397,14 +1559,66 @@ namespace BlackJack
                                 {
                                     ShowCard(players[i], 0, true, false);
                                 }
-                                stackPanels[i].IsEnabled = false;
-                                userControls[i * 2].IsEnabled = false;
-                                stackPanels[i + 1].IsEnabled = true;
-                                userControls[(i + 1) * 2].IsEnabled = true;
-                                switchTurn = true;
-                                //show turn progression here
-                                SetPanelToWheat(stackPanels[i + 1]);
-                                ShowAllCards(false);
+                                try
+                                {
+                                    if (!players[i + 1].Playing)
+                                    {
+                                        if (!players[i + 2].Playing)
+                                        {
+                                            if (!players[i + 3].Playing)
+                                            {
+                                                if (!players[i + 4].Playing)
+                                                {
+                                                    DealerTurn();
+                                                }
+                                                else
+                                                {
+                                                    stackPanels[i].IsEnabled = false;
+                                                    userControls[i * 2].IsEnabled = false;
+                                                    stackPanels[i + 4].IsEnabled = true;
+                                                    userControls[(i + 4) * 2].IsEnabled = true;
+                                                    switchTurn = true;
+                                                    SetPanelToWheat(stackPanels[i + 1]);
+                                                    ShowAllCards(false);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                stackPanels[i].IsEnabled = false;
+                                                userControls[i * 2].IsEnabled = false;
+                                                stackPanels[i + 3].IsEnabled = true;
+                                                userControls[(i + 3) * 2].IsEnabled = true;
+                                                switchTurn = true;
+                                                SetPanelToWheat(stackPanels[i + 3]);
+                                                ShowAllCards(false);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            stackPanels[i].IsEnabled = false;
+                                            userControls[i * 2].IsEnabled = false;
+                                            stackPanels[i + 2].IsEnabled = true;
+                                            userControls[(i + 2) * 2].IsEnabled = true;
+                                            switchTurn = true;
+                                            SetPanelToWheat(stackPanels[i + 2]);
+                                            ShowAllCards(false);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        stackPanels[i].IsEnabled = false;
+                                        userControls[i * 2].IsEnabled = false;
+                                        stackPanels[i + 1].IsEnabled = true;
+                                        userControls[(i + 1) * 2].IsEnabled = true;
+                                        switchTurn = true;
+                                        SetPanelToWheat(stackPanels[i + 1]);
+                                        ShowAllCards(false);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    DealerTurn();
+                                }
                             }
                         }
                     }
