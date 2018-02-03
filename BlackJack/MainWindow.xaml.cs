@@ -193,23 +193,23 @@ namespace BlackJack
         /// </summary>
         public void CheckIfBankrupt()
         {
-            if (Player1.Bank < -50)
+            if (Player1.Bank <= -50)
             {
                 Player1.Playing = false;
             }
-            if (Player2.Bank < -50)
+            if (Player2.Bank <= -50)
             {
                 Player2.Playing = false;
             }
-            if (Player3.Bank < -50)
+            if (Player3.Bank <= -50)
             {
                 Player3.Playing = false;
             }
-            if (Player4.Bank < -50)
+            if (Player4.Bank <= -50)
             {
                 Player4.Playing = false;
             }
-            if (Player5.Bank < -50)
+            if (Player5.Bank <= -50)
             {
                 Player5.Playing = false;
             }
