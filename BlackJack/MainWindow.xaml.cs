@@ -273,7 +273,7 @@ namespace BlackJack
                 payoutString += "none.";
             else
                 payoutString.TrimEnd(new char[] { ' ', ',' });
-            Notify(payoutString, 18);
+            Notify(payoutString, 11);
         }
 
         public void DrawCard(Player player, bool isSplitHand)
@@ -433,6 +433,8 @@ namespace BlackJack
         {
             ClearAllHands();
             ClearAllImages();
+            Deck = Enum.GetNames(typeof(CardEnum)).ToList();
+            ShuffleDeck();
             StartBettingPhase();
             //ShowAllCards(false);
         }
