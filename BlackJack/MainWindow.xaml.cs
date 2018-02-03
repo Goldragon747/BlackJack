@@ -200,11 +200,20 @@ namespace BlackJack
             }
         }
 
-        public void DrawCard(Player player)
+        public void DrawCard(Player player, bool isSplitHand)
         {
-            player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
+            if(!isSplitHand)
+            {
+                player.Hand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
+                ShowCard(player, player.Hand.Count() - 1, false);
+            }
+            else
+            {
+                player.SplitHand.Add((CardEnum)Enum.Parse(typeof(CardEnum), Deck[0]));
+                ShowCard(player, player.SplitHand.Count() - 1, false);
+            }
+
             Deck.RemoveAt(0);
-            ShowCard(player, player.Hand.Count() - 1, false);
         }
 
         public void InitialDraw()
@@ -222,7 +231,7 @@ namespace BlackJack
             {
                 DrawCard(players[i]);
                 DrawCard(players[i]);
-                ShowCard(players[i], 0, false); //change back
+                ShowCard(players[i], 0, true); //change back
                 ShowCard(players[i], 1, false);
                 DetermineHandValue(players[i]);
             }
@@ -341,133 +350,268 @@ namespace BlackJack
         /// <param name="index">The index of the particular card you wish to show</param>
         /// <param name="isFirstCard">True for the first card, false for any card after</param>
         /// <returns>An image brush with the image of the card</returns>
-        public void ShowCard(Player player, int index, bool isFirstCard)
+        public void ShowCard(Player player, int index, bool isFirstCard, bool isSplitHand)
         {
             if(!isFirstCard)
             {
                 if(player == Player1)
                 {
-                    Blackjack_Hand_Player_1.Visibility = Visibility.Visible;
-                    if(index == 0)
+                    if(!isSplitHand)
                     {
-                        Blackjack_Hand_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Player_1.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
-                    else if(index == 1)
+                    else
                     {
-                        Blackjack_Hand_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if(index == 2)
-                    {
-                        Blackjack_Hand_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 3)
-                    {
-                        Blackjack_Hand_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 4)
-                    {
-                        Blackjack_Hand_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Split_Player_1.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Split_Player_1.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Split_Player_1.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Split_Player_1.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Split_Player_1.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Split_Player_1.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
                 }
                 else if (player == Player2)
                 {
-                    Blackjack_Hand_Player_2.Visibility = Visibility.Visible;
-                    if (index == 0)
+                    if (!isSplitHand)
                     {
-                        Blackjack_Hand_Player_2.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Player_2.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Player_2.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Player_2.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Player_2.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Player_2.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Player_2.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
-                    else if (index == 1)
+                    else
                     {
-                        Blackjack_Hand_Player_2.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 2)
-                    {
-                        Blackjack_Hand_Player_2.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 3)
-                    {
-                        Blackjack_Hand_Player_2.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 4)
-                    {
-                        Blackjack_Hand_Player_2.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Split_Player_2.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Split_Player_2.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Split_Player_2.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Split_Player_2.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Split_Player_2.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Split_Player_2.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
                 }
                 else if (player == Player3)
                 {
-                    Blackjack_Hand_Player_3.Visibility = Visibility.Visible;
-                    if (index == 0)
+                    if (!isSplitHand)
                     {
-                        Blackjack_Hand_Player_3.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Player_3.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Player_3.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Player_3.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Player_3.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Player_3.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Player_3.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
-                    else if (index == 1)
+                    else
                     {
-                        Blackjack_Hand_Player_3.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 2)
-                    {
-                        Blackjack_Hand_Player_3.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 3)
-                    {
-                        Blackjack_Hand_Player_3.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 4)
-                    {
-                        Blackjack_Hand_Player_3.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Split_Player_3.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Split_Player_3.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Split_Player_3.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Split_Player_3.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Split_Player_3.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Split_Player_3.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
                 }
                 else if (player == Player4)
                 {
-                    Blackjack_Hand_Player_4.Visibility = Visibility.Visible;
-                    if (index == 0)
+                    if (!isSplitHand)
                     {
-                        Blackjack_Hand_Player_4.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Player_4.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Player_4.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Player_4.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Player_4.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Player_4.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Player_4.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
-                    else if (index == 1)
+                    else
                     {
-                        Blackjack_Hand_Player_4.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 2)
-                    {
-                        Blackjack_Hand_Player_4.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 3)
-                    {
-                        Blackjack_Hand_Player_4.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 4)
-                    {
-                        Blackjack_Hand_Player_4.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Split_Player_4.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Split_Player_4.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Split_Player_4.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Split_Player_4.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Split_Player_4.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Split_Player_4.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
                 }
                 else if (player == Player5)
                 {
-                    Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
-                    if (index == 0)
+                    if (!isSplitHand)
                     {
-                        Blackjack_Hand_Player_5.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Player_5.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Player_5.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Player_5.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Player_5.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Player_5.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
-                    else if (index == 1)
+                    else
                     {
-                        Blackjack_Hand_Player_5.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 2)
-                    {
-                        Blackjack_Hand_Player_5.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 3)
-                    {
-                        Blackjack_Hand_Player_5.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
-                    }
-                    else if (index == 4)
-                    {
-                        Blackjack_Hand_Player_5.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
+                        if (index == 0)
+                        {
+                            Blackjack_Hand_Split_Player_5.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 1)
+                        {
+                            Blackjack_Hand_Split_Player_5.Slot2 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 2)
+                        {
+                            Blackjack_Hand_Split_Player_5.Slot3 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 3)
+                        {
+                            Blackjack_Hand_Split_Player_5.Slot4 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
+                        else if (index == 4)
+                        {
+                            Blackjack_Hand_Split_Player_5.Slot5 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
+                        }
                     }
                 }
                 else if (player == Dealer)
                 {
-                    Blackjack_Hand_Player_1.Visibility = Visibility.Visible;
+                    Blackjack_Hand_Dealer.Visibility = Visibility.Visible;
                     if (index == 0)
                     {
                         Blackjack_Hand_Dealer.Slot1 = new BitmapImage(new Uri($"../Images/{player.Hand[index]}.png", UriKind.Relative));
@@ -519,6 +663,103 @@ namespace BlackJack
             }
         }
 
+        public void ShowAllCards()
+        {
+            List<Player> players = new List<Player>()
+            {
+                Dealer,
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+
+            if(Blackjack_StackPanel_Player_1.IsEnabled)
+            {
+                for(int i = 0; i < Player1.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player1, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_2.IsEnabled)
+            {
+                for (int i = 0; i < Player2.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player2, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_3.IsEnabled)
+            {
+                for (int i = 0; i < Player3.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player3, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_4.IsEnabled)
+            {
+                for (int i = 0; i < Player4.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player4, i, false);
+                }
+            }
+            else if (Blackjack_StackPanel_Player_5.IsEnabled)
+            {
+                for (int i = 0; i < Player5.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Player5, i, false);
+                }
+            }
+            else if (Blackjack_Grid_House.IsEnabled)
+            {
+                for (int i = 0; i < Dealer.Hand.Count() - 1; i++)
+                {
+                    ShowCard(Dealer, i, false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds a card to players hand, makes sure it is face up.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void HitButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
+            for(int i=0; i<Blackjack_Slider_Players.Value; i++)
+            {
+                if (stackPanels[i].IsEnabled && userControls[i].Visibility == Visibility.Visible && userControls[i].IsEnabled)
+                {
+                    DrawCard(players[i]);
+                    ShowCard(players[i], players[i].Hand.Count() - 1, false);
+                }
+            }
+        }
+
         private void Title_Screen_Click_Blackjack(object sender, RoutedEventArgs e)
         {
             Title_Screen.Visibility = Visibility.Collapsed;
@@ -563,6 +804,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_1.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_2);
                     if(!Player2.Playing)
                     {
                         if(!Player3.Playing)
@@ -618,6 +861,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_2.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_3);
                     if (!Player3.Playing)
                     {
                         if (!Player4.Playing)
@@ -666,6 +911,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_3.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_4);
                     if (!Player4.Playing)
                     {
                         if (!Player5.Playing)
@@ -707,6 +954,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_4.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_5);
                     if (!Player5.Playing)
                     {
                         Blackjack_StackPanel_Player_5.IsEnabled = false;
@@ -741,6 +990,8 @@ namespace BlackJack
                             break;
                     }
                     Blackjack_StackPanel_Player_5.IsEnabled = false;
+                    ResetStackPanelBackgroundsToBlack();
+                    SetPanelToWheat(Blackjack_StackPanel_Player_1);
                     ChangeBidVisibilites();
                     break;
             }
@@ -778,6 +1029,8 @@ namespace BlackJack
             Blackjack_StackPanel_Player_3.IsEnabled = false;
             Blackjack_StackPanel_Player_4.IsEnabled = false;
             Blackjack_StackPanel_Player_5.IsEnabled = false;
+
+            ShowAllCards();
         }
 
         public void ShuffleDeck()
@@ -856,9 +1109,16 @@ namespace BlackJack
                 Dealer = save.Dealer;
                 //Blackjack_Hand_Dealer.Content = Dealer.Hand;
                 Deck = save.Deck;
-
             }
 
+        }
+        
+        public void ReLoadCards(Player player)
+        {
+            foreach (CardEnum card in player.Hand)
+            {
+
+            }
         }
 
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
@@ -918,6 +1178,7 @@ namespace BlackJack
                     break;
             }
         }
+
         public bool PlayerHasSplit(Player p)
         {
             return (p.Hand.Count == 2) && (
@@ -1003,12 +1264,20 @@ namespace BlackJack
                                 }
                                 else
                                 {
+                                    ResetStackPanelBackgroundsToBlack();
+                                    
+                                    if(players[i].FinalHandAmount <= 21)
+                                    {
+                                        ShowCard(players[i], 0, true);
+                                    }
                                     stackPanels[i].IsEnabled = false;
                                     userControls[i * 2].IsEnabled = false;
                                     stackPanels[i + 1].IsEnabled = true;
                                     userControls[(i + 1)* 2].IsEnabled = true;
                                     switchTurn = true;
                                     //show turn progression here
+                                    SetPanelToWheat(stackPanels[i + 1]);
+                                    ShowAllCards();
                                 }
                             }
                             else
@@ -1016,6 +1285,7 @@ namespace BlackJack
                                 userControls[i * 2].IsEnabled = false;
                                 userControls[(i * 2) + 1].IsEnabled = true;
                                 switchTurn = true;
+                                //Show all cards for split here
                             }
                         }
                         else
@@ -1026,17 +1296,50 @@ namespace BlackJack
                             }
                             else
                             {
+                                ResetStackPanelBackgroundsToBlack();
+
+                                if (players[i].FinalHandAmount <= 21)
+                                {
+                                    ShowCard(players[i], 0, true);
+                                }
                                 stackPanels[i].IsEnabled = false;
                                 userControls[i * 2].IsEnabled = false;
                                 stackPanels[i + 1].IsEnabled = true;
                                 userControls[(i + 1) * 2].IsEnabled = true;
                                 switchTurn = true;
                                 //show turn progression here
+                                SetPanelToWheat(stackPanels[i + 1]);
+                                ShowAllCards();
                             }
                         }
                     }
                 }
             }
+        }
+
+        private void SetPanelToWheat(StackPanel p)
+        {
+            SolidColorBrush sb = new SolidColorBrush();
+            sb.Color = Colors.Wheat;
+            sb.Opacity = .2;
+            p.Background = sb;
+        }
+
+        private void ResetStackPanelBackgroundsToBlack()
+        {
+            SolidColorBrush sb = new SolidColorBrush();
+            sb.Color = Colors.Black;
+            sb.Opacity = .2;
+            //sb.Opacity = Blackjack_StackPanel_Player_1.IsEnabled ? .2 : .6;
+            Blackjack_StackPanel_Player_1.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_2.IsEnabled ? .2 : .6;
+            Blackjack_StackPanel_Player_2.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_3.IsEnabled ? .2 : .6;
+            Blackjack_StackPanel_Player_3.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_4.IsEnabled ? .2 : .6;
+            Blackjack_StackPanel_Player_4.Background = sb;
+            //sb.Opacity = Blackjack_StackPanel_Player_5.IsEnabled ? .2 : .6;
+            Blackjack_StackPanel_Player_5.Background = sb;
         }
 
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
@@ -1084,11 +1387,16 @@ namespace BlackJack
                             DetermineHandValue(players[i]);
                             if(players[i].HaveBusted)
                             {
-                                //flip all cards
+                                ShowAllCards();
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
                             else if(players[i].Hand.Count() == 5)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
+                            else if(players[i].FinalHandAmount == 21)
                             {
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
@@ -1100,11 +1408,16 @@ namespace BlackJack
                             //ShowCard(players[i], players[i].SplitHand.Count() - 1, false);
                             if (players[i].SplitHasBusted)
                             {
-                                //flip all cards
+                                ShowAllCards();
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
                             else if (players[i].SplitHand.Count() == 5)
+                            {
+                                Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
+                                playerBusted = true;
+                            }
+                            else if(players[i].FinalSplitAmount == 21)
                             {
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
