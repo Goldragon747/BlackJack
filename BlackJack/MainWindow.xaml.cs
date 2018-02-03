@@ -232,11 +232,13 @@ namespace BlackJack
             };
             for(int i=0;i<Blackjack_Slider_Players.Value;i++)
             {
-                if (players[i].FinalHandAmount > 21)
+                if (players[i].FinalHandAmount > 21) { }
+                else if(Dealer.Hand.Count() == 5 && players[i].Hand.Count() != 5) { }
+                else if(Dealer.Hand.Count() == 5 && players[i].Hand.Count() == 5)
                 {
-
+                    players[i].Bank = players[i].Bank + players[i].Bet;
                 }
-                else if (players[i].Hand.Count() == 5)
+                else if (players[i].Hand.Count() == 5 && Dealer.Hand.Count() != 5)
                 {
                     players[i].Bank = players[i].Bank + (players[i].Bet * 4);
                 }
@@ -294,6 +296,7 @@ namespace BlackJack
                 }
             }
         }
+
         /// <summary>
         /// Calls DetermineHandValueHelper() twice, once for the players hand and once for their split hand value
         /// changing the players FinalSplitAmount and FinalHandAmount property, changes haveBusted and SlitHasBusted property
@@ -317,6 +320,7 @@ namespace BlackJack
                 Notify("Busted!", 2);
             }
         }
+
         /// <summary>
         /// By passing a list of CardEnums to this method it will determine the value of the cards inside the list 
         /// returns an int indicating the total value of the players hand
@@ -384,6 +388,7 @@ namespace BlackJack
             }
             return handValue;
         }
+
         /// <summary>
         /// Takes the Dealer object and checks FinalHandAmount to make the dealer continously draw until he either busts or is above 17
         /// PayoutsAfterRound() called afterward.
@@ -404,6 +409,7 @@ namespace BlackJack
             PayoutAfterRound();
             DelayRoundStart(8);
         }
+
         public void RestartRound()
         {
             ClearAllHands();
@@ -411,6 +417,7 @@ namespace BlackJack
             StartBettingPhase();
             //ShowAllCards(false);
         }
+
         /// <summary>
         /// Gets the image of the card in the player's hand at the index passed in.
         /// Gets the CardBack image if isFirstCard is true
@@ -1157,6 +1164,7 @@ namespace BlackJack
 
             Blackjack_Hand_Player_5.Visibility = Visibility.Visible;
             Blackjack_Hand_Split_Player_5.Visibility = Visibility.Visible;
+
             InitialDraw();
 
             Blackjack_Button_Hit.IsEnabled = true;
@@ -1484,7 +1492,45 @@ namespace BlackJack
 
         private void Blackjack_Button_Split_Click(object sender, RoutedEventArgs e)
         {
+            ClearNotify();
+            List<StackPanel> stackPanels = new List<StackPanel>()
+            {
+                Blackjack_StackPanel_Player_1,
+                Blackjack_StackPanel_Player_2,
+                Blackjack_StackPanel_Player_3,
+                Blackjack_StackPanel_Player_4,
+                Blackjack_StackPanel_Player_5
+            };
+            List<UserControl> userControls = new List<UserControl>()
+            {
+                Blackjack_Hand_Player_1,
+                Blackjack_Hand_Split_Player_1,
+                Blackjack_Hand_Player_2,
+                Blackjack_Hand_Split_Player_2,
+                Blackjack_Hand_Player_3,
+                Blackjack_Hand_Split_Player_3,
+                Blackjack_Hand_Player_4,
+                Blackjack_Hand_Split_Player_4,
+                Blackjack_Hand_Player_5,
+                Blackjack_Hand_Split_Player_5
+            };
+            List<Player> players = new List<Player>()
+            {
+                Player1,
+                Player2,
+                Player3,
+                Player4,
+                Player5
+            };
 
+            for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
+            {
+                if (stackPanels[i].IsEnabled && userControls[i * 2].IsEnabled)
+                {
+                    players[i].SplitHand.Add(players[i].Hand[1]);
+                    players[i].Hand.RemoveAt(1);
+                }
+            }
         }
 
         private void Blackjack_Button_Stay_Click(object sender, RoutedEventArgs e)
@@ -1816,30 +1862,6 @@ namespace BlackJack
             }
         }
 
-        private void Notify(string message, int time)
-        {
-            Blackjack_Label_Notifications.Content = message;
-            if(time != 0)
-            {
-                notificationTimer = new DispatcherTimer();
-                notificationTimer.Interval = TimeSpan.FromSeconds(time);
-                notificationTimer.Tick += NotifyTicked;
-                notificationTimer.Start();
-            }
-        }
-        private void NotifyTicked(object sender, EventArgs e)
-        {
-            ClearNotify();
-        }
-        private void ClearNotify()
-        {
-            if(notificationTimer != null)
-            {
-                Blackjack_Label_Notifications.Content = " ";
-                notificationTimer.Stop();
-                notificationTimer.Tick -= NotifyTicked;
-            }
-        }
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
             ClearNotify();
@@ -1924,6 +1946,33 @@ namespace BlackJack
                         }
                     }
                 }
+            }
+        }
+
+        private void Notify(string message, int time)
+        {
+            Blackjack_Label_Notifications.Content = message;
+            if(time != 0)
+            {
+                notificationTimer = new DispatcherTimer();
+                notificationTimer.Interval = TimeSpan.FromSeconds(time);
+                notificationTimer.Tick += NotifyTicked;
+                notificationTimer.Start();
+            }
+        }
+
+        private void NotifyTicked(object sender, EventArgs e)
+        {
+            ClearNotify();
+        }
+
+        private void ClearNotify()
+        {
+            if(notificationTimer != null)
+            {
+                Blackjack_Label_Notifications.Content = " ";
+                notificationTimer.Stop();
+                notificationTimer.Tick -= NotifyTicked;
             }
         }
 
