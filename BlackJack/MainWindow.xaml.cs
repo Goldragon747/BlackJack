@@ -283,36 +283,39 @@ namespace BlackJack
                         playerLabels[i].Content = $"+${newAmount}";
                     }
                     //add this for split hand
-                    if (players[i].FinalSplitAmount > 21) { }
-                    else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() != 5) { }
-                    else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22)
+                    if(players[i].SplitHand.Count > 0)
                     {
-                        players[i].Bank = players[i].Bank + players[i].Bet;
-                    }
-                    else if (players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22 && Dealer.Hand.Count() != 5)
-                    {
-                        int newAmount = (players[i].Bet * 4);
-                        players[i].Bank = players[i].Bank + newAmount;
-                        playerLabels[i].Content = $"+${newAmount}";
-                    }
-                    else if ((players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22)
-                        || (dealerBusted && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22))
-                    {
-                        int newAmount = (players[i].Bet * 2);
-                        players[i].Bank = players[i].Bank + newAmount;
-                        playerLabels[i].Content = $"+${newAmount}";
-                    }
-                    else if (players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount == 21 || (dealerBusted && players[i].FinalSplitAmount == 21))
-                    {
-                        int newAmount = (players[i].Bet * 3);
-                        players[i].Bank = players[i].Bank + newAmount;
-                        playerLabels[i].Content = $"+${newAmount}";
-                    }
-                    else if (players[i].FinalSplitAmount == Dealer.FinalHandAmount)
-                    {
-                        int newAmount = players[i].Bet;
-                        players[i].Bank = players[i].Bank + newAmount;
-                        playerLabels[i].Content = $"+${newAmount}";
+                        if (players[i].FinalSplitAmount > 21) { }
+                        else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() != 5) { }
+                        else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22)
+                        {
+                            players[i].Bank = players[i].Bank + players[i].Bet;
+                        }
+                        else if (players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22 && Dealer.Hand.Count() != 5)
+                        {
+                            int newAmount = (players[i].Bet * 4);
+                            players[i].Bank = players[i].Bank + newAmount;
+                            playerLabels[i].Content = $"+${newAmount}";
+                        }
+                        else if ((players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22)
+                            || (dealerBusted && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22))
+                        {
+                            int newAmount = (players[i].Bet * 2);
+                            players[i].Bank = players[i].Bank + newAmount;
+                            playerLabels[i].Content = $"+${newAmount}";
+                        }
+                        else if (players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount == 21 || (dealerBusted && players[i].FinalSplitAmount == 21))
+                        {
+                            int newAmount = (players[i].Bet * 3);
+                            players[i].Bank = players[i].Bank + newAmount;
+                            playerLabels[i].Content = $"+${newAmount}";
+                        }
+                        else if (players[i].FinalSplitAmount == Dealer.FinalHandAmount)
+                        {
+                            int newAmount = players[i].Bet;
+                            players[i].Bank = players[i].Bank + newAmount;
+                            playerLabels[i].Content = $"+${newAmount}";
+                        }
                     }
                 }
             }
@@ -1290,6 +1293,7 @@ namespace BlackJack
             };
             for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
             {
+                players[i].HasSplit = false;
                 DetermineHandValue(players[i]);
                 PlayerHasSplit(players[i]);
                 players[i].HaveBusted = false;
@@ -1860,21 +1864,19 @@ namespace BlackJack
                             else
                             {
                                 switchTurn = true;
-                                //might not work
                                 userControls[i * 2].IsEnabled = false;
                                 userControls[(i * 2) + 1].IsEnabled = true;
                                 switchTurn = true;
                                 ShowAllCards(false);
-                                //end
                             }
                         }
                         else
                         {
                             if (i == Blackjack_Slider_Players.Value - 1)
                             {
-                                if (players[i].FinalHandAmount < 22)
+                                if (players[i].FinalSplitAmount < 22)
                                 {
-                                    ShowCard(players[i], 0, true, false);
+                                    ShowCard(players[i], 0, true, true);
                                 }
                                 DealerTurn();
                             }
@@ -1886,69 +1888,106 @@ namespace BlackJack
                                 {
                                     ShowCard(players[i], 0, true, true);
                                 }
-                                try
+                                if(i <= 3)
                                 {
                                     if (!players[i + 1].Playing || players[i + 1].FinalSplitAmount == 21)
                                     {
-                                        if (!players[i + 2].Playing || players[i + 2].FinalSplitAmount == 21)
+                                        if(i <= 2)
                                         {
-                                            if (!players[i + 3].Playing || players[i + 3].FinalSplitAmount == 21)
+                                            if (!players[i + 2].Playing || players[i + 2].FinalSplitAmount == 21)
                                             {
-                                                if (!players[i + 4].Playing || players[i + 4].FinalSplitAmount == 21)
+                                                if(i <= 1)
                                                 {
-                                                    DealerTurn();
-                                                }
-                                                else
-                                                {
-                                                    stackPanels[i].IsEnabled = false;
-                                                    userControls[(i * 2) + 1].IsEnabled = false;
-                                                    stackPanels[i + 4].IsEnabled = true;
-                                                    userControls[(i + 4) * 2].IsEnabled = true;
-                                                    switchTurn = true;
-                                                    SetPanelToWheat(stackPanels[i + 4]);
-                                                    ShowAllCards(true);
+                                                    if (!players[i + 3].Playing || players[i + 3].FinalSplitAmount == 21)
+                                                    {
+                                                        if(i == 0)
+                                                        {
+                                                            if (!players[i + 4].Playing || players[i + 4].FinalSplitAmount == 21)
+                                                            {
+                                                                if (players[i].FinalSplitAmount < 22)
+                                                                {
+                                                                    ShowCard(players[i], 0, true, true);
+                                                                }
+                                                                DealerTurn();
+                                                            }
+                                                            else
+                                                            {
+                                                                ShowAllCards(true);
+                                                                stackPanels[i].IsEnabled = false;
+                                                                userControls[(i * 2) + 1].IsEnabled = false;
+                                                                stackPanels[i + 4].IsEnabled = true;
+                                                                userControls[(i + 4) * 2].IsEnabled = true;
+                                                                switchTurn = true;
+                                                                SetPanelToWheat(stackPanels[i + 4]);
+                                                                if (players[i + 4].HasSplit)
+                                                                {
+                                                                    Blackjack_Button_Split.IsEnabled = true;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Blackjack_Button_Split.IsEnabled = false;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        ShowAllCards(true);
+                                                        stackPanels[i].IsEnabled = false;
+                                                        userControls[(i * 2) + 1].IsEnabled = false;
+                                                        stackPanels[i + 3].IsEnabled = true;
+                                                        userControls[(i + 3) * 2].IsEnabled = true;
+                                                        switchTurn = true;
+                                                        SetPanelToWheat(stackPanels[i + 3]);
+                                                        if (players[i + 3].HasSplit)
+                                                        {
+                                                            Blackjack_Button_Split.IsEnabled = true;
+                                                        }
+                                                        else
+                                                        {
+                                                            Blackjack_Button_Split.IsEnabled = false;
+                                                        }
+                                                    }
                                                 }
                                             }
                                             else
                                             {
+                                                ShowAllCards(true);
                                                 stackPanels[i].IsEnabled = false;
                                                 userControls[(i * 2) + 1].IsEnabled = false;
-                                                stackPanels[i + 3].IsEnabled = true;
-                                                userControls[(i + 3) * 2].IsEnabled = true;
+                                                stackPanels[i + 2].IsEnabled = true;
+                                                userControls[(i + 2) * 2].IsEnabled = true;
                                                 switchTurn = true;
-                                                SetPanelToWheat(stackPanels[i + 3]);
-                                                ShowAllCards(true);
+                                                SetPanelToWheat(stackPanels[i + 2]);
+                                                if (players[i + 2].HasSplit)
+                                                {
+                                                    Blackjack_Button_Split.IsEnabled = true;
+                                                }
+                                                else
+                                                {
+                                                    Blackjack_Button_Split.IsEnabled = false;
+                                                }
                                             }
-                                        }
-                                        else
-                                        {
-                                            stackPanels[i].IsEnabled = false;
-                                            userControls[(i * 2) + 1].IsEnabled = false;
-                                            stackPanels[i + 2].IsEnabled = true;
-                                            userControls[(i + 2) * 2].IsEnabled = true;
-                                            switchTurn = true;
-                                            SetPanelToWheat(stackPanels[i + 2]);
-                                            ShowAllCards(true);
                                         }
                                     }
                                     else
                                     {
+                                        ShowAllCards(true);
                                         stackPanels[i].IsEnabled = false;
                                         userControls[(i * 2) + 1].IsEnabled = false;
                                         stackPanels[i + 1].IsEnabled = true;
                                         userControls[(i + 1) * 2].IsEnabled = true;
                                         switchTurn = true;
                                         SetPanelToWheat(stackPanels[i + 1]);
-                                        ShowAllCards(true);
+                                        if (players[i + 1].HasSplit)
+                                        {
+                                            Blackjack_Button_Split.IsEnabled = true;
+                                        }
+                                        else
+                                        {
+                                            Blackjack_Button_Split.IsEnabled = false;
+                                        }
                                     }
-                                }
-                                catch (Exception exc)
-                                {
-                                    if (players[i].FinalSplitAmount < 22)
-                                    {
-                                        ShowCard(players[i], 0, true, true);
-                                    }
-                                    DealerTurn();
                                 }
                             }
                         }
@@ -1963,6 +2002,7 @@ namespace BlackJack
 
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
+            Blackjack_Button_Split.IsEnabled = false;
             List<StackPanel> stackPanels = new List<StackPanel>()
             {
                 Blackjack_StackPanel_Player_1,
@@ -2012,6 +2052,7 @@ namespace BlackJack
                             }
                             else if(players[i].Hand.Count() == 5)
                             {
+                                ShowCard(players[i], 0, true, false);
                                 Blackjack_Button_Stay_Click(null, new RoutedEventArgs());
                                 playerBusted = true;
                             }
@@ -2047,7 +2088,6 @@ namespace BlackJack
                 }
             }
         }
-
 
         private void SetPanelToWheat(StackPanel p)
         {
