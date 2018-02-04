@@ -34,7 +34,6 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
-        private DispatcherTimer delayTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -505,8 +504,9 @@ namespace BlackJack
                 DetermineHandValue(Dealer);
             }
             Blackjack_Button_Hit.IsEnabled = false;
+            ResetStackPanelBackgroundsToBlack();
             PayoutAfterRound();
-            DelayRoundStart(11);
+            Blackjack_Button_NextRound.Visibility = Visibility.Visible;
         }
 
         public void RestartRound()
@@ -1551,21 +1551,6 @@ namespace BlackJack
 
         }
 
-        private void DelayRoundStart(int seconds)
-        {
-            delayTimer = new DispatcherTimer();
-            delayTimer.Interval = TimeSpan.FromSeconds(seconds);
-            delayTimer.Tick += DelayTick;
-            delayTimer.Start();
-        }
-
-        private void DelayTick(object sender, EventArgs e)
-        {
-            RestartRound();
-            delayTimer.Stop();
-            delayTimer.Tick -= DelayTick;
-        }
-
         private void Blackjack_Button_Instructions_Click(object sender, RoutedEventArgs e)
         {
             Blackjack_Game_Screen.Visibility = Visibility.Collapsed;
@@ -2087,6 +2072,12 @@ namespace BlackJack
             Blackjack_StackPanel_Player_4.Background = sb;
             //sb.Opacity = Blackjack_StackPanel_Player_5.IsEnabled ? .2 : .6;
             Blackjack_StackPanel_Player_5.Background = sb;
+        }
+
+        private void Blackjack_Button_NextRound_Click(object sender, RoutedEventArgs e)
+        {
+            RestartRound();
+            Blackjack_Button_NextRound.Visibility = Visibility.Collapsed;
         }
     }
 }

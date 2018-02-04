@@ -99,6 +99,7 @@
                     <uc1:PlayerHandsUserControl x:Name="Blackjack_Hand_Dealer"/>
                 </Grid>
             </Border>
+
             <Grid Grid.Column="1" Height="80" Width="240" VerticalAlignment="Bottom">
                 <StackPanel Orientation="Vertical" Width="120" Height="80" HorizontalAlignment="Center">
                     <Button x:Name="Blackjack_Button_Save" Content="SAVE" FontSize="21" Foreground="White" Height="40" Width="120" VerticalAlignment="Bottom" Click="SaveGame_Click"/>
@@ -109,6 +110,7 @@
             <Button x:Name="Blackjack_Button_Hit" Grid.Column="2" IsEnabled="False" Content="HIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Hit_Click"/>
             <Button x:Name="Blackjack_Button_Stay" Grid.Column="3" IsEnabled="False" Content="STAY" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Stay_Click"/>
             <Button x:Name="Blackjack_Button_Split" Grid.Column="4" IsEnabled="False" Content="SPLIT" FontSize="50" Foreground="White" Height="80" Width="160" VerticalAlignment="Bottom" Click="Blackjack_Button_Split_Click" />
+            <Button x:Name="Blackjack_Button_NextRound" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="0" Content="Next Round" FontSize="50" Foreground="White" Height="80" Width="420" VerticalAlignment="Top" Click="Blackjack_Button_NextRound_Click" Visibility="Collapsed" Margin="0 25 0 0"/>
             <Border Grid.Column="0" Grid.Row="2" BorderThickness="2" BorderBrush="Black">
                 <StackPanel x:Name="Blackjack_StackPanel_Player_1">
                     <StackPanel.Background>
