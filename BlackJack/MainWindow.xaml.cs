@@ -34,7 +34,6 @@ namespace BlackJack
         public Player Player5 = new Player();
         public Player Dealer = new Player();
         public List<String> Deck = Enum.GetNames(typeof(CardEnum)).ToList();
-        private DispatcherTimer notificationTimer;
         private DispatcherTimer delayTimer;
         public MainWindow()
         {
@@ -240,18 +239,18 @@ namespace BlackJack
             };
             List<Label> playerLabels = new List<Label>()
             {
-
+                Blackjack_Label_Notifications_1,
+                Blackjack_Label_Notifications_2,
+                Blackjack_Label_Notifications_3,
+                Blackjack_Label_Notifications_4,
+                Blackjack_Label_Notifications_5
             };
             //string payoutString = "Round Over! Payouts: ";
-            string player1String = "";
-            string player2String = "";
-            string player3String = "";
-            string player4String = "";
-            string player5String = "";
             for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
             {
                 if (players[i].Playing == true)
                 {
+                    playerLabels[i].Content = "+$0";
                     if (players[i].FinalHandAmount > 21) { }
                     else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() != 5) { }
                     else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22)
@@ -262,12 +261,7 @@ namespace BlackJack
                     {
                         int newAmount = (players[i].Bet * 4);
                         players[i].Bank = players[i].Bank + newAmount;
-                        //payoutString += $"{players[i].Name}: +${newAmount}, ";
-                        player1String += $"+{newAmount}";
-                        player2String += $"+{newAmount}";
-                        player3String += $"+{newAmount}";
-                        player4String += $"+{newAmount}";
-                        player5String += $"+{newAmount}";
+                        playerLabels[i].Content = $"+${newAmount}";
 
                     }
                     else if ((players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22)
@@ -275,19 +269,19 @@ namespace BlackJack
                     {
                         int newAmount = (players[i].Bet * 2);
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        playerLabels[i].Content = $"+${newAmount}";
                     }
                     else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21 || (dealerBusted && players[i].FinalHandAmount == 21))
                     {
                         int newAmount = (players[i].Bet * 3);
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        playerLabels[i].Content = $"+${newAmount}";
                     }
                     else if (players[i].FinalHandAmount == Dealer.FinalHandAmount)
                     {
                         int newAmount = players[i].Bet;
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        playerLabels[i].Content = $"+${newAmount}";
                     }
                     //add this for split hand
                     if (players[i].FinalSplitAmount > 21) { }
@@ -300,33 +294,28 @@ namespace BlackJack
                     {
                         int newAmount = (players[i].Bet * 4);
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        playerLabels[i].Content = $"+${newAmount}";
                     }
                     else if ((players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22)
                         || (dealerBusted && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22))
                     {
                         int newAmount = (players[i].Bet * 2);
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        playerLabels[i].Content = $"+${newAmount}";
                     }
                     else if (players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount == 21 || (dealerBusted && players[i].FinalSplitAmount == 21))
                     {
                         int newAmount = (players[i].Bet * 3);
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        playerLabels[i].Content = $"+${newAmount}";
                     }
                     else if (players[i].FinalSplitAmount == Dealer.FinalHandAmount)
                     {
                         int newAmount = players[i].Bet;
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        playerLabels[i].Content = $"+${newAmount}";
                     }
                 }
-                if (payoutString.Length == 21)
-                    payoutString += "none.";
-                else
-                    payoutString.TrimEnd(new char[] { ' ', ',' });
-                Notify(payoutString, 11);
             }
         }
 
@@ -385,13 +374,50 @@ namespace BlackJack
             if (p.FinalHandAmount > 21)
             {
                 p.HaveBusted = true;
-                Notify("Busted!", 2);
+                NotifyIfBusted(p);
+
             }    
             if(p.FinalSplitAmount > 21)
             {
                 p.SplitHasBusted = true;
-                Notify("Busted!", 2);
+                NotifyIfBusted(p);
             }
+        }
+        public void NotifyIfBusted(Player p)
+        {
+            if (p == Player1)
+            {
+                Blackjack_Label_Notifications_1.Content = "Busted";
+            }
+            else if (p == Player2)
+            {
+                Blackjack_Label_Notifications_2.Content = "Busted";
+
+            }
+            else if (p == Player3)
+            {
+                Blackjack_Label_Notifications_3.Content = "Busted";
+
+            }
+            else if (p == Player4)
+            {
+                Blackjack_Label_Notifications_4.Content = "Busted";
+
+            }
+            else if (p == Player5)
+            {
+                Blackjack_Label_Notifications_5.Content = "Busted";
+
+            }
+        }
+        public void ClearAllNotifications()
+        {
+            Blackjack_Label_Notifications_1.Content = " ";
+            Blackjack_Label_Notifications_2.Content = " ";
+            Blackjack_Label_Notifications_3.Content = " ";
+            Blackjack_Label_Notifications_4.Content = " ";
+            Blackjack_Label_Notifications_5.Content = " ";
+
         }
 
         /// <summary>
@@ -490,6 +516,7 @@ namespace BlackJack
             Deck = Enum.GetNames(typeof(CardEnum)).ToList();
             ShuffleDeck();
             StartBettingPhase();
+            ClearAllNotifications();
             //ShowAllCards(false);
         }
 
@@ -964,6 +991,14 @@ namespace BlackJack
                 Player3,
                 Player4,
                 Player5
+            };
+            List<Label> labels = new List<Label>()
+            {
+                Blackjack_Label_Notifications_1,
+                Blackjack_Label_Notifications_2,
+                Blackjack_Label_Notifications_3,
+                Blackjack_Label_Notifications_4,
+                Blackjack_Label_Notifications_5
             };
             for(int i=0; i<Blackjack_Slider_Players.Value; i++)
             {
@@ -1625,7 +1660,7 @@ namespace BlackJack
 
         private void Blackjack_Button_Split_Click(object sender, RoutedEventArgs e)
         {
-            ClearNotify();
+            ClearAllNotifications();
             List<StackPanel> stackPanels = new List<StackPanel>()
             {
                 Blackjack_StackPanel_Player_1,
@@ -1701,6 +1736,14 @@ namespace BlackJack
                 Player4,
                 Player5
             };
+            List<Label> labels = new List<Label>()
+            {
+                Blackjack_Label_Notifications_1,
+                Blackjack_Label_Notifications_2,
+                Blackjack_Label_Notifications_3,
+                Blackjack_Label_Notifications_4,
+                Blackjack_Label_Notifications_5
+            };
             bool switchTurn = false;
             for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
             {
@@ -1752,7 +1795,7 @@ namespace BlackJack
                                                         userControls[(i + 4) * 2].IsEnabled = true;
                                                         switchTurn = true;
                                                         SetPanelToWheat(stackPanels[i + 1]);
-                                                        ShowAllCards(false);
+                                                        ShowAllCards(false);                                          
                                                         if(players[i + 4].HasSplit)
                                                         {
                                                             Blackjack_Button_Split.IsEnabled = true;
@@ -1926,12 +1969,15 @@ namespace BlackJack
                         }
                     }
                 }
+                if(players[i].FinalHandAmount == 21)
+                {
+                    labels[i].Content = "You Have 21";
+                }
             }
         }
 
         private void Blackjack_Button_Hit_Click(object sender, RoutedEventArgs e)
         {
-            ClearNotify();
             List<StackPanel> stackPanels = new List<StackPanel>()
             {
                 Blackjack_StackPanel_Player_1,
@@ -2017,35 +2063,6 @@ namespace BlackJack
             }
         }
 
-        private void Notify(string message, int seconds, Player p)
-        {
-            ClearNotify();
-            Blackjack_Label_Notifications.Content = message;
-            //if(p == Player1)
-            //Blackjack_Label_Notifications_Player1.Content = message;
-            if(seconds != 0)
-            {
-                notificationTimer = new DispatcherTimer();
-                notificationTimer.Interval = TimeSpan.FromSeconds(seconds);
-                notificationTimer.Tick += NotifyTicked;
-                notificationTimer.Start();
-            }
-        }
-
-        private void NotifyTicked(object sender, EventArgs e)
-        {
-            ClearNotify();
-        }
-
-        private void ClearNotify()
-        {
-            if(notificationTimer != null)
-            {
-                Blackjack_Label_Notifications.Content = " ";
-                notificationTimer.Stop();
-                notificationTimer.Tick -= NotifyTicked;
-            }
-        }
 
         private void SetPanelToWheat(StackPanel p)
         {
