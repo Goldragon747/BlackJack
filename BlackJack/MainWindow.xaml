@@ -86,7 +86,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions> 
             <Label x:Name="Blackjack_Label_Notifications_1" Foreground="White" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Content="1"/>
             <Label x:Name="Blackjack_Label_Notifications_2" Foreground="White" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Content="2"/>
             <Label x:Name="Blackjack_Label_Notifications_3" Foreground="White" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Content="3"/>
