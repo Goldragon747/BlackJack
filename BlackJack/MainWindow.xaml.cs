@@ -238,7 +238,16 @@ namespace BlackJack
                 Player4,
                 Player5
             };
-            string payoutString = "Round Over! Payouts: ";
+            List<Label> playerLabels = new List<Label>()
+            {
+
+            };
+            //string payoutString = "Round Over! Payouts: ";
+            string player1String = "";
+            string player2String = "";
+            string player3String = "";
+            string player4String = "";
+            string player5String = "";
             for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
             {
                 if (players[i].Playing == true)
@@ -253,7 +262,13 @@ namespace BlackJack
                     {
                         int newAmount = (players[i].Bet * 4);
                         players[i].Bank = players[i].Bank + newAmount;
-                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        //payoutString += $"{players[i].Name}: +${newAmount}, ";
+                        player1String += $"+{newAmount}";
+                        player2String += $"+{newAmount}";
+                        player3String += $"+{newAmount}";
+                        player4String += $"+{newAmount}";
+                        player5String += $"+{newAmount}";
+
                     }
                     else if ((players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22)
                         || (dealerBusted && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22))
@@ -2002,10 +2017,12 @@ namespace BlackJack
             }
         }
 
-        private void Notify(string message, int seconds)
+        private void Notify(string message, int seconds, Player p)
         {
             ClearNotify();
             Blackjack_Label_Notifications.Content = message;
+            //if(p == Player1)
+            //Blackjack_Label_Notifications_Player1.Content = message;
             if(seconds != 0)
             {
                 notificationTimer = new DispatcherTimer();
