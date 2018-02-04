@@ -166,6 +166,11 @@ namespace BlackJack
             Blackjack_Hand_Player_3.Initialize();
             Blackjack_Hand_Player_4.Initialize();
             Blackjack_Hand_Player_5.Initialize();
+            Blackjack_Hand_Split_Player_1.Initialize();
+            Blackjack_Hand_Split_Player_2.Initialize();
+            Blackjack_Hand_Split_Player_3.Initialize();
+            Blackjack_Hand_Split_Player_4.Initialize();
+            Blackjack_Hand_Split_Player_5.Initialize();
         }
         public void ClearAllHands()
         {          
