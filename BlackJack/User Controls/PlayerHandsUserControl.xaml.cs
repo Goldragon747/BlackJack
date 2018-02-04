@@ -76,26 +76,31 @@ namespace BlackJack.User_Controls
             Grid.SetRow(i1, 1);
             Grid.SetRowSpan(i1, 2);
             Grid.SetColumnSpan(i1, 4);
+            Grid.SetZIndex(i1, 1);
 
             Grid.SetColumn(i2, 1);
             Grid.SetRow(i2, 1);
             Grid.SetRowSpan(i2, 2);
             Grid.SetColumnSpan(i2, 4);
+            Grid.SetZIndex(i2, 2);
 
             Grid.SetColumn(i3, 2);
             Grid.SetRow(i3, 1);
             Grid.SetRowSpan(i3, 2);
             Grid.SetColumnSpan(i3, 4);
+            Grid.SetZIndex(i3, 3);
 
             Grid.SetColumn(i4, 3);
             Grid.SetRow(i4, 1);
             Grid.SetRowSpan(i4, 2);
             Grid.SetColumnSpan(i4, 4);
+            Grid.SetZIndex(i4, 4);
 
             Grid.SetColumn(i5, 4);
             Grid.SetRow(i5, 1);
             Grid.SetRowSpan(i5, 2);
             Grid.SetColumnSpan(i5, 4);
+            Grid.SetZIndex(i5, 5);
         }
         public void ReinitializeSlot2()
         {
@@ -106,6 +111,7 @@ namespace BlackJack.User_Controls
             Grid.SetRow(i2, 1);
             Grid.SetRowSpan(i2, 2);
             Grid.SetColumnSpan(i2, 4);
+            Grid.SetZIndex(i2, 2);
         }
     }
 }
