@@ -221,7 +221,7 @@ namespace BlackJack
         public void PayoutAfterRound()
         {
             bool dealerBusted = false;
-            if(Dealer.FinalHandAmount > 21)
+            if (Dealer.FinalHandAmount > 21)
             {
                 dealerBusted = true;
             }
@@ -234,77 +234,80 @@ namespace BlackJack
                 Player5
             };
             string payoutString = "Round Over! Payouts: ";
-            for(int i=0;i<Blackjack_Slider_Players.Value;i++)
+            for (int i = 0; i < Blackjack_Slider_Players.Value; i++)
             {
-                if (players[i].FinalHandAmount > 21) { }
-                else if(Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() != 5) { }
-                else if(Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22)
+                if (players[i].Playing == true)
                 {
-                    players[i].Bank = players[i].Bank + players[i].Bet;
+                    if (players[i].FinalHandAmount > 21) { }
+                    else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() != 5) { }
+                    else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22)
+                    {
+                        players[i].Bank = players[i].Bank + players[i].Bet;
+                    }
+                    else if (players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22 && Dealer.Hand.Count() != 5)
+                    {
+                        int newAmount = (players[i].Bet * 4);
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
+                    else if ((players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22)
+                        || (dealerBusted && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22))
+                    {
+                        int newAmount = (players[i].Bet * 2);
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
+                    else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21 || (dealerBusted && players[i].FinalHandAmount == 21))
+                    {
+                        int newAmount = (players[i].Bet * 3);
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
+                    else if (players[i].FinalHandAmount == Dealer.FinalHandAmount)
+                    {
+                        int newAmount = players[i].Bet;
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
+                    //add this for split hand
+                    if (players[i].FinalSplitAmount > 21) { }
+                    else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() != 5) { }
+                    else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22)
+                    {
+                        players[i].Bank = players[i].Bank + players[i].Bet;
+                    }
+                    else if (players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22 && Dealer.Hand.Count() != 5)
+                    {
+                        int newAmount = (players[i].Bet * 4);
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
+                    else if ((players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22)
+                        || (dealerBusted && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22))
+                    {
+                        int newAmount = (players[i].Bet * 2);
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
+                    else if (players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount == 21 || (dealerBusted && players[i].FinalSplitAmount == 21))
+                    {
+                        int newAmount = (players[i].Bet * 3);
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
+                    else if (players[i].FinalSplitAmount == Dealer.FinalHandAmount)
+                    {
+                        int newAmount = players[i].Bet;
+                        players[i].Bank = players[i].Bank + newAmount;
+                        payoutString += $"{players[i].Name}: +${newAmount}, ";
+                    }
                 }
-                else if (players[i].Hand.Count() == 5 && players[i].FinalHandAmount < 22 && Dealer.Hand.Count() != 5)
-                {
-                    int newAmount = (players[i].Bet * 4);
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
-                else if ((players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22) 
-                    || (dealerBusted && players[i].FinalHandAmount != 21 && players[i].FinalHandAmount < 22))
-                {
-                    int newAmount = (players[i].Bet * 2);
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
-                else if (players[i].FinalHandAmount > Dealer.FinalHandAmount && players[i].FinalHandAmount == 21 || (dealerBusted && players[i].FinalHandAmount == 21))
-                {
-                    int newAmount = (players[i].Bet * 3);
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
-                else if (players[i].FinalHandAmount == Dealer.FinalHandAmount)
-                {
-                    int newAmount = players[i].Bet;
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
-                //add this for split hand
-                if (players[i].FinalSplitAmount > 21) { }
-                else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() != 5) { }
-                else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22)
-                {
-                    players[i].Bank = players[i].Bank + players[i].Bet;
-                }
-                else if (players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22 && Dealer.Hand.Count() != 5)
-                {
-                    int newAmount = (players[i].Bet * 4);
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
-                else if ((players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22)
-                    || (dealerBusted && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22))
-                {
-                    int newAmount = (players[i].Bet * 2);
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
-                else if (players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount == 21 || (dealerBusted && players[i].FinalSplitAmount == 21))
-                {
-                    int newAmount = (players[i].Bet * 3);
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
-                else if (players[i].FinalSplitAmount == Dealer.FinalHandAmount)
-                {
-                    int newAmount = players[i].Bet;
-                    players[i].Bank = players[i].Bank + newAmount;
-                    payoutString += $"{players[i].Name}: +${newAmount}, ";
-                }
+                if (payoutString.Length == 21)
+                    payoutString += "none.";
+                else
+                    payoutString.TrimEnd(new char[] { ' ', ',' });
+                Notify(payoutString, 11);
             }
-            if (payoutString.Length == 21)
-                payoutString += "none.";
-            else
-                payoutString.TrimEnd(new char[] { ' ', ',' });
-            Notify(payoutString, 11);
         }
 
         public void DrawCard(Player player, bool isSplitHand)
