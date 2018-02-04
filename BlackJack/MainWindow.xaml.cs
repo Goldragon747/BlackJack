@@ -267,6 +267,38 @@ namespace BlackJack
                     players[i].Bank = players[i].Bank + newAmount;
                     payoutString += $"{players[i].Name}: +${newAmount}, ";
                 }
+                //add this for split hand
+                if (players[i].FinalSplitAmount > 21) { }
+                else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() != 5) { }
+                else if (Dealer.Hand.Count() == 5 && !dealerBusted && players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22)
+                {
+                    players[i].Bank = players[i].Bank + players[i].Bet;
+                }
+                else if (players[i].SplitHand.Count() == 5 && players[i].FinalSplitAmount < 22 && Dealer.Hand.Count() != 5)
+                {
+                    int newAmount = (players[i].Bet * 4);
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
+                }
+                else if ((players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22)
+                    || (dealerBusted && players[i].FinalSplitAmount != 21 && players[i].FinalSplitAmount < 22))
+                {
+                    int newAmount = (players[i].Bet * 2);
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
+                }
+                else if (players[i].FinalSplitAmount > Dealer.FinalHandAmount && players[i].FinalSplitAmount == 21 || (dealerBusted && players[i].FinalSplitAmount == 21))
+                {
+                    int newAmount = (players[i].Bet * 3);
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
+                }
+                else if (players[i].FinalSplitAmount == Dealer.FinalHandAmount)
+                {
+                    int newAmount = players[i].Bet;
+                    players[i].Bank = players[i].Bank + newAmount;
+                    payoutString += $"{players[i].Name}: +${newAmount}, ";
+                }
             }
             if (payoutString.Length == 21)
                 payoutString += "none.";
@@ -1799,9 +1831,9 @@ namespace BlackJack
                             {
                                 ResetStackPanelBackgroundsToBlack();
 
-                                if (players[i].FinalHandAmount <= 21)
+                                if (players[i].FinalSplitAmount <= 21)
                                 {
-                                    ShowCard(players[i], 0, true, false);
+                                    ShowCard(players[i], 0, true, true);
                                 }
                                 try
                                 {
@@ -1823,7 +1855,7 @@ namespace BlackJack
                                                     userControls[(i + 4) * 2].IsEnabled = true;
                                                     switchTurn = true;
                                                     SetPanelToWheat(stackPanels[i + 4]);
-                                                    ShowAllCards(false);
+                                                    ShowAllCards(true);
                                                 }
                                             }
                                             else
@@ -1834,7 +1866,7 @@ namespace BlackJack
                                                 userControls[(i + 3) * 2].IsEnabled = true;
                                                 switchTurn = true;
                                                 SetPanelToWheat(stackPanels[i + 3]);
-                                                ShowAllCards(false);
+                                                ShowAllCards(true);
                                             }
                                         }
                                         else
@@ -1845,7 +1877,7 @@ namespace BlackJack
                                             userControls[(i + 2) * 2].IsEnabled = true;
                                             switchTurn = true;
                                             SetPanelToWheat(stackPanels[i + 2]);
-                                            ShowAllCards(false);
+                                            ShowAllCards(true);
                                         }
                                     }
                                     else
@@ -1856,14 +1888,14 @@ namespace BlackJack
                                         userControls[(i + 1) * 2].IsEnabled = true;
                                         switchTurn = true;
                                         SetPanelToWheat(stackPanels[i + 1]);
-                                        ShowAllCards(false);
+                                        ShowAllCards(true);
                                     }
                                 }
-                                catch (Exception ex)
+                                catch (Exception exc)
                                 {
-                                    if (players[i].FinalHandAmount < 22)
+                                    if (players[i].FinalSplitAmount < 22)
                                     {
-                                        ShowCard(players[i], 0, true, false);
+                                        ShowCard(players[i], 0, true, true);
                                     }
                                     DealerTurn();
                                 }
