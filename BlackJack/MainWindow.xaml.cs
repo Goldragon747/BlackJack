@@ -1687,7 +1687,11 @@ namespace BlackJack
                     players[i].SplitHand.Add(players[i].Hand[1]);
                     players[i].Hand.RemoveAt(1);
                     userControls[(i * 2)].ReinitializeSlot2();
+                    ShowCard(players[i], 0, false, false);
                     ShowCard(players[i], 0, false, true);
+                    DrawCard(players[i], false);
+                    DrawCard(players[i], true);
+                    ShowCard(players[i], 1, false, false);
                     Blackjack_Button_Split.IsEnabled = false;
                     players[i].HasSplit = false;
                 }
@@ -1866,6 +1870,7 @@ namespace BlackJack
                                 switchTurn = true;
                                 userControls[i * 2].IsEnabled = false;
                                 userControls[(i * 2) + 1].IsEnabled = true;
+                                ShowCard(players[i], 1, false, true); //check
                                 switchTurn = true;
                                 ShowAllCards(false);
                             }
